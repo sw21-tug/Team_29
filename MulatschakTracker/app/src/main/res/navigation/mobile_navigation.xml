@@ -8,18 +8,33 @@
     <fragment
         android:id="@+id/navigation_home"
         android:name="com.example.mulatschaktracker.ui.home.HomeFragment"
-        android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" />
+        android:label="@string/title_games"
+        tools:layout="@layout/fragment_games" />
 
     <fragment
-        android:id="@+id/navigation_dashboard"
-        android:name="com.example.mulatschaktracker.ui.dashboard.DashboardFragment"
-        android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_dashboard" />
+        android:id="@+id/navigation_statistic"
+        android:name="com.example.mulatschaktracker.ui.statistics.StatisticsFragment"
+        android:label="@string/title_statisics"
+        tools:layout="@layout/fragment_statistics" />
 
     <fragment
-        android:id="@+id/navigation_notifications"
-        android:name="com.example.mulatschaktracker.ui.notifications.NotificationsFragment"
-        android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_notifications" />
+        android:id="@+id/navigation_History"
+        android:name="com.example.mulatschaktracker.ui.history.HistoryFragment"
+        android:label="@string/title_history"
+        tools:layout="@layout/fragment_history" />
+
+
+    <fragment
+        android:id="@+id/navigation_Tipps"
+        android:name="com.example.mulatschaktracker.ui.tipps.TippsFragment"
+        android:label="Tipps"
+        tools:layout="@layout/fragment_tipps" />
+
+    <fragment
+        android:id="@+id/navigation_Options"
+        android:name="com.example.mulatschaktracker.ui.options.OptionsFragment"
+        android:label="Options"
+        tools:layout="@layout/fragment_options" />
+
+
 </navigation>

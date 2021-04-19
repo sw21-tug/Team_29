@@ -1,4 +1,5 @@
-package com.example.mulatschaktracker.ui.home
+package com.example.mulatschaktracker.ui.tipps
+
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,20 +11,20 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.mulatschaktracker.R
 
-class HomeFragment : Fragment() {
+class TippsFragment : Fragment() {
 
-    private lateinit var homeViewModel: HomeViewModel
+    private lateinit var tippsViewModel: TippsViewModel
 
     override fun onCreateView(
             inflater: LayoutInflater,
             container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
-        homeViewModel =
-                ViewModelProvider(this).get(HomeViewModel::class.java)
-        val root = inflater.inflate(R.layout.fragment_games, container, false)
-        val textView: TextView = root.findViewById(R.id.text_game)
-        homeViewModel.text.observe(viewLifecycleOwner, Observer {
+        tippsViewModel =
+                ViewModelProvider(this).get(TippsViewModel::class.java)
+        val root = inflater.inflate(R.layout.fragment_tipps, container, false)
+        val textView: TextView = root.findViewById(R.id.text_tipps)
+        tippsViewModel.text.observe(viewLifecycleOwner, Observer {
             textView.text = it
         })
         return root
