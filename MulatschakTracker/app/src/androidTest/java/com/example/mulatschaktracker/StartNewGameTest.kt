@@ -1,7 +1,7 @@
 package com.example.mulatschaktracker
 
 import androidx.navigation.Navigation
-import androidx.navigation.testing.TestNavHostController
+//import androidx.navigation.testing.TestNavHostController
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions
@@ -41,25 +41,20 @@ import java.util.regex.Pattern.matches
 
 
 @RunWith(AndroidJUnit4::class)
-class ExampleInstrumentedTest {
+class StartNewGameTest {
 
     @get:Rule
     var activityRule: ActivityScenarioRule<MainActivity>
             = ActivityScenarioRule(MainActivity::class.java)
 
 
-
-    @Test
-    fun useAppContext() {
-        // Context of the app under test.
-        val appContext = InstrumentationRegistry.getInstrumentation().targetContext
-        assertEquals("com.example.mulatschaktracker", appContext.packageName)
-    }
-
     @Test
     fun startNewGameActivity() {
         //Test for the activity of starting a new game
         onView(withId(R.id.StartNewGameButton)).perform(click())
-        onView(withText(endsWith("Hello"))).check(matches(isDisplayed()))
+        onView(withText(endsWith("Hello"))).check(ViewAssertions.matches(isDisplayed()))
     }
+
+
+
 }
