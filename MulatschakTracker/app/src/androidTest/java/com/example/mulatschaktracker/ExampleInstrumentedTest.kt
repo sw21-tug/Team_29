@@ -22,8 +22,9 @@ import org.junit.runner.RunWith
 class ExampleInstrumentedTest {
     @Test
     fun useAppContext() {
-        // Context of the app under test.
+
         val appContext = InstrumentationRegistry.getInstrumentation().targetContext
+
         assertEquals("com.example.mulatschaktracker", appContext.packageName)
     }
     @Test
@@ -32,8 +33,6 @@ class ExampleInstrumentedTest {
         val appContext: Context = ApplicationProvider.getApplicationContext();
         val repo = UserRepository(appContext);
         repo.resetDatabase();
-
-
 
         assert(true);
     }
@@ -45,13 +44,13 @@ class ExampleInstrumentedTest {
         val repo = UserRepository(appContext);
         repo.resetDatabase()
         val newUserId = repo.createUser(test);
+
         assert(newUserId > 0);
     }
 
     @Test(expected = Exception::class)
     fun CreateUserTestExistingUser()
     {
-        //->ShouldFail
 
         val test = UserObject("test");
         val appContext: Context = ApplicationProvider.getApplicationContext();
@@ -59,6 +58,7 @@ class ExampleInstrumentedTest {
         repo.resetDatabase()
         val newUserId2 = repo.createUser(test);
         val newUserId1 = repo.createUser(test);
+
         assert(false);
     }
 
@@ -70,6 +70,7 @@ class ExampleInstrumentedTest {
         val repo = UserRepository(appContext);
         val expectedUserId = repo.createUser(emptyUser);
         repo.resetDatabase()
+
         assert(false);
     }
     @Test
@@ -82,7 +83,6 @@ class ExampleInstrumentedTest {
         val newUserId = repo.createUser(newUser);
         assert(newUserId > 0);
         val newUserObject = repo.getUser(newUser.name);
-
 
         assertEquals(newUserId,newUserObject.id);
 
@@ -116,8 +116,5 @@ class ExampleInstrumentedTest {
 
         assert(false );
 
-
     }
-
-
 }
