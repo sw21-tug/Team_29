@@ -7,6 +7,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertThat
+import org.junit.Assert;
 import org.junit.Test
 import org.junit.runner.RunWith
 
@@ -41,16 +42,27 @@ class ExampleInstrumentedTest {
         assert(newUserId > 0);
     }
 
-    @Test
+    @Test(expected = Exception::class)
     fun CreateUserTestExistingUser()
     {
         //->ShouldFail
+
+        val test = UserObject("test");
+        val appContext: Context = ApplicationProvider.getApplicationContext();
+        val repo = UserRepository(appContext);
+        repo.resetDatabase()
+        val newUserId2 = repo.createUser(test);
+        val newUserId1 = repo.createUser(test);
         assert(false);
     }
 
-    @Test
+    @Test(expected = Exception::class)
     fun CreateInvalidUserUserTest()
     {
+        val test = UserObject("");
+        val appContext: Context = ApplicationProvider.getApplicationContext();
+        val repo = UserRepository(appContext);
+        repo.resetDatabase()
         assert(false);
     }
     @Test
