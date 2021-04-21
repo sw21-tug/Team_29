@@ -34,23 +34,30 @@ class BottomNavigationTest : TestCase() {
     fun checkDashboardWindow(){
         onView(withId(R.id.navigation_History)).perform(click())
         onView(withId(R.id.text_history)).check(matches(isDisplayed()))
+       // onView(withId(R.id.navigation_dashboard)).perform(click())
+     //   onView(withId(R.id.text_notifications)).check(matches(isDisplayed()))
     }
 
     @Test
     fun checkHistoryWindow() {
         onView(withId(R.id.navigation_statistic)).perform(click())
+        //onView(withId(R.id.navigation_history)).perform(click())
         onView(withId(R.id.text_statistic)).check(matches(isDisplayed()))
     }
 
     @Test
     fun checkTippsWindow() {
+
         onView(withId(R.id.navigation_Tipps)).perform(click())
+
+       // onView(withId(R.id.navigation_tipps)).perform(click())
         onView(withId(R.id.text_tipps)).check(matches(isDisplayed()))
     }
 
     @Test
     fun checkOptionsWindow() {
         onView(withId(R.id.navigation_Options)).perform(click())
+      //  onView(withId(R.id.navigation_options)).perform(click())
         onView(withId(R.id.text_options)).check(matches(isDisplayed()))
     }   
 
