@@ -4,17 +4,14 @@ import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 
-
 val DATABASENAME = "MulaTschakTracker";
 val DATABASE_VERSION = 2
-
+val PERSON_TABLE_NAME = "user"
+val PERSON_COLUMN_ID = "id"
+val PERSON_COLUMN_NAME = "name"
 
 class DataBaseHandler(var context: Context) : SQLiteOpenHelper(context, DATABASENAME, null,DATABASE_VERSION)
         {
-
-            val PERSON_TABLE_NAME = "user"
-            val PERSON_COLUMN_ID = "id"
-            val PERSON_COLUMN_NAME = "name"
 
             override fun onCreate(db: SQLiteDatabase?) {
                 db?.execSQL("CREATE TABLE " + PERSON_TABLE_NAME + " (" +
