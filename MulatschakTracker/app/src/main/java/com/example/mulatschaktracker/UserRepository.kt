@@ -27,9 +27,10 @@ class UserRepository (var context: Context) {
     fun getUser(UserName: String) : UserObject {
         val cursor = getCursor(UserName)
         if (cursor.count == 1) {
+            cursor.moveToFirst()
             val result = UserObject(cursor.getString(
                 cursor.getColumnIndex("name")))
-            result.id = cursor.getInt(
+            result.id = cursor.getLong(
                 cursor.getColumnIndex("id"))
             return result;
         }
