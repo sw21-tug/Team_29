@@ -59,9 +59,10 @@ class ExampleInstrumentedTest {
     @Test(expected = Exception::class)
     fun CreateInvalidUserUserTest()
     {
-        val test = UserObject("");
+        val emptyUser = UserObject("");
         val appContext: Context = ApplicationProvider.getApplicationContext();
         val repo = UserRepository(appContext);
+        val expectedUserId = repo.createUser(emptyUser);
         repo.resetDatabase()
         assert(false);
     }
