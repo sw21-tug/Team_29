@@ -6,24 +6,25 @@ import android.database.sqlite.SQLiteOpenHelper
 
 
 val DATABASENAME = "MulaTschakTracker";
+val DATABASE_VERSION = 2
 
-class DataBaseHandler(var context: Context) : SQLiteOpenHelper(context, DATABASENAME, null,1)
+
+class DataBaseHandler(var context: Context) : SQLiteOpenHelper(context, DATABASENAME, null,DATABASE_VERSION)
         {
 
-            fun createUser(User: UserObject) : Int {
-                TODO("Not yet implemented")
-
-            }
-
-            fun  getUser(UserName: String) : UserObject {
-                TODO("Not yet implemented")
-             }
+            val PERSON_TABLE_NAME = "user"
+            val PERSON_COLUMN_ID = "id"
+            val PERSON_COLUMN_NAME = "name"
 
             override fun onCreate(db: SQLiteDatabase?) {
-                TODO("Not yet implemented")
+                db?.execSQL("CREATE TABLE " + PERSON_TABLE_NAME + " (" +
+                        PERSON_COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                        PERSON_COLUMN_NAME + " TEXT)")
+
             }
 
             override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
-                TODO("Not yet implemented")
+                db?.execSQL("DROP TABLE IF EXISTS " + PERSON_TABLE_NAME);
+                onCreate(db);
             }
         }

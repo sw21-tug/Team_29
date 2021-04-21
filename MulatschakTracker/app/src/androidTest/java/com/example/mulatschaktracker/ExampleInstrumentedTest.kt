@@ -33,13 +33,12 @@ class ExampleInstrumentedTest {
     @Test
     fun CreateUserTest()
     {
-        //->ShouldFail
-        val test = UserObject();
+        val test = UserObject("test");
         val appContext: Context = ApplicationProvider.getApplicationContext();
-        val db = DataBaseHandler(appContext);
-        val newUserId = db.createUser(test);
+        val repo = UserRepository(appContext);
+        repo.resetDatabase()
+        val newUserId = repo.createUser(test);
         assert(newUserId > 0);
-
     }
 
     @Test
