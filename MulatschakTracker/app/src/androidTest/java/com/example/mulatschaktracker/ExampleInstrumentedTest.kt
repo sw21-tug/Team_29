@@ -80,16 +80,44 @@ class ExampleInstrumentedTest {
         val repo = UserRepository(appContext);
         repo.resetDatabase();
         val newUserId = repo.createUser(newUser);
-
+        assert(newUserId > 0);
         val newUserObject = repo.getUser(newUser.name);
 
-        assert(newUserId > 0);
+
         assertEquals(newUserId,newUserObject.id);
 
     }
-    @Test
-    fun  GetInvalidUser()
+
+    @Test(expected = Exception::class)
+    fun  GetNonExitngUserTest()
     {
+        val newUser = UserObject("NewUser");
+        val newUserNotExisting = UserObject("NewUserNotExisting");
+        val appContext: Context = ApplicationProvider.getApplicationContext();
+        val repo = UserRepository(appContext);
+        repo.resetDatabase();
+        val newUserId = repo.createUser(newUser);
+        val newUserObject = repo.getUser(newUserNotExisting.name);
+
+        assert(newUserObject.id > 0);
         assert(false);
+
     }
+
+
+    @Test(expected = Exception::class)
+    fun  GetEmptyUser()
+    {
+        val newEmptyUser = UserObject("");
+        val appContext: Context = ApplicationProvider.getApplicationContext();
+        val repo = UserRepository(appContext);
+        repo.resetDatabase();
+        val newUserObject = repo.getUser(newEmptyUser.name);
+
+        assert(false );
+
+
+    }
+
+
 }
