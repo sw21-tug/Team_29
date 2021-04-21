@@ -29,6 +29,12 @@ class ExampleInstrumentedTest {
     @Test
     fun DataBaseIsPresent_isCorrect() {
         //->ShouldWork
+        val appContext: Context = ApplicationProvider.getApplicationContext();
+        val repo = UserRepository(appContext);
+        repo.resetDatabase();
+
+
+
         assert(true);
     }
     @Test
@@ -69,7 +75,17 @@ class ExampleInstrumentedTest {
     @Test
     fun  GetExitngUserTest()
     {
-        assert(true);
+        val newUser = UserObject("NewUser");
+        val appContext: Context = ApplicationProvider.getApplicationContext();
+        val repo = UserRepository(appContext);
+        repo.resetDatabase();
+        val newUserId = repo.createUser(newUser);
+
+        val newUserObject = repo.getUser(newUser.name);
+
+        assert(newUserId > 0);
+        assertEquals(newUserId,newUserObject.id);
+
     }
     @Test
     fun  GetInvalidUser()
