@@ -9,7 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MulatschakTracker">
-        <activity android:name=".StartNewGame"
+        <activity android:name=".Game"></activity>
+        <activity
+            android:name=".StartNewGame"
             android:label="@string/title_startnewgame"
             android:parentActivityName=".MainActivity">
             <meta-data

@@ -9,4 +9,7 @@
     <string name="Player3">Player 3</string>
     <string name="Player4">Player 4</string>
     <string name="EnterNewPlayer">Enter Player Names</string>
+    <string name="heart_round">Heart Round</string>
+    <string name="underdog">Underdog</string>
+    <string name="end_game">End Game</string>
 </resources>
