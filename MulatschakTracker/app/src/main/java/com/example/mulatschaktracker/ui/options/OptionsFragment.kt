@@ -1,4 +1,5 @@
-package com.example.mulatschaktracker.ui.dashboard
+package com.example.mulatschaktracker.ui.options
+
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,23 +8,24 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+
 import androidx.lifecycle.ViewModelProvider
 import com.example.mulatschaktracker.R
 
-class DashboardFragment : Fragment() {
+class OptionsFragment : Fragment() {
 
-    private lateinit var dashboardViewModel: DashboardViewModel
+    private lateinit var optionsViewModel: OptionsViewModel
 
     override fun onCreateView(
             inflater: LayoutInflater,
             container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
-        dashboardViewModel =
-                ViewModelProvider(this).get(DashboardViewModel::class.java)
-        val root = inflater.inflate(R.layout.fragment_dashboard, container, false)
-        val textView: TextView = root.findViewById(R.id.text_dashboard)
-        dashboardViewModel.text.observe(viewLifecycleOwner, Observer {
+        optionsViewModel =
+                ViewModelProvider(this).get(OptionsViewModel::class.java)
+        val root = inflater.inflate(R.layout.fragment_options, container, false)
+        val textView: TextView = root.findViewById(R.id.text_options)
+        optionsViewModel.text.observe(viewLifecycleOwner, Observer {
             textView.text = it
         })
         return root
