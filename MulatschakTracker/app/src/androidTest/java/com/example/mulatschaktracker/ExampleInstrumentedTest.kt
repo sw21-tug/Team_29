@@ -1,13 +1,11 @@
 package com.example.mulatschaktracker
 
+import androidx.test.espresso.Espresso.onView
+import androidx.test.platform.app.InstrumentationRegistry
 import android.content.Context
-import androidx.test.InstrumentationRegistry.getTargetContext
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import androidx.test.platform.app.InstrumentationRegistry
 import org.junit.Assert.assertEquals
-import org.junit.Assert.assertThat
-import org.junit.Assert;
 import org.junit.Test
 import org.junit.runner.RunWith
 
