@@ -1,16 +1,19 @@
 package com.example.mulatschaktracker
 
-//import androidx.navigation.testing.TestNavHostController
+import android.view.View
+import android.widget.TextView
+import androidx.test.espresso.*
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.Espresso.pressBack
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions
+import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import org.hamcrest.Matcher
 
 
-import org.hamcrest.CoreMatchers.endsWith
 import org.hamcrest.core.StringStartsWith
 
 
@@ -39,27 +42,63 @@ class StartNewGameTest {
     fun startNewGameActivityExecuted() {
         //Test for the activity of starting a new game
         onView(withId(R.id.StartNewGameActivityButton)).perform(click())
-        onView(withText(StringStartsWith("Player 1"))).check(ViewAssertions.matches(isDisplayed()))
+        onView(withText(StringStartsWith("Enter Player Names"))).check(ViewAssertions.matches(isDisplayed()))
     }
 
     @Test
-    fun backButtonNavigatesToMainActivity(){
+    fun backButtonNavigatesToMainActivity() {
+        //Test for checking whether the return buttons behaves correctly or not
         onView(withId(R.id.StartNewGameActivityButton)).perform(click())
         pressBack()
         onView(withText("This is home Fragment")).check(ViewAssertions.matches(isDisplayed()))
     }
 
     @Test
-    fun startNewGameButtonPresent() {
+    //Test for the activity of starting a new record table
+    fun startNewGameButtonShowsRecordTable() {
         onView(withId(R.id.StartNewGameActivityButton)).perform(click())
-        //Test for the activity of starting a new game
-        onView(withText("Start New Game")).check(ViewAssertions.matches(withId(R.id.StartNewGameButton).text))
+        onView(withId(R.id.StartNewGameButton)).perform(click())
+        onView(withText("Record Table")).check(ViewAssertions.matches(isDisplayed()))
     }
 
     @Test
-    fun startNewGameButtonReturnToHome() {
-        onView(withId(R.id.StartNewGameActivityButton)).perform(click())
+    fun startNewGameExecuted() {
+        //Test for the correct Player names
+
+        onView(withText(StringStartsWith("Enter Player Names"))).check(ViewAssertions.matches(isDisplayed()))
+
+        //storing the name of the player from start new game activity
+        val tempName: ViewInteraction = onView(withId(R.id.Player1_EditText))
+        var storeName = getText(tempName)
+
         onView(withId(R.id.StartNewGameButton)).perform(click())
-        onView(withText("This is home Fragment")).check(ViewAssertions.matches(isDisplayed()))
+
+        //storing the name of the player from record table activity
+        val textView: ViewInteraction = onView(withId(R.id.Player1_TextView))
+        var textViewName = getText(tempName)
+
+        //check if equal
+        assertEquals(storeName, textViewName)
+    }
+
+    //function for comparing 2 strings from textboxes
+    fun getText(matcher: ViewInteraction): String {
+        var text = String()
+        matcher.perform(object : ViewAction {
+            override fun getConstraints(): Matcher<View> {
+                return isAssignableFrom(TextView::class.java)
+            }
+
+            override fun getDescription(): String {
+                return "Text of the view"
+            }
+
+            override fun perform(uiController: UiController, view: View) {
+                val tv = view as TextView
+                text = tv.text.toString()
+            }
+        })
+
+        return text
     }
 }
