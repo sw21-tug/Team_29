@@ -1,6 +1,4 @@
-package com.example.mulatschaktracker.ui.home
-
-import android.content.Intent
+package com.example.mulatschaktracker.ui.statistics
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,26 +8,23 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.mulatschaktracker.R
-import com.example.mulatschaktracker.StartNewGame
 
-class HomeFragment : Fragment() {
+class StatisticsFragment : Fragment() {
 
-    private lateinit var homeViewModel: HomeViewModel
+    private lateinit var statisticsViewModel: StatisticsViewModel
 
     override fun onCreateView(
             inflater: LayoutInflater,
             container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
-        homeViewModel =
-                ViewModelProvider(this).get(HomeViewModel::class.java)
-        val root = inflater.inflate(R.layout.fragment_games, container, false)
-        val textView: TextView = root.findViewById(R.id.text_game)
-        homeViewModel.text.observe(viewLifecycleOwner, Observer {
+        statisticsViewModel =
+                ViewModelProvider(this).get(StatisticsViewModel::class.java)
+        val root = inflater.inflate(R.layout.fragment_statistics, container, false)
+        val textView: TextView = root.findViewById(R.id.text_statistic)
+        statisticsViewModel.text.observe(viewLifecycleOwner, Observer {
             textView.text = it
         })
         return root
     }
-
-
 }
