@@ -1,11 +1,14 @@
 package com.example.mulatschaktracker
 
+import android.content.Context
 import android.view.View
+import android.widget.EditText
 import android.widget.TextView
+import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.*
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.Espresso.pressBack
-import androidx.test.espresso.action.ViewActions.click
+import androidx.test.espresso.action.ViewActions.*
 import androidx.test.espresso.assertion.ViewAssertions
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.*
@@ -54,34 +57,64 @@ class StartNewGameTest {
     }
 
     @Test
-    //Test for the activity of starting a new record table
-    fun startNewGameButtonShowsRecordTable() {
+    fun startNewGameActivityCanEnterPlayerNames() {
+        //Test for the correct Player names
+        val testString1 = "Test Player 1"
+        val testString2 = "Test Player 2"
+        val testString3 = "Test Player 3"
+        val testString4 = "Test Player 4"
+
+        // enter new game activity
         onView(withId(R.id.StartNewGameActivityButton)).perform(click())
-        onView(withId(R.id.StartNewGameButton)).perform(click())
-        onView(withText("Record Table")).check(ViewAssertions.matches(isDisplayed()))
+
+        // entering test strings into player name fields
+        onView(withId(R.id.Player1_EditText))
+                .perform(typeText(testString1), closeSoftKeyboard())
+                .check(matches(isDisplayed()))
+        onView(withId(R.id.Player2_EditText))
+                .perform(typeText(testString2), closeSoftKeyboard())
+                .check(matches(isDisplayed()))
+        onView(withId(R.id.Player3_EditText))
+                .perform(typeText(testString3), closeSoftKeyboard())
+                .check(matches(isDisplayed()))
+        onView(withId(R.id.Player4_EditText))
+                .perform(typeText(testString4), closeSoftKeyboard())
+                .check(matches(isDisplayed()))
     }
 
     @Test
-    fun startNewGameExecuted() {
-        //Test for the correct Player names
-
-        onView(withText(StringStartsWith("Enter Player Names"))).check(ViewAssertions.matches(isDisplayed()))
-
-        //storing the name of the player from start new game activity
-        val tempName: ViewInteraction = onView(withId(R.id.Player1_EditText))
-        var storeName = getText(tempName)
-
+    //Test for the activity of starting a new record table
+    fun startNewGameButtonShowsGameTable() {
+        onView(withId(R.id.StartNewGameActivityButton)).perform(click())
         onView(withId(R.id.StartNewGameButton)).perform(click())
-
-        //storing the name of the player from record table activity
-        val textView: ViewInteraction = onView(withId(R.id.Player1_TextView))
-        var textViewName = getText(tempName)
-
-        //check if equal
-        assertEquals(storeName, textViewName)
+        onView(withText("Player 1")).check(matches(isDisplayed()))
     }
 
-    //function for comparing 2 strings from textboxes
+    @Test
+    fun createNewGameInDatabase(){
+        val playerList = arrayListOf<String>("Player 1","Player 2", "Player 3", "Player 3")
+        val appContext: Context = ApplicationProvider.getApplicationContext()
+        val repo = GameRepository(appContext)
+        val newGameId = repo.createGame(playerList)
+        assert(newGameId > 0)
+    }
+
+    @Test
+    fun enterStartingRoundInDatabase(){
+        val valueList = arrayListOf<Long>(21,21,21,21)
+        val playerList = arrayListOf<String>("Player 1","Player 2", "Player 3", "Player 3")
+
+        val appContext: Context = ApplicationProvider.getApplicationContext()
+        val repo = GameRepository(appContext)
+        val newGameId = repo.createGame(playerList)
+        val gameID = repo.enterNewRound(valueList, newGameId)
+
+        assertEquals(newGameId, gameID)
+    }
+
+
+
+    //helper function for comparing 2 strings from textboxes
     fun getText(matcher: ViewInteraction): String {
         var text = String()
         matcher.perform(object : ViewAction {

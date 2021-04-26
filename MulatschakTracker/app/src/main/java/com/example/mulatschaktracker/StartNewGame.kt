@@ -3,7 +3,6 @@ package com.example.mulatschaktracker
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.provider.AlarmClock.EXTRA_MESSAGE
 import android.view.View
 import android.widget.EditText
 
