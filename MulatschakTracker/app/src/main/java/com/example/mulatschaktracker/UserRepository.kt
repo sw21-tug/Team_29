@@ -4,7 +4,12 @@ import android.content.ContentValues
 import android.content.Context
 import android.database.Cursor
 
+val USERNAME_TAKEN_MESSAGE = "username already taken"
+val USER_NOT_FOUND_MESSAGE = "user not found"
+val USERNAME_EMPTY_MESSAGE = "username is empty"
+
 class UserRepository (var context: Context) {
+
 
     /**
      * Method to create a UserObject.
@@ -18,7 +23,7 @@ class UserRepository (var context: Context) {
             values.put(PERSON_COLUMN_NAME,User.name)
             return dbWrite.insert(PERSON_TABLE_NAME, null, values)
         }
-        throw Exception("username already taken")
+        throw Exception(USERNAME_TAKEN_MESSAGE)
     }
 
     /**
@@ -47,12 +52,12 @@ class UserRepository (var context: Context) {
                 cursor.getColumnIndex(PERSON_COLUMN_ID))
             return result;
         }
-        throw Exception("user not found")
+        throw Exception(USER_NOT_FOUND_MESSAGE)
     }
 
     private fun getCursor(UserName: String) : Cursor {
         if (UserName.isBlank() || UserName.isBlank()) {
-             throw Exception("username is empty");
+             throw Exception(USERNAME_EMPTY_MESSAGE);
         }
         val dbRead = DataBaseHandler(context).readableDatabase
         val projection =  arrayOf<String>(PERSON_COLUMN_ID, PERSON_COLUMN_NAME)
