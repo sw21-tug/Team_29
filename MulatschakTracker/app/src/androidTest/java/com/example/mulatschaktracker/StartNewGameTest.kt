@@ -2,7 +2,6 @@ package com.example.mulatschaktracker
 
 import android.content.Context
 import android.view.View
-import android.widget.EditText
 import android.widget.TextView
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.*
@@ -101,13 +100,12 @@ class StartNewGameTest {
 
     @Test
     fun enterStartingRoundInDatabase(){
-        val valueList = arrayListOf<Long>(21,21,21,21)
-        val playerList = arrayListOf<String>("Player 1","Player 2", "Player 3", "Player 3")
-
+        val roundObject = RoundObject(21,21,21,21)
+        val gameObject = GameObject("Player 1","Player 2", "Player 3", "Player 3")
         val appContext: Context = ApplicationProvider.getApplicationContext()
         val repo = GameRepository(appContext)
-        val newGameId = repo.createGame(playerList)
-        val gameID = repo.enterNewRound(valueList, newGameId)
+        val newGameId = repo.createGame(gameObject)
+        val gameID = repo.enterNewRound(roundObject, newGameId)
 
         assertEquals(newGameId, gameID)
     }
