@@ -79,6 +79,7 @@ class StartNewGameTest {
         onView(withId(R.id.Player4_EditText))
                 .perform(typeText(testString4), closeSoftKeyboard())
                 .check(matches(isDisplayed()))
+
     }
 
     @Test
@@ -99,6 +100,21 @@ class StartNewGameTest {
     }
 
     @Test
+    fun readGameFromDatabase(){
+        val gameObject = GameObject("Player 1","Player 2", "Player 3", "Player 4")
+        val appContext: Context = ApplicationProvider.getApplicationContext()
+        val repo = GameRepository(appContext)
+        val newGameId = repo.createGame(gameObject)
+        val gameObjectFromDb = repo.getGame(newGameId)
+        assertEquals(gameObjectFromDb.id, newGameId)
+        assertEquals(gameObjectFromDb.player1, "Player 1")
+        assertEquals(gameObjectFromDb.player2, "Player 2")
+        assertEquals(gameObjectFromDb.player3, "Player 3")
+        assertEquals(gameObjectFromDb.player4, "Player 4")
+
+    }
+
+    @Test
     fun fetchingPlayerNamesFromDB(){
 
         onView(withId(R.id.StartNewGameActivityButton)).perform(click())
@@ -110,11 +126,11 @@ class StartNewGameTest {
 
         onView(withId(R.id.Player1_EditText))
                 .perform(typeText(testString1), closeSoftKeyboard())
-        onView(withId(R.id.Player1_EditText))
+        onView(withId(R.id.Player2_EditText))
                 .perform(typeText(testString2), closeSoftKeyboard())
-        onView(withId(R.id.Player1_EditText))
+        onView(withId(R.id.Player3_EditText))
                 .perform(typeText(testString3), closeSoftKeyboard())
-        onView(withId(R.id.Player1_EditText))
+        onView(withId(R.id.Player4_EditText))
                 .perform(typeText(testString4), closeSoftKeyboard())
 
         onView(withId(R.id.StartNewGameButton)).perform(click())
@@ -125,14 +141,14 @@ class StartNewGameTest {
         assertEquals(testString4, getText(onView(withId(R.id.textViewPlayer4))))
     }
 
+    @Test
     fun gameStartsWithDefaultNames() {
-        onView(withId(R.id.StartNewGameActivityButton)).perform(click())
-
         val testString1 = "Player 1"
         val testString2 = "Player 2"
         val testString3 = "Player 3"
         val testString4 = "Player 4"
 
+        onView(withId(R.id.StartNewGameActivityButton)).perform(click())
         onView(withId(R.id.StartNewGameButton)).perform(click())
 
         assertEquals(testString1, getText(onView(withId(R.id.textViewPlayer1))))
@@ -141,15 +157,18 @@ class StartNewGameTest {
         assertEquals(testString4, getText(onView(withId(R.id.textViewPlayer4))))
     }
 
+    @Test
     fun initialPointsAreDisplayed() {
 
         onView(withId(R.id.StartNewGameActivityButton)).perform(click())
-        val testString1 = "21"
+        onView(withId(R.id.StartNewGameButton)).perform(click())
 
-        assertEquals(testString1, getText(onView(withId(R.id.P1RD1))))
-        assertEquals(testString1, getText(onView(withId(R.id.P2RD2))))
-        assertEquals(testString1, getText(onView(withId(R.id.P3RD3))))
-        assertEquals(testString1, getText(onView(withId(R.id.P4RD4))))
+        val initialPoints = "21"
+
+        assertEquals(initialPoints, getText(onView(withId(1))))
+        assertEquals(initialPoints, getText(onView(withId(2))))
+        assertEquals(initialPoints, getText(onView(withId(3))))
+        assertEquals(initialPoints, getText(onView(withId(4))))
     }
 
 

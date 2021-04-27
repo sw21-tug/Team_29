@@ -2,6 +2,8 @@ package com.example.mulatschaktracker
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.provider.AlarmClock.EXTRA_MESSAGE
+import android.text.InputType.TYPE_CLASS_NUMBER
 import android.view.Gravity
 import android.widget.TableLayout
 import android.widget.TableRow
@@ -11,23 +13,24 @@ class Game : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_game)
-        var playerList = intent.getStringArrayListExtra("playerList")
+        val repository = GameRepository(this)
+        val game = repository.getGame(intent.getLongExtra(EXTRA_MESSAGE, 0))
 
-        var textView = findViewById<TextView>(R.id.textViewPlayer1).apply {
-            text = playerList?.elementAt(0)
+        findViewById<TextView>(R.id.textViewPlayer1).apply {
+            text = game.player1
         }
-        textView = findViewById<TextView>(R.id.textViewPlayer2).apply {
-            text = playerList?.elementAt(1)
+        findViewById<TextView>(R.id.textViewPlayer2).apply {
+            text = game.player2
         }
-        textView = findViewById<TextView>(R.id.textViewPlayer3).apply {
-            text = playerList?.elementAt(2)
+        findViewById<TextView>(R.id.textViewPlayer3).apply {
+            text = game.player3
         }
-        textView = findViewById<TextView>(R.id.textViewPlayer4).apply {
-            text = playerList?.elementAt(3)
+        findViewById<TextView>(R.id.textViewPlayer4).apply {
+            text = game.player4
         }
+
         val tableLayout = findViewById<TableLayout>(R.id.GameTable)
         val newRow = TableRow(this)
-        val newText = TextView(this)
 
         var layoutParams = TableRow.LayoutParams(
                 TableRow.LayoutParams.WRAP_CONTENT,
@@ -35,6 +38,8 @@ class Game : AppCompatActivity() {
 
         for (i in 0..3){
             val newText = TextView(this)
+            newText.id = i + 1
+            newText.inputType = TYPE_CLASS_NUMBER
             newText.text = 21.toString()
             newText.gravity = Gravity.CENTER
             newRow.addView(newText, layoutParams)

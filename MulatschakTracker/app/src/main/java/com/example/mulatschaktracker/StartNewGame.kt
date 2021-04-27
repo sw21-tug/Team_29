@@ -5,6 +5,7 @@ import android.content.Intent
 import android.database.DatabaseErrorHandler
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.provider.AlarmClock.EXTRA_MESSAGE
 import android.view.View
 import android.widget.EditText
 
@@ -26,12 +27,13 @@ class StartNewGame : AppCompatActivity() {
         val namePlayer3 = if (editTextPlayer3.text.toString() != "") editTextPlayer3.text.toString() else editTextPlayer3.hint.toString()
         val namePlayer4 = if (editTextPlayer4.text.toString() != "") editTextPlayer4.text.toString() else editTextPlayer4.hint.toString()
 
-        val intent = Intent(this, Game::class.java)
-
         //creating Game Object
         val newGameObject = GameObject(namePlayer1, namePlayer2, namePlayer3, namePlayer4)
-        repository.createGame(newGameObject)
+        val gameID = repository.createGame(newGameObject)
 
+        val intent = Intent(this, Game::class.java).apply {
+            putExtra(EXTRA_MESSAGE, gameID)
+        }
         startActivity(intent)
 
     }
