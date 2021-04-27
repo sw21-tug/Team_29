@@ -35,7 +35,7 @@ You will have your own user profile to track all that data.
 Sprint 1:
 - \#1 [MULI-1](https://github.com/sw21-tug/Team_29/issues/1): Initial Setup
 - \#2 [MULI-2](https://github.com/sw21-tug/Team_29/issues/2): Create User Account - BE
-- \#3 [MULI-17](https://github.com/sw21-tug/Team_29/issues/17): Create User Account - FE
+- \#3 [MULI-17](https://github.com/sw21-tug/Team_29/issues/22): Create User Account - FE
 - \#4 [MULI-14](https://github.com/sw21-tug/Team_29/issues/14): Create Navigation Bar
 - \#5 [MULI-16](https://github.com/sw21-tug/Team_29/issues/16): Design of App Logo
 - \#6 [MULI-5](https://github.com/sw21-tug/Team_29/issues/5): Start New Game
