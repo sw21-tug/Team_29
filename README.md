@@ -1,5 +1,12 @@
 # Software Technology / Mobile Applications / Agile Software Development SS 2021
 
+# Vision / Idea
+Vision: No more tracking your Mulatschak games per hand
+
+Idea: The idea of this app is to create a tracker for your local Mulatschak game. This solves the problem of needing pen and paper to play the game. Additionally, it solves problems of cheating and makes the rules clear to everyone.
+The application can track your scores over multiple games. It can show you statistics over your game and how you perform.
+You will have your own user profile to track all that data.
+
 # The Team
 
 **Developers**
@@ -20,12 +27,7 @@
 **Product Owner**
 - Thomas Reith
 
-# Vision / Idea
-Vision: No more tracking your Mulatschak games per hand
 
-Idea: The idea of this app is to create a tracker for your local Mulatschak game. This solves the problem of needing pen and paper to play the game. Additionally, it solves problems of cheating and makes the rules clear to everyone.
-The application can track your scores over multiple games. It can show you statistics over your game and how you perform.
-You will have your own user profile to track all that data.
 
 
 # Currently Implemented Features
