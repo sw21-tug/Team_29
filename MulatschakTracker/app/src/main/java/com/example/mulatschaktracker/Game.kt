@@ -40,7 +40,5 @@ class Game : AppCompatActivity() {
             newRow.addView(newText, layoutParams)
         }
         tableLayout!!.addView(newRow)
-
-
     }
 }
