@@ -1,15 +1,16 @@
 package com.example.mulatschaktracker.ui.addGameRound
 
 import android.os.Bundle
-import android.support.wearable.activity.WearableActivity
 
-class AddGameRoundActivity : WearableActivity() {
+import androidx.appcompat.app.AppCompatActivity
+import com.example.mulatschaktracker.R
+
+class AddGameRoundActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_game_round)
 
-        // Enables Always-on
-        setAmbientEnabled()
+
     }
 }
