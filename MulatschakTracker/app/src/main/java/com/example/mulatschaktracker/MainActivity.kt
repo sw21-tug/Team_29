@@ -2,6 +2,9 @@ package com.example.mulatschaktracker
 
 import android.content.Intent
 import android.os.Bundle
+
+import android.view.View
+
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -14,7 +17,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 val PREFERENCENAME = "muli"
 val LASTUSER = "lastuser"
 
-class MainActivity : AppCompatActivity(){
+class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,6 +42,10 @@ class MainActivity : AppCompatActivity(){
         }
     }
 
-}
 
+    fun startNewGameActivity(view: View) {
+        val intent = Intent(this, StartNewGame::class.java)
+        startActivity(intent)
+    }
+}
 
