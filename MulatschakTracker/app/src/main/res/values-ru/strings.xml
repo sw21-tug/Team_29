@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="title_startnewgame">Начать новую игру</string>
+    <string name="Player1">Игрок 1</string>
+    <string name="Player2">Игрок 2</string>
+    <string name="Player3">Игрок 3</string>
+    <string name="Player4">Игрок 4</string>
+    <string name="EnterNewPlayer">Введите имена игроков</string>
+    <string name="heart_round">Раунд Черви</string>
+    <string name="underdog">Проигравший</string>
+    <string name="end_game">Конец игры</string>
+    <string name="app_name">MulatschakTracker</string>
+    <string name="title_games">Игры</string>
+    <string name="title_statistics">Статистика</string>
+    <string name="title_history">История</string>
+    <string name="title_tips">Подсказки</string>
+    <string name="title_options">Настройки</string>
+    <string name="title_activity_create_user">Создать пользователя</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">Первый фрагмент</string>
+    <string name="second_fragment_label">Второй фрагмент</string>
+    <string name="next">След.</string>
+    <string name="previous">Пред.</string>
+    <string name="language">Язык</string>
+
+    <string name="hello_first_fragment">Привет первый фрагмент</string>
+    <string name="hello_second_fragment">Привет второй фрагмент. Арг.: %1$s</string>
+</resources>
