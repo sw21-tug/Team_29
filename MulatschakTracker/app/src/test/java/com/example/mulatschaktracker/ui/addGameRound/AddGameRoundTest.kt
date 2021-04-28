@@ -61,21 +61,21 @@ class AddGameRoundTest
 
     @Test
     fun decrementP1() {
-
+        gameupdate.incrementP1()
         gameupdate.decrementP1()
         Assert.assertEquals(0, gameupdate.getScoreP1())
     }
 
     @Test
     fun decrementP2() {
-
-        gameupdate.deincrementP2()
+        gameupdate.incrementP2()
+        gameupdate.decrementP2()
         Assert.assertEquals(0, gameupdate.getScoreP2())
     }
 
     @Test
     fun decrementP3() {
-
+        gameupdate.incrementP3()
         gameupdate.decrementP3()
         Assert.assertEquals(0, gameupdate.getScoreP3())
     }
@@ -83,7 +83,7 @@ class AddGameRoundTest
 
     @Test
     fun decrementP4() {
-
+        gameupdate.incrementP4()
         gameupdate.decrementP4()
         Assert.assertEquals(0, gameupdate.getScoreP4())
     }
