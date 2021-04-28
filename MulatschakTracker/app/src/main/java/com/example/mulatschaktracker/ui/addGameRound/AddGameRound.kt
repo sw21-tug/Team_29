@@ -15,7 +15,25 @@ class AddGameRound {
 
     }
 
+    fun decrementP1()
+    {
+        this.scorePlayer1 = this.scorePlayer1?.minus(1)
+    }
 
+    fun decrementP2()
+    {
+        this.scorePlayer2 = this.scorePlayer2?.minus(1)
+    }
+
+    fun decrementP3()
+    {
+        this.scorePlayer3 = this.scorePlayer3?.minus(1)
+    }
+
+    fun decrementP4()
+    {
+        this.scorePlayer4 = this.scorePlayer4?.minus(1)
+    }
     fun incrementP1()
     {
         this.scorePlayer1 = this.scorePlayer1?.plus(1)
@@ -57,3 +75,6 @@ class AddGameRound {
         return scorePlayer4
     }
 }
+
+
+
