@@ -9,6 +9,7 @@
     <string name="underdog">Underdog</string>
     <string name="end_game">End Game</string>
   <string name="app_name">MulatschakTracker</string>
+    <string name="title_activity_add_game_round">MulatschakTracker</string>
   <string name="title_games">Games</string>
   <string name="title_statistics">Statistics</string>
   <string name="title_history">History</string>
