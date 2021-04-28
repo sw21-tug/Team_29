@@ -1,4 +1,9 @@
 <resources>
+    <string name="initial_game_stat_points">0</string>
+    <string name="player_one">Player One</string>
+    <string name="player_two">Player Two</string>
+    <string name="player_three">Player Three</string>
+    <string name="player_four">Player Four</string>
     <string name="title_startnewgame">Start New Game</string>
     <string name="Player1">Player 1</string>
     <string name="Player2">Player 2</string>
