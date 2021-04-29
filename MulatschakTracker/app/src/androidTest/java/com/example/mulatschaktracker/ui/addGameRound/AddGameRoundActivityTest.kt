@@ -1,6 +1,7 @@
 package com.example.mulatschaktracker.ui.addGameRound
 
 import androidx.test.espresso.Espresso
+import androidx.test.espresso.action.ViewActions
 import androidx.test.espresso.assertion.ViewAssertions
 import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.espresso.matcher.ViewMatchers.withId
@@ -85,6 +86,106 @@ class AddGameRoundActivityTest{
         Espresso.onView(withId(R.id.endround))
             .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
     }
+
+
+
+    @Test
+    fun test_button1ClickableAndIncrement() {
+        Espresso.onView(withId(R.id.button_player_1)).perform(ViewActions.click())
+        Espresso.onView(withId(R.id.button_player_1))
+            .check(ViewAssertions.matches(ViewMatchers.withText("1")))
+    }
+
+    @Test
+    fun test_button2ClickableAndIncrement() {
+        Espresso.onView(withId(R.id.button_player_2)).perform(ViewActions.click())
+        Espresso.onView(withId(R.id.button_player_2))
+            .check(ViewAssertions.matches(ViewMatchers.withText("1")))
+    }
+
+    @Test
+    fun test_button3ClickableAndIncrement() {
+        Espresso.onView(withId(R.id.button_player_3)).perform(ViewActions.click())
+        Espresso.onView(withId(R.id.button_player_3))
+            .check(ViewAssertions.matches(ViewMatchers.withText("1")))
+    }
+
+    @Test
+    fun test_button4ClickableAndIncrement() {
+        Espresso.onView(withId(R.id.button_player_4)).perform(ViewActions.click())
+        Espresso.onView(withId(R.id.button_player_4))
+            .check(ViewAssertions.matches(ViewMatchers.withText("1")))
+    }
+
+
+    @Test
+    fun test_button1LongClickableAndIncrementFail() {
+        Espresso.onView(withId(R.id.button_player_1)).perform(ViewActions.longClick())
+        Espresso.onView(withId(R.id.button_player_1))
+            .check(ViewAssertions.matches(ViewMatchers.withText("0")))
+    }
+
+    @Test
+    fun test_button2LongClickableAndIncrementFail() {
+        Espresso.onView(withId(R.id.button_player_2)).perform(ViewActions.longClick())
+        Espresso.onView(withId(R.id.button_player_2))
+            .check(ViewAssertions.matches(ViewMatchers.withText("0")))
+    }
+
+    @Test
+    fun test_button3LongClickableAndIncrementFail() {
+        Espresso.onView(withId(R.id.button_player_3)).perform(ViewActions.longClick())
+        Espresso.onView(withId(R.id.button_player_3))
+            .check(ViewAssertions.matches(ViewMatchers.withText("0")))
+    }
+
+    @Test
+    fun test_button4LongClickableAndIncrementFail() {
+        Espresso.onView(withId(R.id.button_player_4)).perform(ViewActions.longClick())
+        Espresso.onView(withId(R.id.button_player_4))
+            .check(ViewAssertions.matches(ViewMatchers.withText("0")))
+    }
+
+
+
+
+    @Test
+    fun test_button1LongClickableAndIncrement() {
+        Espresso.onView(withId(R.id.button_player_1)).perform(ViewActions.click())
+        Espresso.onView(withId(R.id.button_player_1)).perform(ViewActions.click())
+        Espresso.onView(withId(R.id.button_player_1)).perform(ViewActions.longClick())
+        Espresso.onView(withId(R.id.button_player_1))
+            .check(ViewAssertions.matches(ViewMatchers.withText("1")))
+    }
+
+    @Test
+    fun test_button2LongClickableAndIncrement() {
+        Espresso.onView(withId(R.id.button_player_2)).perform(ViewActions.click())
+        Espresso.onView(withId(R.id.button_player_2)).perform(ViewActions.click())
+        Espresso.onView(withId(R.id.button_player_2)).perform(ViewActions.longClick())
+        Espresso.onView(withId(R.id.button_player_2))
+            .check(ViewAssertions.matches(ViewMatchers.withText("1")))
+    }
+
+    @Test
+    fun test_button3LongClickableAndIncrement() {
+        Espresso.onView(withId(R.id.button_player_3)).perform(ViewActions.click())
+        Espresso.onView(withId(R.id.button_player_3)).perform(ViewActions.click())
+        Espresso.onView(withId(R.id.button_player_3)).perform(ViewActions.longClick())
+        Espresso.onView(withId(R.id.button_player_3))
+            .check(ViewAssertions.matches(ViewMatchers.withText("1")))
+    }
+
+    @Test
+    fun test_button4LongClickableAndIncrement() {
+        Espresso.onView(withId(R.id.button_player_4)).perform(ViewActions.click())
+        Espresso.onView(withId(R.id.button_player_4)).perform(ViewActions.click())
+        Espresso.onView(withId(R.id.button_player_4)).perform(ViewActions.longClick())
+        Espresso.onView(withId(R.id.button_player_4))
+            .check(ViewAssertions.matches(ViewMatchers.withText("1")))
+    }
+
+
 
 
 }
