@@ -22,8 +22,18 @@ class GameRepository(var appContext: Context) {
     }
 
     fun enterNewRound(roundObject: RoundObject, gameID: Long): Long {
-        TODO("Not yet implemented")
-        return 0 //return game ID here
+
+        val dbWrite = DataBaseHandler(appContext).writableDatabase
+        val values = ContentValues()
+        values.put(ROUND_COLUMN_GAME_ID, gameID.toInt())
+        values.put(ROUND_COLUMN_PLAYER1_TICKS, roundObject.p1)
+        values.put(ROUND_COLUMN_PLAYER2_TICKS, roundObject.p2)
+        values.put(ROUND_COLUMN_PLAYER3_TICKS, roundObject.p3)
+        values.put(ROUND_COLUMN_PLAYER4_TICKS, roundObject.p4)
+        values.put(ROUND_COLUMN_UNDERDOG, roundObject.ud)
+        values.put(ROUND_COLUMN_HEARTROUND, roundObject.hr)
+
+        return dbWrite.insert(ROUND_TABLE_NAME, null, values)
     }
 
     fun getGame(gameID: Long): GameObject {
@@ -47,7 +57,27 @@ class GameRepository(var appContext: Context) {
         val args = arrayOf<String>(gameID.toString())
 
         val query = "$GAME_COLUMN_ID like ?"
-        return dbRead.query(GAME_TABLE_NAME, projection, query,args, null, null, null )
+        return dbRead.query(GAME_TABLE_NAME, projection, query, args, null, null, null )
     }
+
+    fun getCursor2(gameID: Long) : Cursor {
+        val dbRead = DataBaseHandler(appContext).readableDatabase
+        val projection =  arrayOf<String>(ROUND_COLUMN_ID, ROUND_COLUMN_PLAYER1_TICKS, ROUND_COLUMN_PLAYER2_TICKS, ROUND_COLUMN_PLAYER3_TICKS, ROUND_COLUMN_PLAYER4_TICKS)
+        val args = arrayOf<String>(gameID.toString())
+
+        val query = "$ROUND_COLUMN_GAME_ID like ?"
+        return dbRead.query(ROUND_TABLE_NAME, projection, query, args, null, null, null )
+    }
+
+    fun getCursorRounds(gameID: Long) : Cursor {
+        val dbRead = DataBaseHandler(appContext).readableDatabase
+        val projection =  arrayOf<String>(ROUND_COLUMN_ID, ROUND_COLUMN_PLAYER1_TICKS, ROUND_COLUMN_PLAYER2_TICKS, ROUND_COLUMN_PLAYER3_TICKS, ROUND_COLUMN_PLAYER4_TICKS)
+        val args = arrayOf<String>(gameID.toString())
+
+        val query = "SELECT * FROM " + ROUND_TABLE_NAME + " WHERE " + ROUND_COLUMN_GAME_ID + " = " + gameID
+        return dbRead.rawQuery(query, null )
+    }
+
+    //fun getRounds(gameID: Long):
 
 }

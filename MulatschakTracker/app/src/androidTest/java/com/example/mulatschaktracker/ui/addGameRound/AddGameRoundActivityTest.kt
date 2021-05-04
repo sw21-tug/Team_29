@@ -327,7 +327,7 @@ class AddGameRoundActivityTest{
 
 
 
-        assertEquals("24", getText(onView(withId(5))))
+        assertEquals("23", getText(onView(withId(5))))
         assertEquals("26", getText(onView(withId(6))))
         assertEquals("20", getText(onView(withId(7))))
         assertEquals("19", getText(onView(withId(8))))
