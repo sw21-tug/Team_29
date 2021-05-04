@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.wear.widget.BoxInsetLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    tools:context=".ui.addGameRound.AddGameRoundActivity"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="@dimen/box_inset_layout_padding"
     android:id="@+id/update_game_score"
-    tools:context=".ui.addGameRound.AddGameRoundActivity"
-    tools:deviceIds="wear"
-    tools:ignore="MissingClass">
+
+
+    tools:deviceIds="wear">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -50,7 +51,7 @@
                         android:text="@string/player_one" />
 
                     <Button
-                        android:id="@+id/button_player_4"
+                        android:id="@+id/button_player_1"
                         android:layout_width="206dp"
                         android:layout_height="155dp"
                         android:layout_marginHorizontal="5dp"
@@ -83,7 +84,7 @@
                         android:text="@string/player_two" />
 
                     <Button
-                        android:id="@+id/button_player_3"
+                        android:id="@+id/button_player_2"
                         android:layout_width="206dp"
                         android:layout_height="155dp"
                         android:layout_marginHorizontal="5dp"
@@ -123,7 +124,7 @@
                         android:text="@string/player_three" />
 
                     <Button
-                        android:id="@+id/button_player_1"
+                        android:id="@+id/button_player_3"
                         android:layout_width="206dp"
                         android:layout_height="155dp"
                         android:layout_marginHorizontal="5dp"
@@ -156,7 +157,7 @@
                         android:text="@string/player_four" />
 
                     <Button
-                        android:id="@+id/button_player_2"
+                        android:id="@+id/button_player_4"
                         android:layout_width="206dp"
                         android:layout_height="155dp"
                         android:layout_marginHorizontal="5dp"
@@ -178,7 +179,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
-                android:text="endRound" />
+                android:text="endRound"
+
+                />
         </LinearLayout>
     </LinearLayout>
 </androidx.wear.widget.BoxInsetLayout>
