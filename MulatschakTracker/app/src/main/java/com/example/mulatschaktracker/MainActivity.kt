@@ -11,6 +11,7 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.mulatschaktracker.ui.createUser.CreateUserActivity
+import com.example.mulatschaktracker.ui.options.OptionActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 
@@ -40,6 +41,9 @@ class MainActivity : AppCompatActivity() {
             val createUserIntent = Intent(this, CreateUserActivity::class.java);
             startActivity(createUserIntent);
         }
+
+
+
     }
 
 
