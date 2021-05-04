@@ -142,7 +142,7 @@ class Game : AppCompatActivity() {
         var deduction:Int
         if(tricks == -1)
         {
-            deduction = 3
+            deduction = 2
         }else if (tricks == 0)
         {
             deduction = 5
