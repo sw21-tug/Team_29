@@ -13,7 +13,7 @@
 
     <fragment
         android:id="@+id/navigation_statistic"
-        android:name="com.example.mulatschaktracker.ui.statistics.StatisticsFragment"
+        android:name="com.example.mulatschaktracker.ui.statistics.GameFinishedFragment"
         android:label="@string/title_statistics"
         tools:layout="@layout/fragment_statistics" />
 
