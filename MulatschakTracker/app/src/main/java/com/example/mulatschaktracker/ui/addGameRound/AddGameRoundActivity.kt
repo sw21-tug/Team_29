@@ -19,15 +19,13 @@ class AddGameRoundActivity : AppCompatActivity() {
         setContentView(R.layout.activity_add_game_round)
 
         val bundle = intent.extras
-
         val roundId = if (bundle == null) 0 else bundle.getInt(ROUND_COLUMN_ID,0)
         val gameId = if (bundle == null) 0 else bundle.getLong(EXTRA_MESSAGE,0)
-
+        if (gameId == 0L) {
+            return
+        }
         val repository = GameRepository(this)
         val game = repository.getGame(gameId)
-
-
-
 
         var gameupdate = AddGameRound()
 
