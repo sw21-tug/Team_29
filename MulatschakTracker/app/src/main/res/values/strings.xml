@@ -11,19 +11,31 @@
     <string name="heart_round">Heart Round</string>
     <string name="underdog">Underdog</string>
     <string name="end_game">End Game</string>
-  <string name="app_name">MulatschakTracker</string>
-  <string name="title_games">Games</string>
-  <string name="title_statistics">Statistics</string>
-  <string name="title_history">History</string>
-  <string name="title_tips">Tips</string>
-  <string name="title_options">Options</string>
-  <string name="title_activity_create_user">Create User</string>
-  <!-- Strings used for fragments for navigation -->
-  <string name="first_fragment_label">First Fragment</string>
-  <string name="second_fragment_label">Second Fragment</string>
-  <string name="next">Next</string>
-  <string name="previous">Previous</string>
-  <string name="hello_first_fragment">Hello first fragment</string>
-  <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="add_round">Add Round</string>
+    <string name="app_name">MulatschakTracker</string>
+    <string name="title_activity_add_game_round">MulatschakTracker</string>
+    <string name="title_games">Games</string>
+    <string name="title_statistics">Statistics</string>
+    <string name="title_history">History</string>
+    <string name="title_tips">Tips</string>
+    <string name="title_options">Options</string>
+    <string name="title_activity_create_user">Create User</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+
+    <string name="initial_game_stat_points">0</string>
+    <string name="player_one">Player One</string>
+    <string name="player_two">Player Two</string>
+    <string name="player_three">Player Three</string>
+    <string name="player_four">Player Four</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

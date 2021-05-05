@@ -35,6 +35,7 @@ class StartNewGame : AppCompatActivity() {
         val intent = Intent(this, Game::class.java).apply {
             putExtra(EXTRA_MESSAGE, gameID)
         }
+
         startActivity(intent)
 
     }
