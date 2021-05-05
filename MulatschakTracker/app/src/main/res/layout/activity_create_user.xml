@@ -27,7 +27,7 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:inputType="textPersonName"
-      android:hint="please enter you username"
+      android:hint="@string/EnterNewPlayer"
       android:text=""
       android:ems="14"
       android:id="@+id/UserNameInput"
@@ -37,9 +37,10 @@
       app:layout_constraintBottom_toTopOf="@+id/SubmitUserNameButton"
   />
   <Button
-      android:text="create user"
+      android:text="@string/title_activity_create_user"
       android:layout_width="122dp"
-      android:layout_height="wrap_content" android:id="@+id/SubmitUserNameButton"
+      android:layout_height="wrap_content"
+      android:id="@+id/SubmitUserNameButton"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintTop_toBottomOf="@+id/UserNameInput"

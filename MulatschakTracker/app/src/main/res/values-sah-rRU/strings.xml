@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="eng_Lang">Английский</string>
     <string name="ru_Lang">Русский</string>
@@ -27,4 +26,5 @@
 
     <string name="hello_first_fragment">Привет первый фрагмент</string>
     <string name="hello_second_fragment">Привет второй фрагмент. Арг.: %1$s</string>
+
 </resources>

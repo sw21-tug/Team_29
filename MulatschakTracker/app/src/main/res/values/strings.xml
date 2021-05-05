@@ -1,4 +1,7 @@
 <resources>
+    <string name="eng_Lang">English</string>
+    <string name="ru_Lang">Russian</string>
+    <string name="chooseLanguageTxt">Choose Language</string>
     <string name="title_startnewgame">Start New Game</string>
     <string name="Player1">Player 1</string>
     <string name="Player2">Player 2</string>
@@ -20,7 +23,6 @@
   <string name="second_fragment_label">Second Fragment</string>
   <string name="next">Next</string>
   <string name="previous">Previous</string>
-    <string name="language">Language</string>
   <string name="hello_first_fragment">Hello first fragment</string>
   <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
 
