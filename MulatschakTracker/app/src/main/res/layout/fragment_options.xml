@@ -22,17 +22,15 @@
 
     <Button
         android:id="@+id/buttonChangeLanguage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="269dp"
-        android:layout_marginBottom="39dp"
+        android:layout_width="168dp"
+        android:layout_height="54dp"
         android:onClick="DialogChangeLanguage"
         android:text="@string/chooseLanguageTxt"
-        app:layout_constraintBottom_toTopOf="@+id/text_options"
+        android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
-        tools:ignore="MissingConstraints" />
+        tools:layout_editor_absoluteY="176dp"
+        tools:visibility="visible" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
