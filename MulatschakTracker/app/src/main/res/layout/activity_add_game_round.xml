@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.wear.widget.BoxInsetLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    tools:context=".ui.addGameRound.AddGameRoundActivity"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/box_inset_layout_padding"
+    android:id="@+id/update_game_score"
+
+
+    tools:deviceIds="wear">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:baselineAligned="true"
+        android:clipChildren="false"
+        android:gravity="center|center_horizontal|center_vertical"
+        android:orientation="vertical"
+        app:layout_constrainedHeight="true"
+        app:layout_constrainedWidth="false"
+        tools:layout_editor_absoluteX="94dp"
+        tools:layout_editor_absoluteY="117dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tvPlayerOne"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginRight="20dp"
+                        android:layout_marginTop="22dp"
+                        android:layout_marginBottom="6dp"
+                        android:text="@string/player_one" />
+
+                    <Button
+                        android:id="@+id/button_player_1"
+                        android:layout_width="206dp"
+                        android:layout_height="155dp"
+                        android:layout_marginHorizontal="5dp"
+                        android:layout_marginVertical="5dp"
+                        android:layout_weight="1"
+                        android:backgroundTint="@color/button_update_inactive"
+                        android:paddingHorizontal="25dp"
+                        android:paddingVertical="25dp"
+                        android:text="@string/initial_game_stat_points"
+                        android:textColor="@color/black"
+                        android:textSize="66sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tvPlayerTwo"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginRight="20dp"
+                        android:layout_marginTop="22dp"
+                        android:layout_marginBottom="6dp"
+                        android:text="@string/player_two" />
+
+                    <Button
+                        android:id="@+id/button_player_2"
+                        android:layout_width="206dp"
+                        android:layout_height="155dp"
+                        android:layout_marginHorizontal="5dp"
+                        android:layout_marginVertical="5dp"
+                        android:layout_weight="1"
+                        android:backgroundTint="@color/button_update_inactive"
+                        android:paddingHorizontal="25dp"
+                        android:paddingVertical="25dp"
+                        android:text="@string/initial_game_stat_points"
+                        android:textColor="@color/black"
+                        android:textSize="66sp" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tvPlayerThree"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginRight="20dp"
+                        android:layout_marginTop="22dp"
+                        android:layout_marginBottom="6dp"
+                        android:text="@string/player_three" />
+
+                    <Button
+                        android:id="@+id/button_player_3"
+                        android:layout_width="206dp"
+                        android:layout_height="155dp"
+                        android:layout_marginHorizontal="5dp"
+                        android:layout_marginVertical="5dp"
+                        android:layout_weight="1"
+                        android:backgroundTint="@color/button_update_inactive"
+                        android:paddingHorizontal="25dp"
+                        android:paddingVertical="25dp"
+                        android:text="@string/initial_game_stat_points"
+                        android:textColor="@color/black"
+                        android:textSize="66sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tvPlayerFour"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginRight="20dp"
+                        android:layout_marginTop="22dp"
+                        android:layout_marginBottom="6dp"
+                        android:text="@string/player_four" />
+
+                    <Button
+                        android:id="@+id/button_player_4"
+                        android:layout_width="206dp"
+                        android:layout_height="155dp"
+                        android:layout_marginHorizontal="5dp"
+                        android:layout_marginVertical="5dp"
+                        android:layout_weight="1"
+                        android:backgroundTint="@color/button_update_inactive"
+                        android:paddingHorizontal="25dp"
+                        android:paddingVertical="25dp"
+                        android:text="@string/initial_game_stat_points"
+                        android:textColor="@color/black"
+                        android:textSize="66sp" />
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/endround"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:text="endRound"
+
+                />
+        </LinearLayout>
+    </LinearLayout>
+</androidx.wear.widget.BoxInsetLayout>

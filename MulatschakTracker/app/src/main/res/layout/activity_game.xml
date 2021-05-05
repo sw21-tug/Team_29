@@ -92,7 +92,8 @@
         android:layout_height="50dp"
         android:layout_marginStart="130dp"
         android:layout_marginEnd="130dp"
-        android:text="@string/end_game"
+        android:text="@string/add_round"
+        android:onClick="addRound"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

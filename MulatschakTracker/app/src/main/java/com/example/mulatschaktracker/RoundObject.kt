@@ -1,6 +1,11 @@
 package com.example.mulatschaktracker
 
-class RoundObject(i: Int, i1: Int, i2: Int, i3: Int) {
 
-    public var pointList =  listOf(i,i1,i2,i3)
+class RoundObject(i: Int, i1: Int, i2: Int, i3: Int, h: Int, u: Int) {
+    var p1: Int = i
+    var p2: Int = i1
+    var p3: Int = i2
+    var p4: Int = i3
+    var hr: Int = h
+    var ud: Int = u
 }

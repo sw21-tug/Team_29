@@ -19,10 +19,12 @@ val GAME_COLUMN_PLAYER4 = "player_4"
 val ROUND_TABLE_NAME = "rounds"
 val ROUND_COLUMN_ID = "round_id"
 val ROUND_COLUMN_GAME_ID = "game_id"
-val ROUND_COLUMN_PLAYER1_POINTS = "player1"
-val ROUND_COLUMN_PLAYER2_POINTS = "player2"
-val ROUND_COLUMN_PLAYER3_POINTS = "player3"
-val ROUND_COLUMN_PLAYER4_POINTS = "player4"
+val ROUND_COLUMN_PLAYER1_TICKS = "player1"
+val ROUND_COLUMN_PLAYER2_TICKS = "player2"
+val ROUND_COLUMN_PLAYER3_TICKS = "player3"
+val ROUND_COLUMN_PLAYER4_TICKS = "player4"
+val ROUND_COLUMN_UNDERDOG = "underdog"
+val ROUND_COLUMN_HEARTROUND = "heartround"
 
 
 class DataBaseHandler(var context: Context) : SQLiteOpenHelper(context, DATABASENAME, null,DATABASE_VERSION)
@@ -32,6 +34,7 @@ class DataBaseHandler(var context: Context) : SQLiteOpenHelper(context, DATABASE
                 db?.execSQL("CREATE TABLE " + PERSON_TABLE_NAME + " (" +
                         PERSON_COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                         PERSON_COLUMN_NAME + " TEXT)")
+
                 db?.execSQL("CREATE TABLE " + GAME_TABLE_NAME + " (" +
                         GAME_COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                         GAME_COLUMN_USER_ID + " INTEGER," +
@@ -40,13 +43,16 @@ class DataBaseHandler(var context: Context) : SQLiteOpenHelper(context, DATABASE
                         GAME_COLUMN_PLAYER3 + " TEXT," +
                         GAME_COLUMN_PLAYER4 + " TEXT" +
                         ")")
+
                 db?.execSQL("CREATE TABLE " + ROUND_TABLE_NAME + " (" +
                         ROUND_COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                         ROUND_COLUMN_GAME_ID + " INTEGER," +
-                        ROUND_COLUMN_PLAYER1_POINTS + " INTEGER," +
-                        ROUND_COLUMN_PLAYER2_POINTS + " INTEGER," +
-                        ROUND_COLUMN_PLAYER3_POINTS + " INTEGER," +
-                        ROUND_COLUMN_PLAYER4_POINTS + " INTEGER" +
+                        ROUND_COLUMN_PLAYER1_TICKS + " INTEGER," +
+                        ROUND_COLUMN_PLAYER2_TICKS + " INTEGER," +
+                        ROUND_COLUMN_PLAYER3_TICKS + " INTEGER," +
+                        ROUND_COLUMN_PLAYER4_TICKS + " INTEGER," +
+                        ROUND_COLUMN_UNDERDOG + " INTEGER," +
+                        ROUND_COLUMN_HEARTROUND + " INTEGER" +
                         ")")
 
             }
