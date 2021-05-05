@@ -60,23 +60,61 @@ class GameRepository(var appContext: Context) {
         return dbRead.query(GAME_TABLE_NAME, projection, query, args, null, null, null )
     }
 
-    fun getCursor2(gameID: Long) : Cursor {
+    fun getCursorRounds(gameID: Long) : Cursor {
         val dbRead = DataBaseHandler(appContext).readableDatabase
-        val projection =  arrayOf<String>(ROUND_COLUMN_ID, ROUND_COLUMN_PLAYER1_TICKS, ROUND_COLUMN_PLAYER2_TICKS, ROUND_COLUMN_PLAYER3_TICKS, ROUND_COLUMN_PLAYER4_TICKS)
+        val projection =  arrayOf<String>(ROUND_COLUMN_ID, ROUND_COLUMN_PLAYER1_TICKS, ROUND_COLUMN_PLAYER2_TICKS, ROUND_COLUMN_PLAYER3_TICKS, ROUND_COLUMN_PLAYER4_TICKS, ROUND_COLUMN_UNDERDOG, ROUND_COLUMN_HEARTROUND)
         val args = arrayOf<String>(gameID.toString())
 
         val query = "$ROUND_COLUMN_GAME_ID like ?"
         return dbRead.query(ROUND_TABLE_NAME, projection, query, args, null, null, null )
     }
 
-    fun getCursorRounds(gameID: Long) : Cursor {
-        val dbRead = DataBaseHandler(appContext).readableDatabase
-        val projection =  arrayOf<String>(ROUND_COLUMN_ID, ROUND_COLUMN_PLAYER1_TICKS, ROUND_COLUMN_PLAYER2_TICKS, ROUND_COLUMN_PLAYER3_TICKS, ROUND_COLUMN_PLAYER4_TICKS)
-        val args = arrayOf<String>(gameID.toString())
 
-        val query = "SELECT * FROM " + ROUND_TABLE_NAME + " WHERE " + ROUND_COLUMN_GAME_ID + " = " + gameID
-        return dbRead.rawQuery(query, null )
+    private fun getCursorRound(roundId: Int) : Cursor {
+        val dbRead = DataBaseHandler(appContext).readableDatabase
+        val projection =  arrayOf<String>(ROUND_COLUMN_ID, ROUND_COLUMN_PLAYER1_TICKS, ROUND_COLUMN_PLAYER2_TICKS, ROUND_COLUMN_PLAYER3_TICKS, ROUND_COLUMN_PLAYER4_TICKS, ROUND_COLUMN_UNDERDOG, ROUND_COLUMN_HEARTROUND)
+        val args = arrayOf<String>(roundId.toString())
+
+        val query = "$ROUND_COLUMN_ID like ?"
+        return dbRead.query(ROUND_TABLE_NAME, projection, query, args, null, null, null )
     }
+
+    fun getRound(roundId : Int) : RoundObject
+    {
+        val cursor = getCursorRound(roundId)
+
+        if (cursor.count == 1) {
+            cursor.moveToFirst()
+            val result = RoundObject(cursor.getInt(cursor.getColumnIndex(ROUND_COLUMN_PLAYER1_TICKS)),
+                    cursor.getInt(cursor.getColumnIndex(ROUND_COLUMN_PLAYER2_TICKS)),
+                    cursor.getInt(cursor.getColumnIndex(ROUND_COLUMN_PLAYER3_TICKS)),
+                    cursor.getInt(cursor.getColumnIndex(ROUND_COLUMN_PLAYER4_TICKS)),
+                    cursor.getInt(cursor.getColumnIndex(ROUND_COLUMN_UNDERDOG)),
+                    cursor.getInt(cursor.getColumnIndex(ROUND_COLUMN_HEARTROUND)))
+
+            return result
+        }
+        throw Exception("game not found")
+
+    }
+
+    fun updateRound(roundId : Int, ro : RoundObject)
+    {
+        val cv = ContentValues()
+        cv.put(ROUND_COLUMN_PLAYER1_TICKS, ro.p1)
+        cv.put(ROUND_COLUMN_PLAYER2_TICKS, ro.p2)
+        cv.put(ROUND_COLUMN_PLAYER3_TICKS, ro.p3)
+        cv.put(ROUND_COLUMN_PLAYER4_TICKS, ro.p4)
+        cv.put(ROUND_COLUMN_UNDERDOG, ro.ud)
+        cv.put(ROUND_COLUMN_HEARTROUND, ro.hr)
+
+        val args = arrayOf<String>(roundId.toString())
+
+        val dbRead = DataBaseHandler(appContext).writableDatabase
+        dbRead.update(ROUND_TABLE_NAME, cv, "$ROUND_COLUMN_ID = ?", args)
+    }
+
+
 
     //fun getRounds(gameID: Long):
 
