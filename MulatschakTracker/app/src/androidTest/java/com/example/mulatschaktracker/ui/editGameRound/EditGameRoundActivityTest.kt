@@ -34,18 +34,21 @@ class EditGameRoundActivityTest {
         Espresso.onView(ViewMatchers.withId(R.id.button_player_1)).perform(ViewActions.click())
         Espresso.onView(ViewMatchers.withId(R.id.button_player_2)).perform(ViewActions.click())
         Espresso.onView(ViewMatchers.withId(R.id.button_player_4)).perform(ViewActions.longClick())
+        Thread.sleep(200)
         Espresso.onView(ViewMatchers.withId(R.id.endround)).perform(ViewActions.click())
         Espresso.onView(ViewMatchers.withId(R.id.EndGameButton)).perform(ViewActions.click())
         Espresso.onView(ViewMatchers.withId(R.id.button_player_2)).perform(ViewActions.click())
         Espresso.onView(ViewMatchers.withId(R.id.button_player_2)).perform(ViewActions.click())
         Espresso.onView(ViewMatchers.withId(R.id.button_player_3)).perform(ViewActions.click())
         Espresso.onView(ViewMatchers.withId(R.id.button_player_4)).perform(ViewActions.longClick())
+        Thread.sleep(200)
         Espresso.onView(ViewMatchers.withId(R.id.endround)).perform(ViewActions.click())
         Espresso.onView(ViewMatchers.withId(R.id.EndGameButton)).perform(ViewActions.click())
         Espresso.onView(ViewMatchers.withId(R.id.button_player_1)).perform(ViewActions.click())
         Espresso.onView(ViewMatchers.withId(R.id.button_player_2)).perform(ViewActions.click())
         Espresso.onView(ViewMatchers.withId(R.id.button_player_4)).perform(ViewActions.click())
         Espresso.onView(ViewMatchers.withId(R.id.button_player_4)).perform(ViewActions.click())
+        Thread.sleep(200)
         Espresso.onView(ViewMatchers.withId(R.id.endround)).perform(ViewActions.click())
     }
 
@@ -64,7 +67,108 @@ class EditGameRoundActivityTest {
         checkEditScreen("1", "1", "0", "2")
     }
 
-    fun checkEditScreen(b1:String, b2:String, b3:String, b4:String) {
+    @Test
+    fun performEditRow1addOne() {
+        val rowId = 12000
+        testRow(rowId, R.id.button_player_1, 5, "18",true)
+        testRow(rowId, R.id.button_player_2, 6, "19",true)
+        testRow(rowId, R.id.button_player_3, 7, "25",true)
+        testRow(rowId, R.id.button_player_4, 8, "22",true)
+    }
+
+    @Test
+    fun performEditRow1subtractOne() {
+        val rowId = 12000
+        testRow(rowId, R.id.button_player_1, 5, "20",false)
+        testRow(rowId, R.id.button_player_2, 6, "21",false)
+        testRow(rowId, R.id.button_player_3, 7, "27",false)
+        testRow(rowId, R.id.button_player_4, 8, "24",false)
+    }
+
+    @Test
+    fun performEditRow2addOne() {
+        val rowId = 12001
+        testRow(rowId, R.id.button_player_1, 5, "23",true)
+        testRow(rowId, R.id.button_player_2, 6, "17",true)
+        testRow(rowId, R.id.button_player_3, 7, "24",true)
+        testRow(rowId, R.id.button_player_4, 8, "24",true)
+    }
+
+    @Test
+    fun performEditRow2subtractOne() {
+        val rowId = 12001
+        testRow(rowId, R.id.button_player_1, 5, "25",false)
+        testRow(rowId, R.id.button_player_2, 6, "19",false)
+        testRow(rowId, R.id.button_player_3, 7, "26",false)
+        testRow(rowId, R.id.button_player_4, 8, "26",false)
+    }
+
+    @Test
+    fun valuePropagationRow1AddTest() {
+        val rowId = 12000
+        checkValuePropagationAdd(rowId, R.id.button_player_1, arrayOf(1,5,9,13), arrayOf("21", "18", "23", "22"), true)
+        checkValuePropagationAdd(rowId, R.id.button_player_2, arrayOf(2,6,10,14), arrayOf("21", "19", "17", "16"), true)
+        checkValuePropagationAdd(rowId, R.id.button_player_3, arrayOf(3,7,11,15), arrayOf("21", "20", "19", "24"), true)
+        checkValuePropagationAdd(rowId, R.id.button_player_4, arrayOf(4,8,12,16), arrayOf("21", "26", "28", "26"),true)
+    }
+
+    @Test
+    fun valuePropagationRow1SubstractTest() {
+        val rowId = 12000
+        checkValuePropagationAdd(rowId, R.id.button_player_1, arrayOf(1,5,9,13), arrayOf("21", "20", "25", "24"),false)
+        checkValuePropagationAdd(rowId, R.id.button_player_2, arrayOf(2,6,10,14), arrayOf("21", "26", "24", "23"),false)
+        checkValuePropagationAdd(rowId, R.id.button_player_3, arrayOf(3,7,11,15), arrayOf("21", "23", "22", "27"),false)
+        checkValuePropagationAdd(rowId, R.id.button_player_4, arrayOf(4,8,12,16), arrayOf("21", "23", "25", "23"),false)
+    }
+
+    @Test
+    fun valuePropagationRow2AddTest() {
+        val rowId = 12001
+        checkValuePropagationAdd(rowId, R.id.button_player_1, arrayOf(1,5,9,13), arrayOf("21", "19", "18", "17"), true)
+        checkValuePropagationAdd(rowId, R.id.button_player_2, arrayOf(2,6,10,14), arrayOf("21", "20", "17", "16"), true)
+        checkValuePropagationAdd(rowId, R.id.button_player_3, arrayOf(3,7,11,15), arrayOf("21", "26", "24", "29"), true)
+        checkValuePropagationAdd(rowId, R.id.button_player_4, arrayOf(4,8,12,16), arrayOf("21", "23", "28", "26"),true)
+    }
+
+    @Test
+    fun valuePropagationRow2SubstractTest() {
+        val rowId = 12001
+        checkValuePropagationAdd(rowId, R.id.button_player_1, arrayOf(1,5,9,13), arrayOf("21", "19", "21", "20"),false)
+        checkValuePropagationAdd(rowId, R.id.button_player_2, arrayOf(2,6,10,14), arrayOf("21", "20", "19", "18"),false)
+        checkValuePropagationAdd(rowId, R.id.button_player_3, arrayOf(3,7,11,15), arrayOf("21", "26", "31", "36"),false)
+        checkValuePropagationAdd(rowId, R.id.button_player_4, arrayOf(4,8,12,16), arrayOf("21", "23", "25", "23"),false)
+    }
+
+    private fun checkValuePropagationAdd(rowId:Int, buttonId:Int, labelIds:Array<Int>, results:Array<String>, add :
+    Boolean) {
+
+        Espresso.onView(ViewMatchers.withId(rowId)).perform(ViewActions.click())
+        if (add) {
+            Espresso.onView(ViewMatchers.withId(buttonId)).perform(ViewActions.click())
+        } else {
+            Espresso.onView(ViewMatchers.withId(buttonId)).perform(ViewActions.longClick())
+        }
+        Espresso.onView(ViewMatchers.withId(R.id.endround)).perform(ViewActions.click())
+        for (i in 0..labelIds.size) {
+            Assert.assertEquals(results[i], AddGameRoundActivityTest.getText(Espresso.onView(ViewMatchers.withId
+                (labelIds[i]))))
+        }
+    }
+
+    private fun testRow(rowId: Int, buttonId: Int, labelId: Int, result: String, add:Boolean) {
+        Espresso.onView(ViewMatchers.withId(rowId)).perform(ViewActions.longClick())
+
+        if (add) {
+            Espresso.onView(ViewMatchers.withId(buttonId)).perform(ViewActions.click())
+        } else {
+            Espresso.onView(ViewMatchers.withId(buttonId)).perform(ViewActions.longClick())
+        }
+
+        Espresso.onView(ViewMatchers.withId(R.id.endround)).perform(ViewActions.click())
+        Assert.assertEquals(result, AddGameRoundActivityTest.getText(Espresso.onView(ViewMatchers.withId(labelId))))
+    }
+
+    private fun checkEditScreen(b1:String, b2:String, b3:String, b4:String) {
         Espresso.onView(ViewMatchers.withId(R.id.button_player_1))
             .check(ViewAssertions.matches(ViewMatchers.withText(b1)))
         Espresso.onView(ViewMatchers.withId(R.id.button_player_2))
@@ -76,3 +180,4 @@ class EditGameRoundActivityTest {
     }
 
 }
+
