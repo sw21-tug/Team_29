@@ -26,6 +26,7 @@ val LASTUSER = "lastuser"
 class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        loadLocale()
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
