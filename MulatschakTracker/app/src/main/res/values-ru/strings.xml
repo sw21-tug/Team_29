@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="eng_Lang">English</string>
+    <string name="ru_Lang">Русский</string>
+    <string name="chooseLanguageTxt">Выберите язык</string>
+    <string name="title_startnewgame">Начать новую игру</string>
+    <string name="Player1">Игрок 1</string>
+    <string name="Player2">Игрок 2</string>
+    <string name="Player3">Игрок 3</string>
+    <string name="Player4">Игрок 4</string>
+    <string name="EnterNewPlayer">Введите имена игроков</string>
+    <string name="heart_round">Раунд Черви</string>
+    <string name="underdog">Проигравший</string>
+    <string name="end_game">Конец игры</string>
+    <string name="app_name">MulatschakTracker</string>
+    <string name="title_games">Игры</string>
+    <string name="title_statistics">Статистика</string>
+    <string name="title_history">История</string>
+    <string name="title_tips">Подсказки</string>
+    <string name="title_options">Настройки</string>
+    <string name="title_activity_create_user">Создать пользователя</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">Первый фрагмент</string>
+    <string name="second_fragment_label">Второй фрагмент</string>
+    <string name="next">След.</string>
+    <string name="previous">Пред.</string>
+    <string name="add_round">Добавить раунд</string>
+    <string name="title_activity_add_game_round">MulatschakTracker</string>
+    <string name="initial_game_stat_points">0</string>
+    <string name="player_one">Игрок один</string>
+    <string name="player_two">Игрок два</string>
+    <string name="player_three">Игрок три</string>
+    <string name="player_four">Игрок четыре</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="hello_first_fragment">Привет первый фрагмент</string>
+    <string name="hello_second_fragment">Привет второй фрагмент. Арг.: %1$s</string>
+</resources>
