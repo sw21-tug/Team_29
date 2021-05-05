@@ -24,6 +24,14 @@
     <string name="second_fragment_label">Второй фрагмент</string>
     <string name="next">След.</string>
     <string name="previous">Пред.</string>
+    <string name="add_round">Добавить раунд</string>
+    <string name="title_activity_add_game_round">MulatschakTracker</string>
+    <string name="initial_game_stat_points">0</string>
+    <string name="player_one">Игрок один</string>
+    <string name="player_two">Игрок два</string>
+    <string name="player_three">Игрок три</string>
+    <string name="player_four">Игрок четыре</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <string name="hello_first_fragment">Привет первый фрагмент</string>
     <string name="hello_second_fragment">Привет второй фрагмент. Арг.: %1$s</string>

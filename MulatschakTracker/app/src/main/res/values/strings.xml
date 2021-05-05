@@ -1,6 +1,6 @@
 <resources>
     <string name="eng_Lang">English</string>
-    <string name="ru_Lang">Russian</string>
+    <string name="ru_Lang">Русский</string>
     <string name="chooseLanguageTxt">Choose Language</string>
     <string name="title_startnewgame">Start New Game</string>
     <string name="Player1">Player 1</string>
