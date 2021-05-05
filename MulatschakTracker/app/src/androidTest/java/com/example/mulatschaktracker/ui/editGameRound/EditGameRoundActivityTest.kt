@@ -34,7 +34,7 @@ class EditGameRoundActivityTest {
     fun setupTests(){
         Espresso.onView(ViewMatchers.withId(R.id.StartNewGameActivityButton)).perform(ViewActions.click())
         Espresso.onView(ViewMatchers.withId(R.id.StartNewGameButton)).perform(ViewActions.click())
-        Espresso.onView(ViewMatchers.withId(R.id.EndGameButton)).perform(ViewActions.click())
+        Espresso.onView(ViewMatchers.withId(R.id.AddRoundButton)).perform(ViewActions.click())
         Thread.sleep(waitTime)
         Espresso.onView(ViewMatchers.withId(R.id.button_player_1)).perform(ViewActions.click())
         Espresso.onView(ViewMatchers.withId(R.id.button_player_1)).perform(ViewActions.click())
@@ -62,7 +62,7 @@ class EditGameRoundActivityTest {
         Thread.sleep(waitTime)
         Espresso.onView(ViewMatchers.withId(R.id.endround)).perform(ViewActions.click())
         Thread.sleep(waitTime)
-        Espresso.onView(ViewMatchers.withId(R.id.EndGameButton)).perform(ViewActions.click())
+        Espresso.onView(ViewMatchers.withId(R.id.AddRoundButton)).perform(ViewActions.click())
         Thread.sleep(waitTime)
     }
 
