@@ -44,6 +44,7 @@ class EditGameRoundActivityTest {
         Thread.sleep(200)
         Espresso.onView(ViewMatchers.withId(R.id.endround)).perform(ViewActions.click())
         Espresso.onView(ViewMatchers.withId(R.id.EndGameButton)).perform(ViewActions.click())
+        Thread.sleep(200)
         Espresso.onView(ViewMatchers.withId(R.id.button_player_1)).perform(ViewActions.click())
         Espresso.onView(ViewMatchers.withId(R.id.button_player_2)).perform(ViewActions.click())
         Espresso.onView(ViewMatchers.withId(R.id.button_player_4)).perform(ViewActions.click())
@@ -157,6 +158,7 @@ class EditGameRoundActivityTest {
 
     private fun testRow(rowId: Int, buttonId: Int, labelId: Int, result: String, add:Boolean) {
         Espresso.onView(ViewMatchers.withId(rowId)).perform(ViewActions.longClick())
+        Thread.sleep(200)
 
         if (add) {
             Espresso.onView(ViewMatchers.withId(buttonId)).perform(ViewActions.click())
@@ -165,10 +167,12 @@ class EditGameRoundActivityTest {
         }
 
         Espresso.onView(ViewMatchers.withId(R.id.endround)).perform(ViewActions.click())
+        Thread.sleep(200)
         Assert.assertEquals(result, AddGameRoundActivityTest.getText(Espresso.onView(ViewMatchers.withId(labelId))))
     }
 
     private fun checkEditScreen(b1:String, b2:String, b3:String, b4:String) {
+        Thread.sleep(200)
         Espresso.onView(ViewMatchers.withId(R.id.button_player_1))
             .check(ViewAssertions.matches(ViewMatchers.withText(b1)))
         Espresso.onView(ViewMatchers.withId(R.id.button_player_2))
