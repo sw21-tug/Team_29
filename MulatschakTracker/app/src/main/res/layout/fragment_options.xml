@@ -26,12 +26,13 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="269dp"
         android:layout_marginBottom="39dp"
-
+        android:onClick="DialogChangeLanguage"
         android:text="ChangeLanguage"
         app:layout_constraintBottom_toTopOf="@+id/text_options"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
         tools:ignore="MissingConstraints" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -13,11 +13,7 @@
         android:label="@string/title_activity_create_user"
         android:theme="@style/Theme.MulatschakTracker.NoActionBar">
     </activity>
-      <activity
-          android:name=".ui.options.OptionActivity"
-          android:label="TEST"
-          android:theme="@style/Theme.MulatschakTracker.NoActionBar">
-      </activity>
+ 
     <activity android:name=".Game"></activity>
         <activity
             android:name=".StartNewGame"

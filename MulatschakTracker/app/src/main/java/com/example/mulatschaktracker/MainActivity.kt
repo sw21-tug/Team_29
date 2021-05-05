@@ -1,9 +1,14 @@
 package com.example.mulatschaktracker
 
+import android.app.AlertDialog
+import android.content.Context
+import android.content.DialogInterface
 import android.content.Intent
+import android.content.res.Configuration
 import android.os.Bundle
 
 import android.view.View
+import android.widget.Button
 
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
@@ -11,8 +16,8 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.mulatschaktracker.ui.createUser.CreateUserActivity
-import com.example.mulatschaktracker.ui.options.OptionActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import java.util.*
 
 
 val PREFERENCENAME = "muli"
@@ -29,6 +34,7 @@ class MainActivity : AppCompatActivity() {
 
         val navView: BottomNavigationView = findViewById(R.id.nav_view)
 
+
         val navController = findNavController(R.id.nav_host_fragment)
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
@@ -42,6 +48,8 @@ class MainActivity : AppCompatActivity() {
             startActivity(createUserIntent);
         }
 
+        //val btnclicked : Button = findViewById(R.id.buttonChangeLanguage)
+        //btnclicked.setOnClickListener { DialogChangeLanguage() }
 
 
     }
@@ -51,5 +59,48 @@ class MainActivity : AppCompatActivity() {
         val intent = Intent(this, StartNewGame::class.java)
         startActivity(intent)
     }
+
+    fun DialogChangeLanguage(view: View){
+
+        val adb = AlertDialog.Builder(this)
+        val items = arrayOf<CharSequence>(
+            getString(R.string.eng_Lang),
+            getString(R.string.ru_Lang))
+
+        adb.setSingleChoiceItems(items, -1, DialogInterface.OnClickListener { arg0, arg1 ->
+            if(arg1 == 0)
+                setLanguage("en")
+            else if (arg1 == 1)
+                setLanguage("ru")
+            //add more languages if needed
+        })
+        adb.setPositiveButton("OK",  DialogInterface.OnClickListener { arg0, arg1 ->
+            //refresh application screen
+            recreate()
+        })
+        adb.setTitle(getString(R.string.chooseLanguageTxt))
+        adb.show()
+    }
+
+    private fun setLanguage(newLang: String){
+        val locale = Locale(newLang)
+        Locale.setDefault(locale)
+        val config = Configuration()
+        baseContext.resources.updateConfiguration(config, baseContext.resources.displayMetrics)
+
+        val editor = getSharedPreferences("Settings", Context.MODE_PRIVATE).edit()
+        editor.putString("My_Lang", newLang)
+        editor.apply()
+    }
+
+    private fun loadLocale() {
+        val sharedPreferences = getSharedPreferences("Settings", Context.MODE_PRIVATE)
+        val language = sharedPreferences.getString("My_Lang", "en")
+        if (language != null) {
+            setLanguage(language)
+        }
+
+    }
+
 }
 
