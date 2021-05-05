@@ -18,9 +18,14 @@ import org.junit.runner.RunWith
 @RunWith(AndroidJUnit4ClassRunner::class)
 class EditGameRoundActivityTest {
 
+
+
     @get: Rule
     var activityRule: ActivityScenarioRule<MainActivity>
             = ActivityScenarioRule(MainActivity::class.java)
+
+    private val waitTime:Long = 400
+
 
     /**
      * Setup test data
@@ -30,27 +35,35 @@ class EditGameRoundActivityTest {
         Espresso.onView(ViewMatchers.withId(R.id.StartNewGameActivityButton)).perform(ViewActions.click())
         Espresso.onView(ViewMatchers.withId(R.id.StartNewGameButton)).perform(ViewActions.click())
         Espresso.onView(ViewMatchers.withId(R.id.EndGameButton)).perform(ViewActions.click())
+        Thread.sleep(waitTime)
         Espresso.onView(ViewMatchers.withId(R.id.button_player_1)).perform(ViewActions.click())
         Espresso.onView(ViewMatchers.withId(R.id.button_player_1)).perform(ViewActions.click())
         Espresso.onView(ViewMatchers.withId(R.id.button_player_2)).perform(ViewActions.click())
         Espresso.onView(ViewMatchers.withId(R.id.button_player_4)).perform(ViewActions.longClick())
-        Thread.sleep(200)
-        Espresso.onView(ViewMatchers.withId(R.id.endround)).perform(ViewActions.click())
-        Espresso.onView(ViewMatchers.withId(R.id.EndGameButton)).perform(ViewActions.click())
+
+        closeAndOpenNewRound()
+
         Espresso.onView(ViewMatchers.withId(R.id.button_player_2)).perform(ViewActions.click())
         Espresso.onView(ViewMatchers.withId(R.id.button_player_2)).perform(ViewActions.click())
         Espresso.onView(ViewMatchers.withId(R.id.button_player_3)).perform(ViewActions.click())
         Espresso.onView(ViewMatchers.withId(R.id.button_player_4)).perform(ViewActions.longClick())
-        Thread.sleep(200)
-        Espresso.onView(ViewMatchers.withId(R.id.endround)).perform(ViewActions.click())
-        Espresso.onView(ViewMatchers.withId(R.id.EndGameButton)).perform(ViewActions.click())
-        Thread.sleep(200)
+
+        closeAndOpenNewRound()
+
         Espresso.onView(ViewMatchers.withId(R.id.button_player_1)).perform(ViewActions.click())
         Espresso.onView(ViewMatchers.withId(R.id.button_player_2)).perform(ViewActions.click())
         Espresso.onView(ViewMatchers.withId(R.id.button_player_4)).perform(ViewActions.click())
         Espresso.onView(ViewMatchers.withId(R.id.button_player_4)).perform(ViewActions.click())
-        Thread.sleep(200)
+        Thread.sleep(waitTime)
         Espresso.onView(ViewMatchers.withId(R.id.endround)).perform(ViewActions.click())
+    }
+
+    private fun closeAndOpenNewRound() {
+        Thread.sleep(waitTime)
+        Espresso.onView(ViewMatchers.withId(R.id.endround)).perform(ViewActions.click())
+        Thread.sleep(waitTime)
+        Espresso.onView(ViewMatchers.withId(R.id.EndGameButton)).perform(ViewActions.click())
+        Thread.sleep(waitTime)
     }
 
     /**
@@ -73,35 +86,35 @@ class EditGameRoundActivityTest {
         val rowId = 12000
         testRow(rowId, R.id.button_player_1, 5, "18",true)
         testRow(rowId, R.id.button_player_2, 6, "19",true)
-        testRow(rowId, R.id.button_player_3, 7, "25",true)
-        testRow(rowId, R.id.button_player_4, 8, "22",true)
+        testRow(rowId, R.id.button_player_3, 7, "20",true)
+        testRow(rowId, R.id.button_player_4, 8, "26",true)
     }
 
     @Test
     fun performEditRow1subtractOne() {
         val rowId = 12000
         testRow(rowId, R.id.button_player_1, 5, "20",false)
-        testRow(rowId, R.id.button_player_2, 6, "21",false)
-        testRow(rowId, R.id.button_player_3, 7, "27",false)
-        testRow(rowId, R.id.button_player_4, 8, "24",false)
+        testRow(rowId, R.id.button_player_2, 6, "26",false)
+        testRow(rowId, R.id.button_player_3, 7, "23",false)
+        testRow(rowId, R.id.button_player_4, 8, "23",false)
     }
 
     @Test
     fun performEditRow2addOne() {
         val rowId = 12001
-        testRow(rowId, R.id.button_player_1, 5, "23",true)
-        testRow(rowId, R.id.button_player_2, 6, "17",true)
-        testRow(rowId, R.id.button_player_3, 7, "24",true)
-        testRow(rowId, R.id.button_player_4, 8, "24",true)
+        testRow(rowId, R.id.button_player_1, 9, "18",true)
+        testRow(rowId, R.id.button_player_2, 10, "17",true)
+        testRow(rowId, R.id.button_player_3, 11, "24",true)
+        testRow(rowId, R.id.button_player_4, 12, "28",true)
     }
 
     @Test
     fun performEditRow2subtractOne() {
         val rowId = 12001
-        testRow(rowId, R.id.button_player_1, 5, "25",false)
-        testRow(rowId, R.id.button_player_2, 6, "19",false)
-        testRow(rowId, R.id.button_player_3, 7, "26",false)
-        testRow(rowId, R.id.button_player_4, 8, "26",false)
+        testRow(rowId, R.id.button_player_1, 9, "21",false)
+        testRow(rowId, R.id.button_player_2, 10, "19",false)
+        testRow(rowId, R.id.button_player_3, 11, "31",false)
+        testRow(rowId, R.id.button_player_4, 12, "25",false)
     }
 
     @Test
@@ -142,37 +155,39 @@ class EditGameRoundActivityTest {
 
     private fun checkValuePropagationAdd(rowId:Int, buttonId:Int, labelIds:Array<Int>, results:Array<String>, add :
     Boolean) {
-
-        Espresso.onView(ViewMatchers.withId(rowId)).perform(ViewActions.click())
+        Espresso.onView(ViewMatchers.withId(rowId)).perform(ViewActions.longClick())
+        Thread.sleep(waitTime)
         if (add) {
             Espresso.onView(ViewMatchers.withId(buttonId)).perform(ViewActions.click())
         } else {
             Espresso.onView(ViewMatchers.withId(buttonId)).perform(ViewActions.longClick())
         }
+        Thread.sleep(waitTime)
         Espresso.onView(ViewMatchers.withId(R.id.endround)).perform(ViewActions.click())
-        for (i in 0..labelIds.size) {
+        Thread.sleep(waitTime)
+        for (i in 0..(labelIds.size-1)) {
             Assert.assertEquals(results[i], AddGameRoundActivityTest.getText(Espresso.onView(ViewMatchers.withId
                 (labelIds[i]))))
         }
+        Thread.sleep(waitTime)
     }
 
     private fun testRow(rowId: Int, buttonId: Int, labelId: Int, result: String, add:Boolean) {
         Espresso.onView(ViewMatchers.withId(rowId)).perform(ViewActions.longClick())
-        Thread.sleep(200)
-
+        Thread.sleep(waitTime)
         if (add) {
             Espresso.onView(ViewMatchers.withId(buttonId)).perform(ViewActions.click())
         } else {
             Espresso.onView(ViewMatchers.withId(buttonId)).perform(ViewActions.longClick())
         }
-
+        Thread.sleep(waitTime)
         Espresso.onView(ViewMatchers.withId(R.id.endround)).perform(ViewActions.click())
-        Thread.sleep(200)
+        Thread.sleep(waitTime)
         Assert.assertEquals(result, AddGameRoundActivityTest.getText(Espresso.onView(ViewMatchers.withId(labelId))))
     }
 
     private fun checkEditScreen(b1:String, b2:String, b3:String, b4:String) {
-        Thread.sleep(200)
+        Thread.sleep(waitTime)
         Espresso.onView(ViewMatchers.withId(R.id.button_player_1))
             .check(ViewAssertions.matches(ViewMatchers.withText(b1)))
         Espresso.onView(ViewMatchers.withId(R.id.button_player_2))
