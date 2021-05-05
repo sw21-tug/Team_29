@@ -354,7 +354,7 @@ class AddGameRoundActivityTest{
         val new_round = RoundObject(scoreToSavePlayer1,scoreToSavePlayer2,scoreToSavePlayer3,scoreToSavePlayer4,0,0)
         repo.enterNewRound(new_round, newGameId)
 
-        val cursor = repo.getCursor2(newGameId)
+        val cursor = repo.getCursorRounds(newGameId)
         if (cursor.moveToFirst()) {
             scorePlayer1 = cursor.getInt(cursor.getColumnIndex(ROUND_COLUMN_PLAYER1_TICKS))
             scorePlayer2 = cursor.getInt(cursor.getColumnIndex(ROUND_COLUMN_PLAYER2_TICKS))
