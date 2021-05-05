@@ -370,24 +370,26 @@ class AddGameRoundActivityTest{
     }
 
 
-    //helper function for comparing 2 strings from textboxes
-    fun getText(matcher: ViewInteraction): String {
-        var text = String()
-        matcher.perform(object : ViewAction {
-            override fun getConstraints(): Matcher<View> {
-                return ViewMatchers.isAssignableFrom(TextView::class.java)
-            }
+    companion object {
+        //helper function for comparing 2 strings from textboxes
+        fun getText(matcher: ViewInteraction): String {
+            var text = String()
+            matcher.perform(object : ViewAction {
+                override fun getConstraints(): Matcher<View> {
+                    return ViewMatchers.isAssignableFrom(TextView::class.java)
+                }
 
-            override fun getDescription(): String {
-                return "Text of the view"
-            }
+                override fun getDescription(): String {
+                    return "Text of the view"
+                }
 
-            override fun perform(uiController: UiController, view: View) {
-                val tv = view as TextView
-                text = tv.text.toString()
-            }
-        })
+                override fun perform(uiController: UiController, view: View) {
+                    val tv = view as TextView
+                    text = tv.text.toString()
+                }
+            })
 
-        return text
+            return text
+        }
     }
 }
