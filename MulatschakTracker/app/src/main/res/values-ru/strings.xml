@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="eng_Lang">Английский</string>
+    <string name="eng_Lang">English</string>
     <string name="ru_Lang">Русский</string>
     <string name="chooseLanguageTxt">Выберите язык</string>
     <string name="title_startnewgame">Начать новую игру</string>
