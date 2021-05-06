@@ -57,7 +57,7 @@ class AddGameRoundActivityTest : TestCase(){
     fun test_isActivityInView() {
         onView(ViewMatchers.withId(R.id.StartNewGameActivityButton)).perform(ViewActions.click())
         onView(withId(R.id.StartNewGameButton)).perform(ViewActions.click())
-        onView(withId(R.id.EndGameButton)).perform(ViewActions.click())
+        onView(withId(R.id.AddRoundButton)).perform(ViewActions.click())
 
 
         onView(withId(R.id.update_game_score))
@@ -69,7 +69,7 @@ class AddGameRoundActivityTest : TestCase(){
     fun test_isButtonPlayer1Displayed() {
         onView(withId(R.id.StartNewGameActivityButton)).perform(ViewActions.click())
         onView(withId(R.id.StartNewGameButton)).perform(ViewActions.click())
-        onView(withId(R.id.EndGameButton)).perform(ViewActions.click())
+        onView(withId(R.id.AddRoundButton)).perform(ViewActions.click())
 
         onView(withId(R.id.button_player_1))
             .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
@@ -79,7 +79,7 @@ class AddGameRoundActivityTest : TestCase(){
     fun test_isButtonPlayer2Displayed() {
         onView(withId(R.id.StartNewGameActivityButton)).perform(ViewActions.click())
         onView(withId(R.id.StartNewGameButton)).perform(ViewActions.click())
-        onView(withId(R.id.EndGameButton)).perform(ViewActions.click())
+        onView(withId(R.id.AddRoundButton)).perform(ViewActions.click())
 
         onView(withId(R.id.button_player_2))
             .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
@@ -89,7 +89,7 @@ class AddGameRoundActivityTest : TestCase(){
     fun test_isButtonPlayer3Displayed() {
         onView(withId(R.id.StartNewGameActivityButton)).perform(ViewActions.click())
         onView(withId(R.id.StartNewGameButton)).perform(ViewActions.click())
-        onView(withId(R.id.EndGameButton)).perform(ViewActions.click())
+        onView(withId(R.id.AddRoundButton)).perform(ViewActions.click())
 
         onView(withId(R.id.button_player_3))
             .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
@@ -99,7 +99,7 @@ class AddGameRoundActivityTest : TestCase(){
     fun test_isButtonPlayer4Displayed() {
         onView(withId(R.id.StartNewGameActivityButton)).perform(ViewActions.click())
         onView(withId(R.id.StartNewGameButton)).perform(ViewActions.click())
-        onView(withId(R.id.EndGameButton)).perform(ViewActions.click())
+        onView(withId(R.id.AddRoundButton)).perform(ViewActions.click())
 
         onView(withId(R.id.button_player_4))
             .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
@@ -110,7 +110,7 @@ class AddGameRoundActivityTest : TestCase(){
     fun is_tvPlayer1Displayed() {
         onView(withId(R.id.StartNewGameActivityButton)).perform(ViewActions.click())
         onView(withId(R.id.StartNewGameButton)).perform(ViewActions.click())
-        onView(withId(R.id.EndGameButton)).perform(ViewActions.click())
+        onView(withId(R.id.AddRoundButton)).perform(ViewActions.click())
 
         onView(withId(R.id.tvPlayerOne))
             .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
@@ -120,7 +120,7 @@ class AddGameRoundActivityTest : TestCase(){
     fun is_tvPlayer2Displayed() {
         onView(withId(R.id.StartNewGameActivityButton)).perform(ViewActions.click())
         onView(withId(R.id.StartNewGameButton)).perform(ViewActions.click())
-        onView(withId(R.id.EndGameButton)).perform(ViewActions.click())
+        onView(withId(R.id.AddRoundButton)).perform(ViewActions.click())
 
         onView(withId(R.id.tvPlayerTwo))
             .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
@@ -130,7 +130,7 @@ class AddGameRoundActivityTest : TestCase(){
     fun is_tvPlayer3Displayed() {
         onView(withId(R.id.StartNewGameActivityButton)).perform(ViewActions.click())
         onView(withId(R.id.StartNewGameButton)).perform(ViewActions.click())
-        onView(withId(R.id.EndGameButton)).perform(ViewActions.click())
+        onView(withId(R.id.AddRoundButton)).perform(ViewActions.click())
 
         onView(withId(R.id.tvPlayerThree))
             .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
@@ -140,7 +140,7 @@ class AddGameRoundActivityTest : TestCase(){
     fun is_tvPlayer4Displayed() {
         onView(withId(R.id.StartNewGameActivityButton)).perform(ViewActions.click())
         onView(withId(R.id.StartNewGameButton)).perform(ViewActions.click())
-        onView(withId(R.id.EndGameButton)).perform(ViewActions.click())
+        onView(withId(R.id.AddRoundButton)).perform(ViewActions.click())
 
         onView(withId(R.id.tvPlayerFour))
             .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
@@ -168,7 +168,7 @@ class AddGameRoundActivityTest : TestCase(){
 
 
         onView(withId(R.id.StartNewGameButton)).perform(ViewActions.click())
-        onView(withId(R.id.EndGameButton)).perform(ViewActions.click())
+        onView(withId(R.id.AddRoundButton)).perform(ViewActions.click())
 
 
 
@@ -184,7 +184,7 @@ class AddGameRoundActivityTest : TestCase(){
     fun is_isButtonEndroundDisplayed() {
         onView(withId(R.id.StartNewGameActivityButton)).perform(ViewActions.click())
         onView(withId(R.id.StartNewGameButton)).perform(ViewActions.click())
-        onView(withId(R.id.EndGameButton)).perform(ViewActions.click())
+        onView(withId(R.id.AddRoundButton)).perform(ViewActions.click())
 
         onView(withId(R.id.endround))
             .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
@@ -196,7 +196,7 @@ class AddGameRoundActivityTest : TestCase(){
     fun test_button1ClickableAndIncrement() {
         onView(withId(R.id.StartNewGameActivityButton)).perform(ViewActions.click())
         onView(withId(R.id.StartNewGameButton)).perform(ViewActions.click())
-        onView(withId(R.id.EndGameButton)).perform(ViewActions.click())
+        onView(withId(R.id.AddRoundButton)).perform(ViewActions.click())
 
         onView(withId(R.id.button_player_1)).perform(ViewActions.click())
         onView(withId(R.id.button_player_1))
@@ -207,7 +207,7 @@ class AddGameRoundActivityTest : TestCase(){
     fun test_button2ClickableAndIncrement() {
         onView(withId(R.id.StartNewGameActivityButton)).perform(ViewActions.click())
         onView(withId(R.id.StartNewGameButton)).perform(ViewActions.click())
-        onView(withId(R.id.EndGameButton)).perform(ViewActions.click())
+        onView(withId(R.id.AddRoundButton)).perform(ViewActions.click())
 
         onView(withId(R.id.button_player_2)).perform(ViewActions.click())
         onView(withId(R.id.button_player_2))
@@ -218,7 +218,7 @@ class AddGameRoundActivityTest : TestCase(){
     fun test_button3ClickableAndIncrement() {
         onView(withId(R.id.StartNewGameActivityButton)).perform(ViewActions.click())
         onView(withId(R.id.StartNewGameButton)).perform(ViewActions.click())
-        onView(withId(R.id.EndGameButton)).perform(ViewActions.click())
+        onView(withId(R.id.AddRoundButton)).perform(ViewActions.click())
 
         onView(withId(R.id.button_player_3)).perform(ViewActions.click())
         onView(withId(R.id.button_player_3))
@@ -229,7 +229,7 @@ class AddGameRoundActivityTest : TestCase(){
     fun test_button4ClickableAndIncrement() {
         onView(withId(R.id.StartNewGameActivityButton)).perform(ViewActions.click())
         onView(withId(R.id.StartNewGameButton)).perform(ViewActions.click())
-        onView(withId(R.id.EndGameButton)).perform(ViewActions.click())
+        onView(withId(R.id.AddRoundButton)).perform(ViewActions.click())
 
         onView(withId(R.id.button_player_4)).perform(ViewActions.click())
         onView(withId(R.id.button_player_4))
@@ -241,7 +241,7 @@ class AddGameRoundActivityTest : TestCase(){
     fun test_button1LongClickableAndIncrementFail() {
         onView(withId(R.id.StartNewGameActivityButton)).perform(ViewActions.click())
         onView(withId(R.id.StartNewGameButton)).perform(ViewActions.click())
-        onView(withId(R.id.EndGameButton)).perform(ViewActions.click())
+        onView(withId(R.id.AddRoundButton)).perform(ViewActions.click())
 
         onView(withId(R.id.button_player_1)).perform(ViewActions.longClick())
         onView(withId(R.id.button_player_1))
@@ -252,7 +252,7 @@ class AddGameRoundActivityTest : TestCase(){
     fun test_button2LongClickableAndIncrementFail() {
         onView(withId(R.id.StartNewGameActivityButton)).perform(ViewActions.click())
         onView(withId(R.id.StartNewGameButton)).perform(ViewActions.click())
-        onView(withId(R.id.EndGameButton)).perform(ViewActions.click())
+        onView(withId(R.id.AddRoundButton)).perform(ViewActions.click())
 
         onView(withId(R.id.button_player_2)).perform(ViewActions.longClick())
         onView(withId(R.id.button_player_2))
@@ -263,7 +263,7 @@ class AddGameRoundActivityTest : TestCase(){
     fun test_button3LongClickableAndIncrementFail() {
         onView(withId(R.id.StartNewGameActivityButton)).perform(ViewActions.click())
         onView(withId(R.id.StartNewGameButton)).perform(ViewActions.click())
-        onView(withId(R.id.EndGameButton)).perform(ViewActions.click())
+        onView(withId(R.id.AddRoundButton)).perform(ViewActions.click())
 
         onView(withId(R.id.button_player_3)).perform(ViewActions.longClick())
         onView(withId(R.id.button_player_3))
@@ -274,7 +274,7 @@ class AddGameRoundActivityTest : TestCase(){
     fun test_button4LongClickableAndIncrementFail() {
         onView(withId(R.id.StartNewGameActivityButton)).perform(ViewActions.click())
         onView(withId(R.id.StartNewGameButton)).perform(ViewActions.click())
-        onView(withId(R.id.EndGameButton)).perform(ViewActions.click())
+        onView(withId(R.id.AddRoundButton)).perform(ViewActions.click())
 
         onView(withId(R.id.button_player_4)).perform(ViewActions.longClick())
         onView(withId(R.id.button_player_4))
@@ -288,7 +288,7 @@ class AddGameRoundActivityTest : TestCase(){
     fun test_button1LongClickableAndIncrement() {
         onView(withId(R.id.StartNewGameActivityButton)).perform(ViewActions.click())
         onView(withId(R.id.StartNewGameButton)).perform(ViewActions.click())
-        onView(withId(R.id.EndGameButton)).perform(ViewActions.click())
+        onView(withId(R.id.AddRoundButton)).perform(ViewActions.click())
 
         onView(withId(R.id.button_player_1)).perform(ViewActions.click())
         onView(withId(R.id.button_player_1)).perform(ViewActions.click())
@@ -301,7 +301,7 @@ class AddGameRoundActivityTest : TestCase(){
     fun test_button2LongClickableAndIncrement() {
         onView(withId(R.id.StartNewGameActivityButton)).perform(ViewActions.click())
         onView(withId(R.id.StartNewGameButton)).perform(ViewActions.click())
-        onView(withId(R.id.EndGameButton)).perform(ViewActions.click())
+        onView(withId(R.id.AddRoundButton)).perform(ViewActions.click())
 
         onView(withId(R.id.button_player_2)).perform(ViewActions.click())
         onView(withId(R.id.button_player_2)).perform(ViewActions.click())
@@ -314,7 +314,7 @@ class AddGameRoundActivityTest : TestCase(){
     fun test_button3LongClickableAndIncrement() {
         onView(withId(R.id.StartNewGameActivityButton)).perform(ViewActions.click())
         onView(withId(R.id.StartNewGameButton)).perform(ViewActions.click())
-        onView(withId(R.id.EndGameButton)).perform(ViewActions.click())
+        onView(withId(R.id.AddRoundButton)).perform(ViewActions.click())
 
         onView(withId(R.id.button_player_3)).perform(ViewActions.click())
         onView(withId(R.id.button_player_3)).perform(ViewActions.click())
@@ -327,7 +327,7 @@ class AddGameRoundActivityTest : TestCase(){
     fun test_button4LongClickableAndIncrement() {
         onView(ViewMatchers.withId(R.id.StartNewGameActivityButton)).perform(ViewActions.click())
         onView(withId(R.id.StartNewGameButton)).perform(ViewActions.click())
-        onView(withId(R.id.EndGameButton)).perform(ViewActions.click())
+        onView(withId(R.id.AddRoundButton)).perform(ViewActions.click())
 
         onView(withId(R.id.button_player_4)).perform(ViewActions.click())
         onView(withId(R.id.button_player_4)).perform(ViewActions.click())
@@ -340,7 +340,7 @@ class AddGameRoundActivityTest : TestCase(){
     fun is_tvPlayerRightScore() {
         onView(withId(R.id.StartNewGameActivityButton)).perform(ViewActions.click())
         onView(withId(R.id.StartNewGameButton)).perform(ViewActions.click())
-        onView(withId(R.id.EndGameButton)).perform(ViewActions.click())
+        onView(withId(R.id.AddRoundButton)).perform(ViewActions.click())
 
         onView(withId(R.id.button_player_1)).perform(ViewActions.longClick())
         onView(withId(R.id.button_player_3)).perform(ViewActions.click())
@@ -379,7 +379,7 @@ class AddGameRoundActivityTest : TestCase(){
         val new_round = RoundObject(scoreToSavePlayer1, scoreToSavePlayer2, scoreToSavePlayer3, scoreToSavePlayer4, 0, 0)
         repo.enterNewRound(new_round, newGameId)
 
-        val cursor = repo.getCursor2(newGameId)
+        val cursor = repo.getCursorRounds(newGameId)
         if (cursor.moveToFirst()) {
             scorePlayer1 = cursor.getInt(cursor.getColumnIndex(ROUND_COLUMN_PLAYER1_TICKS))
             scorePlayer2 = cursor.getInt(cursor.getColumnIndex(ROUND_COLUMN_PLAYER2_TICKS))
@@ -395,24 +395,26 @@ class AddGameRoundActivityTest : TestCase(){
     }
 
 
-    //helper function for comparing 2 strings from textboxes
-    fun getText(matcher: ViewInteraction): String {
-        var text = String()
-        matcher.perform(object : ViewAction {
-            override fun getConstraints(): Matcher<View> {
-                return ViewMatchers.isAssignableFrom(TextView::class.java)
-            }
+    companion object {
+        //helper function for comparing 2 strings from textboxes
+        fun getText(matcher: ViewInteraction): String {
+            var text = String()
+            matcher.perform(object : ViewAction {
+                override fun getConstraints(): Matcher<View> {
+                    return ViewMatchers.isAssignableFrom(TextView::class.java)
+                }
 
-            override fun getDescription(): String {
-                return "Text of the view"
-            }
+                override fun getDescription(): String {
+                    return "Text of the view"
+                }
 
-            override fun perform(uiController: UiController, view: View) {
-                val tv = view as TextView
-                text = tv.text.toString()
-            }
-        })
+                override fun perform(uiController: UiController, view: View) {
+                    val tv = view as TextView
+                    text = tv.text.toString()
+                }
+            })
 
-        return text
+            return text
+        }
     }
 }

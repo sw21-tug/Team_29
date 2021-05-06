@@ -71,14 +71,17 @@ class Game : AppCompatActivity() {
         tableLayout!!.addView(newRow)
 
 
-        var cursor = repository.getCursor2(intent.getLongExtra(GAME_ID, 0))
+        var cursor = repository.getCursorRounds(intent.getLongExtra(GAME_ID, 0))
 
+        var rowIdCounter: Int = 12000
         var idcounter: Int = 4
         if (cursor.moveToFirst()) {
             do {
                 val nrow = TableRow(this)
 
-                score_p1 = calcScore(score_p1, cursor.getInt(cursor.getColumnIndex(ROUND_COLUMN_PLAYER1_TICKS)))
+
+                val tricksP1 = cursor.getInt(cursor.getColumnIndex(ROUND_COLUMN_PLAYER1_TICKS))
+                score_p1 = calcScore(score_p1, tricksP1)
                 val newTextP1 = TextView(this)
                 newTextP1.id = idcounter + 1
                 newTextP1.inputType = TYPE_CLASS_NUMBER
@@ -87,7 +90,8 @@ class Game : AppCompatActivity() {
                 nrow.addView(newTextP1, layoutParams)
                 idcounter = idcounter.plus(1)
 
-                score_p2 = calcScore(score_p2, cursor.getInt(cursor.getColumnIndex(ROUND_COLUMN_PLAYER2_TICKS)))
+                val tricksP2 = cursor.getInt(cursor.getColumnIndex(ROUND_COLUMN_PLAYER2_TICKS))
+                score_p2 = calcScore(score_p2, tricksP2)
                 val newTextP2 = TextView(this)
                 newTextP2.id = idcounter + 1
                 newTextP2.inputType = TYPE_CLASS_NUMBER
@@ -96,7 +100,8 @@ class Game : AppCompatActivity() {
                 nrow.addView(newTextP2, layoutParams)
                 idcounter = idcounter.plus(1)
 
-                score_p3 = calcScore(score_p3, cursor.getInt(cursor.getColumnIndex(ROUND_COLUMN_PLAYER3_TICKS)))
+                val tricksP3 = cursor.getInt(cursor.getColumnIndex(ROUND_COLUMN_PLAYER3_TICKS))
+                score_p3 = calcScore(score_p3, tricksP3)
                 val newTextP3 = TextView(this)
                 newTextP3.id = idcounter + 1
                 newTextP3.inputType = TYPE_CLASS_NUMBER
@@ -105,7 +110,8 @@ class Game : AppCompatActivity() {
                 nrow.addView(newTextP3, layoutParams)
                 idcounter = idcounter.plus(1)
 
-                score_p4 = calcScore(score_p4, cursor.getInt(cursor.getColumnIndex(ROUND_COLUMN_PLAYER4_TICKS)))
+                val tricksP4 = cursor.getInt(cursor.getColumnIndex(ROUND_COLUMN_PLAYER4_TICKS))
+                score_p4 = calcScore(score_p4, tricksP4)
                 val newTextP4 = TextView(this)
                 newTextP4.id = idcounter + 1
                 newTextP4.inputType = TYPE_CLASS_NUMBER
@@ -113,6 +119,17 @@ class Game : AppCompatActivity() {
                 newTextP4.gravity = Gravity.CENTER
                 nrow.addView(newTextP4, layoutParams)
                 idcounter = idcounter.plus(1)
+
+                var rowId = cursor.getInt(cursor.getColumnIndex(ROUND_COLUMN_ID))
+                nrow.id = rowIdCounter
+
+                rowIdCounter = rowIdCounter.plus(1)
+
+                nrow.setOnLongClickListener{
+                    editRound(rowId)
+                    return@setOnLongClickListener true
+                }
+
 
 
                 tableLayout!!.addView(nrow)
@@ -126,8 +143,22 @@ class Game : AppCompatActivity() {
 
     fun addRound(view: View){
         var gameID = intent.getLongExtra(GAME_ID, 0)
+
+        val bundle = Bundle()
+        bundle.putLong(GAME_ID, gameID)
         val intent = Intent(this, AddGameRoundActivity::class.java).apply {
-            putExtra(GAME_ID, gameID)
+            putExtras(bundle)
+        }
+        startActivity(intent)
+    }
+
+    fun editRound(ro: Int){
+        var gameID = intent.getLongExtra(EXTRA_MESSAGE, 0)
+        val bundle = Bundle()
+        bundle.putLong(EXTRA_MESSAGE, gameID)
+        bundle.putInt(ROUND_COLUMN_ID, ro)
+        val intent = Intent(this, AddGameRoundActivity::class.java).apply {
+            putExtras(bundle)
         }
         startActivity(intent)
     }
