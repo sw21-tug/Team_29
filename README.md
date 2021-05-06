@@ -42,14 +42,15 @@ Sprint 1:
 
 Sprint 2:
 
+- \#1 [MULI-6](https://github.com/sw21-tug/Team_29/issues/6): Update Game State
+- \#2 [MULI-23](https://github.com/sw21-tug/Team_29/issues/33): Language Support for Russian
+- \#4 [MULI-15](https://github.com/sw21-tug/Team_29/issues/15): Show Currently Running Games
+- \#5 [MULI-13](https://github.com/sw21-tug/Team_29/issues/13): Edit Past Rounds
+
 Sprint 3:
 
 Sprint 4:
 
 # Features In Development
 
-- [MULI-6](https://github.com/sw21-tug/Team_29/issues/6): Update Game State
-- [MULI-23](https://github.com/sw21-tug/Team_29/issues/33): Language Support for Russian
 - [MULI-8](https://github.com/sw21-tug/Team_29/issues/8): Game is finished
-- [MULI-15](https://github.com/sw21-tug/Team_29/issues/15): Show Currently Running Games
-- [MULI-13](https://github.com/sw21-tug/Team_29/issues/13): Edit Past Rounds
