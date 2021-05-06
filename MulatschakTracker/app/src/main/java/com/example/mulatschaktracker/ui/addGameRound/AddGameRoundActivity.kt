@@ -4,12 +4,12 @@ import android.os.Bundle
 import android.widget.Button
 
 import androidx.appcompat.app.AppCompatActivity
-import android.provider.AlarmClock.EXTRA_MESSAGE
 import android.widget.TextView
 import com.example.mulatschaktracker.GameRepository
 import com.example.mulatschaktracker.R
 import com.example.mulatschaktracker.ROUND_COLUMN_ID
 import com.example.mulatschaktracker.RoundObject
+import com.example.mulatschaktracker.ui.home.GameRecyclerAdapter.GameViewHolder.Companion.GAME_ID
 
 class AddGameRoundActivity : AppCompatActivity() {
 
@@ -20,7 +20,7 @@ class AddGameRoundActivity : AppCompatActivity() {
 
         val bundle = intent.extras
         val roundId = if (bundle == null) 0 else bundle.getInt(ROUND_COLUMN_ID,0)
-        val gameId = if (bundle == null) 0 else bundle.getLong(EXTRA_MESSAGE,0)
+        val gameId = if (bundle == null) 0 else bundle.getLong(GAME_ID,0)
         if (gameId == 0L) {
             return
         }

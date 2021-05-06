@@ -1,8 +1,10 @@
 package com.example.mulatschaktracker
 
 import android.content.Context
+import androidx.appcompat.app.AppCompatActivity
 import androidx.test.InstrumentationRegistry
 import androidx.test.InstrumentationRegistry.getTargetContext
+import androidx.test.core.app.ActivityScenario
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso.closeSoftKeyboard
 import androidx.test.espresso.Espresso.onView
@@ -25,22 +27,28 @@ import org.junit.runner.RunWith
 
 @RunWith(AndroidJUnit4::class)
 class ChangeLanguageTest : TestCase() {
+    lateinit var scenario: ActivityScenario<MainActivity>
 
     @Before
     public override fun setUp() {
         super.setUp()
         InstrumentationRegistry.getTargetContext().getSharedPreferences("Settings", Context.MODE_PRIVATE).edit().clear().commit()
 
+        val  appContext: Context = ApplicationProvider.getApplicationContext();
+        val userRepo = UserRepository(appContext)
+        userRepo.resetDatabase()
+        userRepo.createUser(UserObject("NewUser"))
+        val preferences = appContext.getSharedPreferences(PREFERENCENAME, AppCompatActivity.MODE_PRIVATE)
+        preferences.edit().putString(LASTUSER, "NewUser").commit()
+        scenario = ActivityScenario.launch(MainActivity::class.java)
     }
 
-    public override fun tearDown() {}
-    @get:Rule
-    val activityRule = ActivityScenarioRule(MainActivity::class.java)
-
-    val validUserName = "User1";
-    val invalidUserName = "";
-
-
+    public override fun tearDown() {
+        super.tearDown()
+        scenario.close()
+    }
+    //@get:Rule
+    //val activityRule = ActivityScenarioRule(MainActivity::class.java)
 
     @Test
     fun UserOptionsInRightLanguageTetst(){

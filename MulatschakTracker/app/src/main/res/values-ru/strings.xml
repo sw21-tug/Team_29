@@ -35,4 +35,8 @@
 
     <string name="hello_first_fragment">Привет первый фрагмент</string>
     <string name="hello_second_fragment">Привет второй фрагмент. Арг.: %1$s</string>
+    <string name="game">игры %1$d</string>
+    <string name="no_running_games">Нет запущенных игр</string>
+    <string name="enter_username">Введите имя пользователя</string>
+    <string name="end_round">Конец раунда</string>
 </resources>
