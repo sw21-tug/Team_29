@@ -29,10 +29,10 @@ class AddGameRoundActivity : AppCompatActivity() {
 
         var gameupdate = AddGameRound()
 
-        val button_player1 = findViewById<Button>(R.id.button_player_1)
-        val button_player2 = findViewById<Button>(R.id.button_player_2)
-        val button_player3 = findViewById<Button>(R.id.button_player_3)
-        val button_player4 = findViewById<Button>(R.id.button_player_4)
+        val buttonPlayer1 = findViewById<Button>(R.id.button_player_1)
+        val buttonPlayer2 = findViewById<Button>(R.id.button_player_2)
+        val buttonPlayer3 = findViewById<Button>(R.id.button_player_3)
+        val buttonPlayer4 = findViewById<Button>(R.id.button_player_4)
 
         val tv_playre1 = findViewById<TextView>(R.id.tvPlayerOne)
         val tv_playre2 = findViewById<TextView>(R.id.tvPlayerTwo)
@@ -55,65 +55,65 @@ class AddGameRoundActivity : AppCompatActivity() {
         }
 
 
-        button_player1.text = checkLeft(gameupdate.scorePlayer1)
-        button_player2.text = checkLeft(gameupdate.scorePlayer2)
-        button_player3.text = checkLeft(gameupdate.scorePlayer3)
-        button_player4.text = checkLeft(gameupdate.scorePlayer4)
+        buttonPlayer1.text = checkLeft(gameupdate.scorePlayer1)
+        buttonPlayer2.text = checkLeft(gameupdate.scorePlayer2)
+        buttonPlayer3.text = checkLeft(gameupdate.scorePlayer3)
+        buttonPlayer4.text = checkLeft(gameupdate.scorePlayer4)
 
-        val button_send_to_db = findViewById<Button>(R.id.endround)
+        val buttonSendToDb = findViewById<Button>(R.id.endround)
 
-        button_player1.setOnClickListener {
+        buttonPlayer1.setOnClickListener {
             gameupdate.incrementP1()
-            button_player1.text = checkLeft(gameupdate.scorePlayer1)
+            buttonPlayer1.text = checkLeft(gameupdate.scorePlayer1)
         }
 
-        button_player2.setOnClickListener {
+        buttonPlayer2.setOnClickListener {
             gameupdate.incrementP2()
-            button_player2.text = checkLeft(gameupdate.scorePlayer2)
+            buttonPlayer2.text = checkLeft(gameupdate.scorePlayer2)
         }
-        button_player3.setOnClickListener {
+        buttonPlayer3.setOnClickListener {
             gameupdate.incrementP3()
-            button_player3.text = checkLeft(gameupdate.scorePlayer3)
+            buttonPlayer3.text = checkLeft(gameupdate.scorePlayer3)
         }
-        button_player4.setOnClickListener {
+        buttonPlayer4.setOnClickListener {
             gameupdate.incrementP4()
-            button_player4.text = checkLeft(gameupdate.scorePlayer4)
+            buttonPlayer4.text = checkLeft(gameupdate.scorePlayer4)
         }
 
 
-        button_player1.setOnLongClickListener {
+        buttonPlayer1.setOnLongClickListener {
             if(gameupdate.scorePlayer1 > -1)
             {
                 gameupdate.decrementP1()
-                button_player1.text = checkLeft(gameupdate.scorePlayer1)
+                buttonPlayer1.text = checkLeft(gameupdate.scorePlayer1)
             }
             true
 
         }
 
-        button_player2.setOnLongClickListener {
+        buttonPlayer2.setOnLongClickListener {
             if(gameupdate.scorePlayer2 > -1) {
                 gameupdate.decrementP2()
-                button_player2.text = checkLeft(gameupdate.scorePlayer2)
+                buttonPlayer2.text = checkLeft(gameupdate.scorePlayer2)
             }
             true
         }
-        button_player3.setOnLongClickListener {
+        buttonPlayer3.setOnLongClickListener {
             if(gameupdate.scorePlayer3 > -1){
                 gameupdate.decrementP3()
-                button_player3.text = checkLeft(gameupdate.scorePlayer3)
+                buttonPlayer3.text = checkLeft(gameupdate.scorePlayer3)
             }
             true
         }
-        button_player4.setOnLongClickListener {
+        buttonPlayer4.setOnLongClickListener {
             if(gameupdate.scorePlayer4 > -1){
                 gameupdate.decrementP4()
-                button_player4.text = checkLeft(gameupdate.scorePlayer4)
+                buttonPlayer4.text = checkLeft(gameupdate.scorePlayer4)
             }
             true
         }
 
-        button_send_to_db.setOnClickListener {
+        buttonSendToDb.setOnClickListener {
 
             val new_round = RoundObject(gameupdate.scorePlayer1, gameupdate.scorePlayer2, gameupdate.scorePlayer3, gameupdate.scorePlayer4,0,0)
             if (roundId > 0  && ro != null)
