@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:minWidth="300px" android:minHeight="300px">
+
+  <!--<LinearLayout
+      android:orientation="vertical"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      tools:context=".ui.createUser.CreateUserActivity"
+      tools:layout_editor_absoluteY="1dp">
+  </LinearLayout> -->
+
+  <ImageView
+      android:src="@drawable/colors"
+      android:layout_width="299dp"
+      android:layout_height="386dp" android:id="@+id/cardColors"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintBottom_toTopOf="@+id/UserNameInput"
+      />
+  <EditText
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:inputType="textPersonName"
+      android:hint="@string/enter_username"
+      android:text=""
+      android:ems="14"
+      android:id="@+id/UserNameInput"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/cardColors"
+      app:layout_constraintBottom_toTopOf="@+id/SubmitUserNameButton"
+  />
+  <Button
+      android:text="@string/title_activity_create_user"
+      android:layout_width="122dp"
+      android:layout_height="wrap_content"
+      android:id="@+id/SubmitUserNameButton"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/UserNameInput"
+      app:layout_constraintBottom_toBottomOf="parent"
+      android:layout_marginStart="45dp" android:layout_marginEnd="45dp"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
