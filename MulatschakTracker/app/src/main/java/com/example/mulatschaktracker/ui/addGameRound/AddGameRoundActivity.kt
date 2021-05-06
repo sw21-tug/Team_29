@@ -4,11 +4,11 @@ import android.os.Bundle
 import android.widget.Button
 
 import androidx.appcompat.app.AppCompatActivity
-import android.provider.AlarmClock.EXTRA_MESSAGE
 import android.widget.TextView
 import com.example.mulatschaktracker.GameRepository
 import com.example.mulatschaktracker.R
 import com.example.mulatschaktracker.RoundObject
+import com.example.mulatschaktracker.ui.home.GameRecyclerAdapter.GameViewHolder.Companion.GAME_ID
 
 class AddGameRoundActivity : AppCompatActivity() {
 
@@ -17,7 +17,7 @@ class AddGameRoundActivity : AppCompatActivity() {
         setContentView(R.layout.activity_add_game_round)
 
         val repository = GameRepository(this)
-        val game = repository.getGame(intent.getLongExtra(EXTRA_MESSAGE, 0))
+        val game = repository.getGame(intent.getLongExtra(GAME_ID, 0))
         var gameupdate = AddGameRound()
 
         val button_player1 = findViewById<Button>(R.id.button_player_1)
@@ -91,7 +91,7 @@ class AddGameRoundActivity : AppCompatActivity() {
         button_send_to_db.setOnClickListener {
 
             val new_round = RoundObject(gameupdate.getScoreP1(),gameupdate.getScoreP2(),gameupdate.getScoreP3(),gameupdate.getScoreP4(),0,0)
-            repository.enterNewRound(new_round, intent.getLongExtra(EXTRA_MESSAGE, 0))
+            repository.enterNewRound(new_round, intent.getLongExtra(GAME_ID, 0))
 
             finish()
         }

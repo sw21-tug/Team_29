@@ -1,13 +1,12 @@
 package com.example.mulatschaktracker
 
-import android.content.Context
 import android.content.Intent
-import android.database.DatabaseErrorHandler
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.AlarmClock.EXTRA_MESSAGE
 import android.view.View
 import android.widget.EditText
+import com.example.mulatschaktracker.ui.home.GameRecyclerAdapter.GameViewHolder.Companion.GAME_ID
 
 class StartNewGame : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -16,7 +15,8 @@ class StartNewGame : AppCompatActivity() {
     }
 
     fun startGame(view : View) {
-        val repository = GameRepository(this)
+        val gameRepository = GameRepository(this)
+        val userRepository = UserRepository(this)
         val editTextPlayer1 = findViewById<EditText>(R.id.Player1_EditText)
         val editTextPlayer2 = findViewById<EditText>(R.id.Player2_EditText)
         val editTextPlayer3 = findViewById<EditText>(R.id.Player3_EditText)
@@ -29,10 +29,15 @@ class StartNewGame : AppCompatActivity() {
 
         //creating Game Object
         val newGameObject = GameObject(namePlayer1, namePlayer2, namePlayer3, namePlayer4)
-        val gameID = repository.createGame(newGameObject)
+
+        val preferences = getSharedPreferences(PREFERENCENAME, MODE_PRIVATE)
+        val userName = preferences.getString(LASTUSER, "")
+        val user = userName?.let { userRepository.getUser(it) }
+
+        val gameID = user?.let { gameRepository.createGame(newGameObject, it.id) }
 
         val intent = Intent(this, Game::class.java).apply {
-            putExtra(EXTRA_MESSAGE, gameID)
+            putExtra(GAME_ID, gameID)
         }
 
         startActivity(intent)

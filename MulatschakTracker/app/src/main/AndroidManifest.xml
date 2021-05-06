@@ -46,7 +46,13 @@
             android:name=".ui.createUser.CreateUserActivity"
             android:label="@string/title_activity_create_user"
             android:theme="@style/Theme.MulatschakTracker.NoActionBar"></activity>
-        <activity android:name=".Game" />
+        <activity android:name=".Game"
+            android:label=""
+            android:parentActivityName=".MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+        </activity>
         <activity
             android:name=".StartNewGame"
             android:label="@string/title_startnewgame"

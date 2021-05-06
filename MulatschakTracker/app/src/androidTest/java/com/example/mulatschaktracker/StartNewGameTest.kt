@@ -3,6 +3,7 @@ package com.example.mulatschaktracker
 import android.content.Context
 import android.view.View
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.*
 import androidx.test.espresso.Espresso.onView
@@ -13,6 +14,7 @@ import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import junit.framework.TestCase
 import org.hamcrest.Matcher
 
 
@@ -23,6 +25,7 @@ import org.junit.Test
 import org.junit.runner.RunWith
 
 import org.junit.Assert.*
+import org.junit.Before
 import org.junit.Rule
 
 
@@ -34,7 +37,21 @@ import org.junit.Rule
 
 
 @RunWith(AndroidJUnit4::class)
-class StartNewGameTest {
+class StartNewGameTest : TestCase() {
+
+
+
+    @Before
+    public override fun setUp(){
+        super.setUp()
+        val  appContext: Context = ApplicationProvider.getApplicationContext();
+        val userRepo = UserRepository(appContext)
+        userRepo.resetDatabase()
+        userRepo.createUser(UserObject("NewUser"))
+        val preferences = appContext.getSharedPreferences(PREFERENCENAME, AppCompatActivity.MODE_PRIVATE)
+        preferences.edit().putString(LASTUSER, "NewUser").commit()
+
+    }
 
     @get:Rule
     var activityRule: ActivityScenarioRule<MainActivity>
@@ -52,7 +69,7 @@ class StartNewGameTest {
         //Test for checking whether the return buttons behaves correctly or not
         onView(withId(R.id.StartNewGameActivityButton)).perform(click())
         pressBack()
-        onView(withText("This is home Fragment")).check(ViewAssertions.matches(isDisplayed()))
+        onView(withText("No running games")).check(ViewAssertions.matches(isDisplayed()))
     }
 
     @Test
@@ -90,29 +107,7 @@ class StartNewGameTest {
         onView(withText("Player 1")).check(matches(isDisplayed()))
     }
 
-    @Test
-    fun createNewGameInDatabase(){
-        val gameObject = GameObject("Player 1","Player 2", "Player 3", "Player 3")
-        val appContext: Context = ApplicationProvider.getApplicationContext()
-        val repo = GameRepository(appContext)
-        val newGameId = repo.createGame(gameObject)
-        assert(newGameId > 0)
-    }
 
-    @Test
-    fun readGameFromDatabase(){
-        val gameObject = GameObject("Player 1","Player 2", "Player 3", "Player 4")
-        val appContext: Context = ApplicationProvider.getApplicationContext()
-        val repo = GameRepository(appContext)
-        val newGameId = repo.createGame(gameObject)
-        val gameObjectFromDb = repo.getGame(newGameId)
-        assertEquals(gameObjectFromDb.id, newGameId)
-        assertEquals(gameObjectFromDb.player1, "Player 1")
-        assertEquals(gameObjectFromDb.player2, "Player 2")
-        assertEquals(gameObjectFromDb.player3, "Player 3")
-        assertEquals(gameObjectFromDb.player4, "Player 4")
-
-    }
 
     @Test
     fun fetchingPlayerNamesFromDB(){

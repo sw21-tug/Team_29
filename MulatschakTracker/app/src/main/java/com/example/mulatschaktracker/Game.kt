@@ -12,17 +12,14 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.example.mulatschaktracker.ui.addGameRound.AddGameRoundActivity
 
+import com.example.mulatschaktracker.ui.home.GameRecyclerAdapter.GameViewHolder.Companion.GAME_ID
 
 class Game : AppCompatActivity() {
-
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_game)
-
         val repository = GameRepository(this)
-        val game = repository.getGame(intent.getLongExtra(EXTRA_MESSAGE, 0))
+        val game = repository.getGame(intent.getLongExtra(GAME_ID, 0))
 
         findViewById<TextView>(R.id.textViewPlayer1).apply {
             text = game.player1
@@ -44,7 +41,7 @@ class Game : AppCompatActivity() {
         super.onResume()
 
         val repository = GameRepository(this)
-        val game = repository.getGame(intent.getLongExtra(EXTRA_MESSAGE, 0))
+        val game = repository.getGame(intent.getLongExtra(GAME_ID, 0))
         var score_p1: Int = 21
         var score_p2: Int = 21
         var score_p3: Int = 21
@@ -74,7 +71,7 @@ class Game : AppCompatActivity() {
         tableLayout!!.addView(newRow)
 
 
-        var cursor = repository.getCursor2(intent.getLongExtra(EXTRA_MESSAGE, 0))
+        var cursor = repository.getCursor2(intent.getLongExtra(GAME_ID, 0))
 
         var idcounter: Int = 4
         if (cursor.moveToFirst()) {
@@ -128,9 +125,9 @@ class Game : AppCompatActivity() {
 
 
     fun addRound(view: View){
-        var gameID = intent.getLongExtra(EXTRA_MESSAGE, 0)
+        var gameID = intent.getLongExtra(GAME_ID, 0)
         val intent = Intent(this, AddGameRoundActivity::class.java).apply {
-            putExtra(EXTRA_MESSAGE, gameID)
+            putExtra(GAME_ID, gameID)
         }
         startActivity(intent)
     }
