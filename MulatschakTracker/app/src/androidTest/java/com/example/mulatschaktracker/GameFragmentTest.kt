@@ -5,6 +5,7 @@ import android.view.View
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
+import androidx.test.core.app.ActivityScenario
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.*
 import androidx.test.espresso.Espresso.onView
@@ -35,11 +36,12 @@ import org.junit.Rule
 class GameFragmentTest:TestCase() {
     lateinit var userRepo : UserRepository
     lateinit var gameRepo : GameRepository
+    lateinit var scenario : ActivityScenario<MainActivity>
     val userName = "NewUser"
     val playerName = "PlayerName"
-    @get:Rule
-    var activityRule: ActivityScenarioRule<MainActivity>
-            = ActivityScenarioRule(MainActivity::class.java)
+    //@get:Rule
+    //var activityRule: ActivityScenarioRule<MainActivity>
+    //        = ActivityScenarioRule(MainActivity::class.java)
 
     @Before
     public override fun setUp(){
@@ -55,7 +57,14 @@ class GameFragmentTest:TestCase() {
 
         val preferences = appContext.getSharedPreferences(PREFERENCENAME, AppCompatActivity.MODE_PRIVATE)
         preferences.edit().putString(LASTUSER, userName).commit()
+        scenario = ActivityScenario.launch(MainActivity::class.java)
 
+    }
+
+    @After
+    public override fun tearDown() {
+        super.tearDown()
+        scenario.close()
     }
 
     @Test

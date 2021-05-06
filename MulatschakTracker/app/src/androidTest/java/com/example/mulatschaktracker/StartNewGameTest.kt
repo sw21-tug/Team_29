@@ -4,6 +4,7 @@ import android.content.Context
 import android.view.View
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.test.core.app.ActivityScenario
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.*
 import androidx.test.espresso.Espresso.onView
@@ -19,6 +20,7 @@ import org.hamcrest.Matcher
 
 
 import org.hamcrest.core.StringStartsWith
+import org.junit.After
 
 
 import org.junit.Test
@@ -39,6 +41,7 @@ import org.junit.Rule
 @RunWith(AndroidJUnit4::class)
 class StartNewGameTest : TestCase() {
 
+    lateinit var scenario : ActivityScenario<MainActivity>
 
 
     @Before
@@ -50,12 +53,19 @@ class StartNewGameTest : TestCase() {
         userRepo.createUser(UserObject("NewUser"))
         val preferences = appContext.getSharedPreferences(PREFERENCENAME, AppCompatActivity.MODE_PRIVATE)
         preferences.edit().putString(LASTUSER, "NewUser").commit()
+        scenario = ActivityScenario.launch(MainActivity::class.java)
 
     }
 
-    @get:Rule
-    var activityRule: ActivityScenarioRule<MainActivity>
-            = ActivityScenarioRule(MainActivity::class.java)
+    @After
+    public override fun tearDown() {
+        super.tearDown()
+        scenario.close()
+    }
+
+//    @get:Rule
+//    var activityRule: ActivityScenarioRule<MainActivity>
+//            = ActivityScenarioRule(MainActivity::class.java)
 
     @Test
     fun startNewGameActivityExecuted() {
