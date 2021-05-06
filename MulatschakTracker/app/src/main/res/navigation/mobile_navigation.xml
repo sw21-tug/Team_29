@@ -27,13 +27,13 @@
     <fragment
         android:id="@+id/navigation_Tipps"
         android:name="com.example.mulatschaktracker.ui.tipps.TippsFragment"
-        android:label="Tipps"
+        android:label="@string/title_tips"
         tools:layout="@layout/fragment_tipps" />
 
     <fragment
         android:id="@+id/navigation_Options"
         android:name="com.example.mulatschaktracker.ui.options.OptionsFragment"
-        android:label="Options"
+        android:label="@string/title_options"
         tools:layout="@layout/fragment_options" />
 
 

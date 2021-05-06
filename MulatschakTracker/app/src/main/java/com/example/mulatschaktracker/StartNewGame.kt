@@ -10,6 +10,7 @@ import com.example.mulatschaktracker.ui.home.GameRecyclerAdapter.GameViewHolder.
 
 class StartNewGame : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
+        setTitle(R.string.title_startnewgame)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_start_new_game)
     }
