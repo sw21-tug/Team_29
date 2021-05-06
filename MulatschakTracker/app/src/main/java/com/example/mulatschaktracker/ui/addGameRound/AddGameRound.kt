@@ -3,10 +3,10 @@ package com.example.mulatschaktracker.ui.addGameRound
 import com.example.mulatschaktracker.GameRepository
 
 class AddGameRound {
-    private var scorePlayer1: Int
-    private var scorePlayer2: Int
-    private var scorePlayer3: Int
-    private var scorePlayer4: Int
+    var scorePlayer1: Int
+    var scorePlayer2: Int
+    var scorePlayer3: Int
+    var scorePlayer4: Int
 
     init
     {
@@ -57,27 +57,6 @@ class AddGameRound {
     fun incrementP4()
     {
         this.scorePlayer4 = this.scorePlayer4.plus(1)
-    }
-
-
-    fun getScoreP1():Int
-    {
-        return scorePlayer1
-    }
-
-    fun getScoreP2():Int
-    {
-        return scorePlayer2
-    }
-
-    fun getScoreP3():Int
-    {
-        return scorePlayer3
-    }
-
-    fun getScoreP4():Int
-    {
-        return scorePlayer4
     }
 
 }

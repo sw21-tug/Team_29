@@ -8,6 +8,15 @@
       android:roundIcon="@mipmap/mulatschak_logo"
       android:supportsRtl="true"
       android:theme="@style/Theme.MulatschakTracker">
+    <activity
+        android:name=".MainActivity"
+        android:label="@string/app_name">
+      <intent-filter>
+        <action android:name="android.intent.action.MAIN"/>
+
+        <category android:name="android.intent.category.LAUNCHER"/>
+      </intent-filter>
+    </activity>
       <activity
           android:name=".ui.addGameRound.AddGameRoundActivity"
           android:label="@string/title_activity_add_game_round">
@@ -22,7 +31,6 @@
         android:label="@string/title_activity_create_user"
         android:theme="@style/Theme.MulatschakTracker.NoActionBar">
     </activity>
-
     <activity android:name=".Game"></activity>
         <activity
             android:name=".StartNewGame"
@@ -32,15 +40,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
         </activity>
-    <activity
-        android:name=".MainActivity"
-        android:label="@string/app_name">
-      <intent-filter>
-        <action android:name="android.intent.action.MAIN"/>
 
-        <category android:name="android.intent.category.LAUNCHER"/>
-      </intent-filter>
-    </activity>
   </application>
 
 </manifest>
