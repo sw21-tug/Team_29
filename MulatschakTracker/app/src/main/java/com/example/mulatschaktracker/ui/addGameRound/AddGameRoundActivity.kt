@@ -20,7 +20,7 @@ class AddGameRoundActivity : AppCompatActivity() {
 
         val bundle = intent.extras
         val roundId = if (bundle == null) 0 else bundle.getInt(ROUND_COLUMN_ID,0)
-        val gameId = if (bundle == null) 0 else bundle.getLong(EXTRA_MESSAGE,0)
+        val gameId = if (bundle == null) 0 else bundle.getLong(GAME_ID,0)
         if (gameId == 0L) {
             return
         }

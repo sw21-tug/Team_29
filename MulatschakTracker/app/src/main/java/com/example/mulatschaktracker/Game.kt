@@ -2,8 +2,8 @@ package com.example.mulatschaktracker
 
 import android.content.Intent
 import android.os.Bundle
-import android.provider.AlarmClock.EXTRA_MESSAGE
 import android.text.InputType.TYPE_CLASS_NUMBER
+import android.util.TypedValue
 import android.view.Gravity
 import android.view.View
 import android.widget.TableLayout
@@ -46,6 +46,8 @@ class Game : AppCompatActivity() {
         var score_p2: Int = 21
         var score_p3: Int = 21
         var score_p4: Int = 21
+        // text size in sp
+        val textSize = 18F
 
 
 
@@ -65,6 +67,7 @@ class Game : AppCompatActivity() {
             newText.id = i + 1
             newText.inputType = TYPE_CLASS_NUMBER
             newText.text = 21.toString()
+            newText.setTextSize(TypedValue.COMPLEX_UNIT_SP, textSize)
             newText.gravity = Gravity.CENTER
             newRow.addView(newText, layoutParams)
         }
@@ -86,6 +89,7 @@ class Game : AppCompatActivity() {
                 newTextP1.id = idcounter + 1
                 newTextP1.inputType = TYPE_CLASS_NUMBER
                 newTextP1.text = score_p1.toString()
+                newTextP1.setTextSize(TypedValue.COMPLEX_UNIT_SP, textSize)
                 newTextP1.gravity = Gravity.CENTER
                 nrow.addView(newTextP1, layoutParams)
                 idcounter = idcounter.plus(1)
@@ -96,6 +100,7 @@ class Game : AppCompatActivity() {
                 newTextP2.id = idcounter + 1
                 newTextP2.inputType = TYPE_CLASS_NUMBER
                 newTextP2.text = score_p2.toString()
+                newTextP2.setTextSize(TypedValue.COMPLEX_UNIT_SP, textSize)
                 newTextP2.gravity = Gravity.CENTER
                 nrow.addView(newTextP2, layoutParams)
                 idcounter = idcounter.plus(1)
@@ -106,6 +111,7 @@ class Game : AppCompatActivity() {
                 newTextP3.id = idcounter + 1
                 newTextP3.inputType = TYPE_CLASS_NUMBER
                 newTextP3.text = score_p3.toString()
+                newTextP3.setTextSize(TypedValue.COMPLEX_UNIT_SP, textSize)
                 newTextP3.gravity = Gravity.CENTER
                 nrow.addView(newTextP3, layoutParams)
                 idcounter = idcounter.plus(1)
@@ -116,6 +122,7 @@ class Game : AppCompatActivity() {
                 newTextP4.id = idcounter + 1
                 newTextP4.inputType = TYPE_CLASS_NUMBER
                 newTextP4.text = score_p4.toString()
+                newTextP4.setTextSize(TypedValue.COMPLEX_UNIT_SP, textSize)
                 newTextP4.gravity = Gravity.CENTER
                 nrow.addView(newTextP4, layoutParams)
                 idcounter = idcounter.plus(1)
@@ -153,9 +160,9 @@ class Game : AppCompatActivity() {
     }
 
     fun editRound(ro: Int){
-        var gameID = intent.getLongExtra(EXTRA_MESSAGE, 0)
+        var gameID = intent.getLongExtra(GAME_ID, 0)
         val bundle = Bundle()
-        bundle.putLong(EXTRA_MESSAGE, gameID)
+        bundle.putLong(GAME_ID, gameID)
         bundle.putInt(ROUND_COLUMN_ID, ro)
         val intent = Intent(this, AddGameRoundActivity::class.java).apply {
             putExtras(bundle)

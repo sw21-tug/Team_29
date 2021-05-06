@@ -37,5 +37,6 @@
     <string name="game">Game %1$d</string>
     <string name="enter_username">Enter Username</string>
     <string name="no_running_games">No Running Games</string>
+    <string name="end_round">End Round</string>
 
 </resources>

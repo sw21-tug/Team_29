@@ -27,6 +27,7 @@
         android:onClick="DialogChangeLanguage"
         android:text="@string/chooseLanguageTxt"
         android:visibility="visible"
+        app:backgroundTint="#018786"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"

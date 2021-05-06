@@ -79,7 +79,7 @@ class StartNewGameTest : TestCase() {
         //Test for checking whether the return buttons behaves correctly or not
         onView(withId(R.id.StartNewGameActivityButton)).perform(click())
         pressBack()
-        onView(withText("No running games")).check(ViewAssertions.matches(isDisplayed()))
+        onView(withText("No Running Games")).check(ViewAssertions.matches(isDisplayed()))
     }
 
     @Test
