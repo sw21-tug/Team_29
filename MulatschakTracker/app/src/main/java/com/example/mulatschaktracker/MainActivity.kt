@@ -6,10 +6,8 @@ import android.content.DialogInterface
 import android.content.Intent
 import android.content.res.Configuration
 import android.os.Bundle
-
+import android.util.DisplayMetrics
 import android.view.View
-import android.widget.Button
-
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -81,6 +79,27 @@ class MainActivity : AppCompatActivity() {
         })
         adb.setTitle(getString(R.string.chooseLanguageTxt))
         adb.show()
+    }
+
+    fun onDeleteUserPressed(view: View){
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle(R.string.delete_user_button)
+        val du = builder.create()
+        du.setButton(DialogInterface.BUTTON_POSITIVE,getString(R.string.yes),
+            DialogInterface.OnClickListener {
+                arg0, arg1 ->
+            //refresh application screen
+            val userRepo = UserRepository(this)
+            userRepo.resetDatabase()
+                val preferences = getSharedPreferences(PREFERENCENAME, MODE_PRIVATE)
+                preferences.edit().remove(LASTUSER).apply()
+        })
+        du.setButton(DialogInterface.BUTTON_NEGATIVE,getString(R.string.cancel),
+            DialogInterface.OnClickListener{
+                arg0, arg1 -> })
+        du.setMessage(getString(R.string.alert_delete_user))
+        du.show()
+
     }
 
     private fun setLanguage(newLang: String){

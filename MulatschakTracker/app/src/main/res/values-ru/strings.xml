@@ -39,5 +39,9 @@
     <string name="no_running_games">Нет запущенных игр</string>
     <string name="enter_username">Введите имя пользователя</string>
     <string name="end_round">Конец раунда</string>
-    <string name="alert_delete_user">Вы действительно хотите удалить аккаунт?</string>
+    <string name="alert_delete_user">Вы действительно хотите удалить все данные? Это действие не может быть отменено?</string>
+    <string name="delete_user_button">Удалить аккаунт</string>
+    <string name="yes">Да</string>
+    <string name="cancel">Отменить</string>
+
 </resources>

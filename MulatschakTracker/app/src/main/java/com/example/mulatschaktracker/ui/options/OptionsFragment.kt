@@ -30,20 +30,5 @@ class OptionsFragment : Fragment() {
         return root
     }
 
-    fun onDeleteUserPressed(view: View){
 
-        val context = getActivity()
-        val du = AlertDialog.Builder(context)
-
-        du.setPositiveButton("Yes",  DialogInterface.OnClickListener { arg0, arg1 ->
-            //refresh application screen
-
-            val userRepo = context?.let { UserRepository(it) }
-            if (userRepo != null) {
-                userRepo.resetDatabase()
-            }
-        })
-        du.setTitle(getString(R.string.alert_delete_user))
-        du.show()
-    }
 }
