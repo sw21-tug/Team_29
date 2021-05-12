@@ -35,6 +35,7 @@ import org.junit.Rule
  * See [testing documentation](http://d.android.com/tools/testing).
  */
 
+// SOME testCases die because the ui craches
 
 @RunWith(AndroidJUnit4::class)
 class GameFinishedTest {
@@ -161,4 +162,56 @@ class GameFinishedTest {
         onView(withId(R.id.endround)).perform(click())
         onView(withId(R.id.Game_Finished)).check(matches(isDisplayed()))
     }
+
+    @Test
+    fun oneWinner() {
+        onView(withId(R.id.StartNewGameActivityButton)).perform(ViewActions.click())
+        onView(withId(R.id.StartNewGameButton)).perform(ViewActions.click())
+        onView(withId(R.id.EndGameButton)).perform(ViewActions.click())
+
+        for (i in 0..21) {
+            onView(withId(R.id.button_player_3)).perform(ViewActions.click())
+
+        }
+        onView(withId(R.id.endround)).perform(click())
+
+        onView(withId(R.id.Game_Finished)).check(matches(isDisplayed()))
+        assert(false)
+    }
+
+    @Test
+    fun twoWinners() {
+        onView(withId(R.id.StartNewGameActivityButton)).perform(ViewActions.click())
+        onView(withId(R.id.StartNewGameButton)).perform(ViewActions.click())
+        onView(withId(R.id.EndGameButton)).perform(ViewActions.click())
+
+        for (i in 0..21) {
+            onView(withId(R.id.button_player_3)).perform(ViewActions.click())
+
+        }
+        onView(withId(R.id.endround)).perform(click())
+
+        onView(withId(R.id.Game_Finished)).check(matches(isDisplayed()))
+        assert(false)
+
+    }
+
+    @Test
+    fun threeWinners() {
+        onView(withId(R.id.StartNewGameActivityButton)).perform(ViewActions.click())
+        onView(withId(R.id.StartNewGameButton)).perform(ViewActions.click())
+        onView(withId(R.id.EndGameButton)).perform(ViewActions.click())
+
+        for (i in 0..21) {
+            onView(withId(R.id.button_player_3)).perform(ViewActions.click())
+
+        }
+        onView(withId(R.id.endround)).perform(click())
+
+        onView(withId(R.id.Game_Finished)).check(matches(isDisplayed()))
+        assert(false)
+
+    }
+
+
 }
