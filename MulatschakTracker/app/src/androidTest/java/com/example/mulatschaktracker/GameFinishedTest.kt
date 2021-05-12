@@ -1,14 +1,17 @@
 package com.example.mulatschaktracker
 
 import android.content.Context
+import android.service.autofill.Validators.not
 import android.view.View
 import android.widget.TextView
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.*
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.Espresso.pressBack
+import androidx.test.espresso.action.ViewActions
 import androidx.test.espresso.action.ViewActions.*
 import androidx.test.espresso.assertion.ViewAssertions
+import androidx.test.espresso.assertion.ViewAssertions.doesNotExist
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.rules.ActivityScenarioRule
@@ -37,83 +40,74 @@ import org.junit.Rule
 class GameFinishedTest {
 
     @get:Rule
-    var activityRule: ActivityScenarioRule<MainActivity>
-            = ActivityScenarioRule(MainActivity::class.java)
+    var activityRule: ActivityScenarioRule<MainActivity> = ActivityScenarioRule(MainActivity::class.java)
 
     @Test
-    fun userWith0Points(){
+    fun userWith0Points() {
+        onView(withId(R.id.StartNewGameActivityButton)).perform(ViewActions.click())
+        onView(withId(R.id.StartNewGameButton)).perform(ViewActions.click())
+        onView(withId(R.id.EndGameButton)).perform(ViewActions.click())
 
-        val gameObject = GameObject("Player 1","Player 2", "Player 3", "Player 3")
-        val appContext: Context = ApplicationProvider.getApplicationContext()
-        val repo = GameRepository(appContext)
-        val newGameId = repo.createGame(gameObject)
-        var roundObject = RoundObject(1,20,0,60)
-        //var winnerList:List<String> = listOf()
-        onView(withId(R.id.EndGameButton)).perform(click())
-        for (i in roundObject.pointList.indices){
-            if (i < 1 || i >= 100 )
-            {
-             //   onView(withId(R.id.GameFinished)).check(matches(isDisplayed()))
-                return
-            }
+        for (i in 0..21) {
+            onView(withId(R.id.button_player_3)).perform(ViewActions.click())
         }
-    }
 
-
-    @Test
-    fun userWith100Points(){
-
-        val gameObject = GameObject("Player 1","Player 2", "Player 3", "Player 3")
-        val appContext: Context = ApplicationProvider.getApplicationContext()
-        val repo = GameRepository(appContext)
-        val newGameId = repo.createGame(gameObject)
-        var roundObject = RoundObject(1,20,0,100)
-        //var winnerList:List<String> = listOf()
-        onView(withId(R.id.EndGameButton)).perform(click())
-        for (i in roundObject.pointList.indices){
-            if (i < 1 || i >= 100 )
-            {
-               // onView(withId(R.id.GameFinished)).check(matches(isDisplayed()))
-                return
-            }
-        }
-    }
-    @Test
-    fun multipleWinners(){
-
-        val gameObject = GameObject("Player 1","Player 2", "Player 3", "Player 3")
-        val appContext: Context = ApplicationProvider.getApplicationContext()
-        val repo = GameRepository(appContext)
-        val newGameId = repo.createGame(gameObject)
-        var roundObject = RoundObject(0,20,0,100)
-        //var winnerList:List<String> = listOf()
-        onView(withId(R.id.EndGameButton)).perform(click())
-        for (i in roundObject.pointList.indices){
-            if (i < 1 || i >= 100 )
-            {
-              //  onView(withId(R.id.GameFinished)).check(matches(isDisplayed()))
-                return
-            }
-        }
+        onView(withId(R.id.Game_Finished)).check(matches(isDisplayed()))
     }
 
     @Test
-    fun nooonewon(){
+    fun userWith100Points() {
+        onView(withId(R.id.StartNewGameActivityButton)).perform(ViewActions.click())
+        onView(withId(R.id.StartNewGameButton)).perform(ViewActions.click())
+        onView(withId(R.id.EndGameButton)).perform(ViewActions.click())
 
-        val gameObject = GameObject("Player 1","Player 2", "Player 3", "Player 3")
-        val appContext: Context = ApplicationProvider.getApplicationContext()
-        val repo = GameRepository(appContext)
-        val newGameId = repo.createGame(gameObject)
-        var roundObject = RoundObject(1,20,3,100)
-        onView(withId(R.id.EndGameButton)).perform(click())
-        for (i in roundObject.pointList.indices){
-            if (i < 1 || i >= 100 )
-            {
-              //  onView(withId(R.id.GameFinished)).check(matches(isDisplayed()))
-                return
-            }
+        for (i in 0..14) {
+            onView(withId(R.id.button_player_1)).perform(ViewActions.click())
+            onView(withId(R.id.button_player_2)).perform(ViewActions.click())
+
+            onView(withId(R.id.button_player_3)).perform(ViewActions.click())
+            onView(withId(R.id.endround)).perform(click())
+            onView(withId(R.id.EndGameButton)).perform(ViewActions.click())
+
         }
+        onView(withId(R.id.button_player_1)).perform(ViewActions.click())
+        onView(withId(R.id.button_player_2)).perform(ViewActions.click())
+        onView(withId(R.id.button_player_3)).perform(ViewActions.click())
+        onView(withId(R.id.endround)).perform(click())
+        onView(withId(R.id.Game_Finished)).check(matches(isDisplayed()))
+    }
+
+    @Test
+    fun noOneWon() {
+        onView(withId(R.id.StartNewGameActivityButton)).perform(ViewActions.click())
+        onView(withId(R.id.StartNewGameButton)).perform(ViewActions.click())
+        onView(withId(R.id.EndGameButton)).perform(ViewActions.click())
+        onView(withId(R.id.button_player_3)).perform(ViewActions.click())
+        onView(withId(R.id.endround)).perform(click())
+        onView(withId(R.id.EndGameButton)).perform(ViewActions.click())
+
+        onView(withId(R.id.Game_Finished)).check(doesNotExist())
     }
 
 
+    @Test
+    fun users2With100Points() {
+        onView(withId(R.id.StartNewGameActivityButton)).perform(ViewActions.click())
+        onView(withId(R.id.StartNewGameButton)).perform(ViewActions.click())
+        onView(withId(R.id.EndGameButton)).perform(ViewActions.click())
+
+        for (i in 0..14) {
+
+            onView(withId(R.id.button_player_2)).perform(ViewActions.click())
+            onView(withId(R.id.button_player_3)).perform(ViewActions.click())
+
+            onView(withId(R.id.endround)).perform(click())
+            onView(withId(R.id.EndGameButton)).perform(ViewActions.click())
+
+        }
+        onView(withId(R.id.button_player_2)).perform(ViewActions.click())
+        onView(withId(R.id.button_player_3)).perform(ViewActions.click())
+        onView(withId(R.id.endround)).perform(click())
+        onView(withId(R.id.Game_Finished)).check(matches(isDisplayed()))
     }
+}
