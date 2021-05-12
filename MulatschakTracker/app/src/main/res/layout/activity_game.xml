@@ -80,29 +80,7 @@
         </TableLayout>
     </androidx.core.widget.NestedScrollView>
 
-    <Button
-        android:id="@+id/HeartRoundButton"
-        android:layout_width="180dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="48dp"
-        android:layout_marginEnd="5dp"
-        android:layout_marginBottom="10dp"
-        android:text="@string/heart_round"
-        app:layout_constraintBottom_toTopOf="@id/AddRoundButton"
-        app:layout_constraintEnd_toStartOf="@+id/UnderdogButton"
-        app:layout_constraintStart_toStartOf="parent" />
 
-    <Button
-        android:id="@+id/UnderdogButton"
-        android:layout_width="180dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="5dp"
-        android:layout_marginEnd="48dp"
-        android:layout_marginBottom="10dp"
-        android:text="@string/underdog"
-        app:layout_constraintBottom_toTopOf="@id/AddRoundButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/HeartRoundButton" />
 
     <Button
         android:id="@+id/AddRoundButton"
