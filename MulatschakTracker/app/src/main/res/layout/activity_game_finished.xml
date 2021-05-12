@@ -3,6 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/Game_Finished"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -23,7 +24,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/player3_result"
+        android:id="@+id/player3_result_view"
         android:layout_width="330dp"
         android:layout_height="60dp"
         android:layout_marginStart="40dp"
@@ -33,27 +34,30 @@
         android:gravity="center"
         android:hint="@string/ThirdPlace"
         android:inputType="textPersonName"
+        app:layout_constraintBottom_toTopOf="@+id/player4_result_view"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/player2_result" />
+        app:layout_constraintTop_toBottomOf="@+id/player2_result_view" />
 
     <EditText
-        android:id="@+id/player4_result"
+        android:id="@+id/player4_result_view"
         android:layout_width="330dp"
         android:layout_height="60dp"
         android:layout_marginStart="40dp"
         android:layout_marginTop="58dp"
         android:layout_marginEnd="40dp"
+        android:layout_marginBottom="200dp"
         android:ems="10"
         android:gravity="center"
         android:hint="@string/FourthPlace"
         android:inputType="textPersonName"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/player3_result" />
+        app:layout_constraintTop_toBottomOf="@+id/player3_result_view" />
 
     <EditText
-        android:id="@+id/player2_result"
+        android:id="@+id/player2_result_view"
         android:layout_width="330dp"
         android:layout_height="60dp"
         android:layout_marginStart="40dp"
@@ -63,21 +67,23 @@
         android:gravity="center"
         android:hint="@string/SecondPlace"
         android:inputType="textPersonName"
+        app:layout_constraintBottom_toTopOf="@+id/player3_result_view"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/player1_result" />
+        app:layout_constraintTop_toBottomOf="@+id/player1_result_view" />
 
     <EditText
-        android:id="@+id/player1_result"
+        android:id="@+id/player1_result_view"
         android:layout_width="330dp"
         android:layout_height="60dp"
         android:layout_marginStart="40dp"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="150dp"
         android:layout_marginEnd="40dp"
         android:ems="10"
         android:gravity="center"
         android:hint="@string/FirstPlace"
         android:inputType="textPersonName"
+        app:layout_constraintBottom_toTopOf="@+id/player2_result_view"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"

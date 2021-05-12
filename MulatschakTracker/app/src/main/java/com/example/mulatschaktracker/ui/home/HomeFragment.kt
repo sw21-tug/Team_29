@@ -11,6 +11,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.mulatschaktracker.R
 import com.example.mulatschaktracker.StartNewGame
+//import com.example.mulatschaktracker.ui.GameFinished.sendMessage
 
 class HomeFragment : Fragment() {
 
