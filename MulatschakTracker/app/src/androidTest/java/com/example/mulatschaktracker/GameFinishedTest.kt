@@ -43,36 +43,34 @@ class GameFinishedTest {
     var activityRule: ActivityScenarioRule<MainActivity> = ActivityScenarioRule(MainActivity::class.java)
 
     @Test
-    fun userWith0Points() {
+    fun user1With0Points() {
         onView(withId(R.id.StartNewGameActivityButton)).perform(ViewActions.click())
         onView(withId(R.id.StartNewGameButton)).perform(ViewActions.click())
         onView(withId(R.id.EndGameButton)).perform(ViewActions.click())
 
         for (i in 0..21) {
             onView(withId(R.id.button_player_3)).perform(ViewActions.click())
+
         }
+        onView(withId(R.id.endround)).perform(click())
 
         onView(withId(R.id.Game_Finished)).check(matches(isDisplayed()))
     }
 
     @Test
-    fun userWith100Points() {
+    fun user3With100Points() {
         onView(withId(R.id.StartNewGameActivityButton)).perform(ViewActions.click())
         onView(withId(R.id.StartNewGameButton)).perform(ViewActions.click())
         onView(withId(R.id.EndGameButton)).perform(ViewActions.click())
 
         for (i in 0..14) {
             onView(withId(R.id.button_player_1)).perform(ViewActions.click())
-            onView(withId(R.id.button_player_2)).perform(ViewActions.click())
-
-            onView(withId(R.id.button_player_3)).perform(ViewActions.click())
             onView(withId(R.id.endround)).perform(click())
             onView(withId(R.id.EndGameButton)).perform(ViewActions.click())
 
         }
         onView(withId(R.id.button_player_1)).perform(ViewActions.click())
-        onView(withId(R.id.button_player_2)).perform(ViewActions.click())
-        onView(withId(R.id.button_player_3)).perform(ViewActions.click())
+
         onView(withId(R.id.endround)).perform(click())
         onView(withId(R.id.Game_Finished)).check(matches(isDisplayed()))
     }
@@ -85,7 +83,6 @@ class GameFinishedTest {
         onView(withId(R.id.button_player_3)).perform(ViewActions.click())
         onView(withId(R.id.endround)).perform(click())
         onView(withId(R.id.EndGameButton)).perform(ViewActions.click())
-
         onView(withId(R.id.Game_Finished)).check(doesNotExist())
     }
 
@@ -107,6 +104,60 @@ class GameFinishedTest {
         }
         onView(withId(R.id.button_player_2)).perform(ViewActions.click())
         onView(withId(R.id.button_player_3)).perform(ViewActions.click())
+        onView(withId(R.id.endround)).perform(click())
+        onView(withId(R.id.Game_Finished)).check(matches(isDisplayed()))
+    }
+
+    @Test
+    fun users1With100Points() {
+        onView(withId(R.id.StartNewGameActivityButton)).perform(ViewActions.click())
+        onView(withId(R.id.StartNewGameButton)).perform(ViewActions.click())
+        onView(withId(R.id.EndGameButton)).perform(ViewActions.click())
+
+        for (i in 0..14) {
+            onView(withId(R.id.button_player_1)).perform(ViewActions.click())
+            onView(withId(R.id.button_player_2)).perform(ViewActions.click())
+            onView(withId(R.id.button_player_3)).perform(ViewActions.click())
+
+            onView(withId(R.id.endround)).perform(click())
+            onView(withId(R.id.EndGameButton)).perform(ViewActions.click())
+
+        }
+        onView(withId(R.id.button_player_1)).perform(ViewActions.click())
+        onView(withId(R.id.button_player_2)).perform(ViewActions.click())
+        onView(withId(R.id.button_player_3)).perform(ViewActions.click())
+        onView(withId(R.id.endround)).perform(click())
+        onView(withId(R.id.Game_Finished)).check(matches(isDisplayed()))
+    }
+
+
+    @Test
+    fun user2With0Points() {
+        onView(withId(R.id.StartNewGameActivityButton)).perform(ViewActions.click())
+        onView(withId(R.id.StartNewGameButton)).perform(ViewActions.click())
+        onView(withId(R.id.EndGameButton)).perform(ViewActions.click())
+
+        for (i in 0..21) {
+            onView(withId(R.id.button_player_2)).perform(ViewActions.click())
+            onView(withId(R.id.button_player_3)).perform(ViewActions.click())
+
+        }
+        onView(withId(R.id.endround)).perform(click())
+        onView(withId(R.id.Game_Finished)).check(matches(isDisplayed()))
+    }
+
+
+    @Test
+    fun user3With0Points() {
+        onView(withId(R.id.StartNewGameActivityButton)).perform(ViewActions.click())
+        onView(withId(R.id.StartNewGameButton)).perform(ViewActions.click())
+        onView(withId(R.id.EndGameButton)).perform(ViewActions.click())
+
+        for (i in 0..21) {
+            onView(withId(R.id.button_player_1)).perform(ViewActions.click())
+            onView(withId(R.id.button_player_2)).perform(ViewActions.click())
+            onView(withId(R.id.button_player_3)).perform(ViewActions.click())
+        }
         onView(withId(R.id.endround)).perform(click())
         onView(withId(R.id.Game_Finished)).check(matches(isDisplayed()))
     }
