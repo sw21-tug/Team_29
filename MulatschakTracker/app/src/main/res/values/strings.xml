@@ -43,5 +43,6 @@
     <string name="enter_username">Enter Username</string>
     <string name="end_round">End Round</string>
 
+    <string name="alert_delete_user">Do you really want to delete the user account?</string>
 
 </resources>
