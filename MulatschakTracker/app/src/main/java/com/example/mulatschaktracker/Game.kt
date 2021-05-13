@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.mulatschaktracker.ui.addGameRound.AddGameRoundActivity
 
 import com.example.mulatschaktracker.ui.home.GameRecyclerAdapter.GameViewHolder.Companion.GAME_ID
+import kotlin.math.pow
 
 class Game : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -81,10 +82,10 @@ class Game : AppCompatActivity() {
         if (cursor.moveToFirst()) {
             do {
                 val nrow = TableRow(this)
-
+                val underDogCount = cursor.getInt(cursor.getColumnIndex(ROUND_COLUMN_UNDERDOG))
 
                 val tricksP1 = cursor.getInt(cursor.getColumnIndex(ROUND_COLUMN_PLAYER1_TICKS))
-                score_p1 = calcScore(score_p1, tricksP1)
+                score_p1 = calcScore(score_p1, tricksP1,underDogCount)
                 val newTextP1 = TextView(this)
                 newTextP1.id = idcounter + 1
                 newTextP1.inputType = TYPE_CLASS_NUMBER
@@ -95,7 +96,7 @@ class Game : AppCompatActivity() {
                 idcounter = idcounter.plus(1)
 
                 val tricksP2 = cursor.getInt(cursor.getColumnIndex(ROUND_COLUMN_PLAYER2_TICKS))
-                score_p2 = calcScore(score_p2, tricksP2)
+                score_p2 = calcScore(score_p2, tricksP2, underDogCount)
                 val newTextP2 = TextView(this)
                 newTextP2.id = idcounter + 1
                 newTextP2.inputType = TYPE_CLASS_NUMBER
@@ -106,7 +107,7 @@ class Game : AppCompatActivity() {
                 idcounter = idcounter.plus(1)
 
                 val tricksP3 = cursor.getInt(cursor.getColumnIndex(ROUND_COLUMN_PLAYER3_TICKS))
-                score_p3 = calcScore(score_p3, tricksP3)
+                score_p3 = calcScore(score_p3, tricksP3,underDogCount)
                 val newTextP3 = TextView(this)
                 newTextP3.id = idcounter + 1
                 newTextP3.inputType = TYPE_CLASS_NUMBER
@@ -117,7 +118,7 @@ class Game : AppCompatActivity() {
                 idcounter = idcounter.plus(1)
 
                 val tricksP4 = cursor.getInt(cursor.getColumnIndex(ROUND_COLUMN_PLAYER4_TICKS))
-                score_p4 = calcScore(score_p4, tricksP4)
+                score_p4 = calcScore(score_p4, tricksP4, underDogCount)
                 val newTextP4 = TextView(this)
                 newTextP4.id = idcounter + 1
                 newTextP4.inputType = TYPE_CLASS_NUMBER
@@ -172,9 +173,13 @@ class Game : AppCompatActivity() {
 
 
 
-    fun calcScore(current: Int, tricks: Int) : Int
+    fun calcScore(current: Int, tricks: Int, UnderDog: Int) : Int
     {
         var deduction:Int
+        var scoreMultiplicator =  2.0f
+        scoreMultiplicator = scoreMultiplicator.pow(UnderDog)
+        var scoreFactor = scoreMultiplicator.toInt()
+
         if(tricks == -1)
         {
             deduction = 2
@@ -187,6 +192,8 @@ class Game : AppCompatActivity() {
             deduction = tricks * -1
         }
 
-        return current + deduction
+        deduction = deduction * scoreFactor
+
+        return (current + deduction)
     }
 }
