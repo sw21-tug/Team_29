@@ -88,11 +88,13 @@ class MainActivity : AppCompatActivity() {
         du.setButton(DialogInterface.BUTTON_POSITIVE,getString(R.string.yes),
             DialogInterface.OnClickListener {
                 arg0, arg1 ->
-            //refresh application screen
+
             val userRepo = UserRepository(this)
             userRepo.resetDatabase()
-                val preferences = getSharedPreferences(PREFERENCENAME, MODE_PRIVATE)
-                preferences.edit().remove(LASTUSER).apply()
+            val preferences = getSharedPreferences(PREFERENCENAME, MODE_PRIVATE)
+            preferences.edit().remove(LASTUSER).apply()
+            val createUserIntent = Intent(this, CreateUserActivity::class.java);
+            startActivity(createUserIntent);
         })
         du.setButton(DialogInterface.BUTTON_NEGATIVE,getString(R.string.cancel),
             DialogInterface.OnClickListener{
