@@ -9,24 +9,36 @@ import android.view.View
 import android.widget.TableLayout
 import android.widget.TableRow
 import android.widget.TextView
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.get
 //import com.example.mulatschaktracker.ui.GameFinished.sendMessage
 import com.example.mulatschaktracker.ui.addGameRound.AddGameRoundActivity
+import com.example.mulatschaktracker.ui.statistics.GameFinishedFragment
 import org.w3c.dom.Text
+import javax.xml.datatype.DatatypeFactory.newInstance
+import javax.xml.parsers.DocumentBuilderFactory.newInstance
 
 
 class Game : AppCompatActivity() {
 
+    private var mapOfResult = mapOf<Int, String>()
+    private  var fragment : GameFinishedFragment?  = null
 
+    fun getResults() : Map<Int, String>
+    {
+        return  mapOfResult
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+        super.onCreate(savedInstanceState
+        )
         setContentView(R.layout.activity_game)
+
 
 
         val repository = GameRepository(this)
         val game = repository.getGame(intent.getLongExtra(EXTRA_MESSAGE, 0))
-
         findViewById<TextView>(R.id.textViewPlayer1).apply {
             text = game.player1
         }
@@ -140,7 +152,7 @@ class Game : AppCompatActivity() {
 
                 val map = mapOf(score_p1 to game.player1, score_p2 to game.player2, score_p3 to game.player3, score_p4 to game.player4)
 
-
+                mapOfResult =  map
                 //val sorted_map = map.toSortedMap()
                 //val message = sendMessage()
                 //message.setMap(sorted_map)
@@ -150,11 +162,17 @@ class Game : AppCompatActivity() {
                 for (i in 0 .. map.size) {
                     if (score_p1 <= 0 || score_p2 <= 0 || score_p3 <= 0 ||score_p4 <= 0 ||
                         score_p1 >= 100 || score_p2 >= 100 || score_p3 >= 100 || score_p4 >= 100) {
+                      //  fragment = GameFinishedFragment.newInstance(mapOfResult)
+                        var bundle =  Bundle()
+                        bundle.putString("test", "pls work")
+                        fragment = GameFinishedFragment.newInstance("pls work")
+                        supportFragmentManager.beginTransaction().replace(R.id.Game_Finished, fragment!!).commit()
                         setContentView(R.layout.activity_game_finished)
 
-                        //player1_textview = (TextView) findViewById (R.id.player1_result_view)
                     }
                 }
+                repository.getLastRound(intent.getLongExtra(EXTRA_MESSAGE, 0))
+                repository.getLastRound(intent.getLongExtra(EXTRA_MESSAGE, 0))
 
                 tableLayout!!.addView(nrow)
 
