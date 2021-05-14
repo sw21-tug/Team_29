@@ -9,26 +9,36 @@ import android.view.View
 import android.widget.TableLayout
 import android.widget.TableRow
 import android.widget.TextView
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.isInvisible
-import androidx.core.view.isVisible
+import androidx.core.view.get
 //import com.example.mulatschaktracker.ui.GameFinished.sendMessage
 import com.example.mulatschaktracker.ui.addGameRound.AddGameRoundActivity
+import com.example.mulatschaktracker.ui.statistics.GameFinishedFragment
 import org.w3c.dom.Text
+import javax.xml.datatype.DatatypeFactory.newInstance
+import javax.xml.parsers.DocumentBuilderFactory.newInstance
 
 
 class Game : AppCompatActivity() {
 
+    private var mapOfResult = mapOf<Int, String>()
+    private  var fragment : GameFinishedFragment?  = null
 
+    fun getResults() : Map<Int, String>
+    {
+        return  mapOfResult
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+        super.onCreate(savedInstanceState
+        )
         setContentView(R.layout.activity_game)
+
 
 
         val repository = GameRepository(this)
         val game = repository.getGame(intent.getLongExtra(EXTRA_MESSAGE, 0))
-
         findViewById<TextView>(R.id.textViewPlayer1).apply {
             text = game.player1
         }
@@ -124,51 +134,54 @@ class Game : AppCompatActivity() {
                 idcounter = idcounter.plus(1)
 
 
-                //map for correlating player scores to the name
+              /*  var player1_won = false
+                var player2_won = false
+                var player3_won = false
+                var player4_won = false*/
+
+                val player1_textview = TextView(this)
+                val player2_textview = TextView(this)
+                val player3_textview = TextView(this)
+                val player4_textview = TextView(this)
+
+                val name_player1 = game.player1
+                val name_player2 = game.player2
+                val name_player3 = game.player3
+                val name_player4 = game.player4
+
+
                 val map = mapOf(score_p1 to game.player1, score_p2 to game.player2, score_p3 to game.player3, score_p4 to game.player4)
 
-                //sorting map in ascending order
-                val sortedMap = map.toSortedMap()
-                val anotherSortedMapBecauseIHaveNoFckingClueWhyEverythingGoesPoof = map.toSortedMap()
+                mapOfResult =  map
+                //val sorted_map = map.toSortedMap()
+                //val message = sendMessage()
+                //message.setMap(sorted_map)
+                //var temp = GameFinishedFragment()
+                //temp.setData(sorted_map)
 
-                //strings
-                val firstPlace: String = getString(R.string.FirstPlace)
-                val secondPlace: String = getString(R.string.SecondPlace)
-                val thirdPlace: String = getString(R.string.ThirdPlace)
-                val fourthPlace: String = getString(R.string.FourthPlace)
+                for (i in 0 .. map.size) {
+                    if (score_p1 <= 0 || score_p2 <= 0 || score_p3 <= 0 ||score_p4 <= 0 ||
+                        score_p1 >= 100 || score_p2 >= 100 || score_p3 >= 100 || score_p4 >= 100) {
+                      //  fragment = GameFinishedFragment.newInstance(mapOfResult)
+                        var bundle =  Bundle()
+                        bundle.putString("test", "pls work")
+                        fragment = GameFinishedFragment.newInstance("pls work")
+                        supportFragmentManager.beginTransaction().replace(R.id.Game_Finished, fragment!!).commit()
+                        setContentView(R.layout.activity_game_finished)
 
-
-                if (score_p1 < 1 || score_p2 < 1 || score_p3 < 1 || score_p4 < 1) {
-
-                    setContentView(R.layout.activity_game_finished)
-
-                    findViewById<TextView>(R.id.winner1_view).apply {
-                        text = sortedMap.getValue(0) + firstPlace
                     }
-                    showHide(findViewById(R.id.winner2_view))
-                    showHide(findViewById(R.id.winner3_view))
-                    showHide(findViewById(R.id.winner4_view))
-
                 }
+                repository.getLastRound(intent.getLongExtra(EXTRA_MESSAGE, 0))
+                repository.getLastRound(intent.getLongExtra(EXTRA_MESSAGE, 0))
 
-                if (score_p1 > 99 || score_p2 > 99 || score_p3 > 99 || score_p4 > 99) {
-
-                    setContentView(R.layout.activity_game_finished)
-
-                    //Something goes terribly wrong at line 159 -_-'
-                    findViewById<TextView>(R.id.winner1_view).apply {
-                        text = anotherSortedMapBecauseIHaveNoFckingClueWhyEverythingGoesPoof.getValue(0) + firstPlace
-                    }
-                    showHide(findViewById(R.id.winner2_view))
-                    showHide(findViewById(R.id.winner3_view))
-                    showHide(findViewById(R.id.winner4_view))
-
-                }
                 tableLayout!!.addView(nrow)
 
             } while (cursor.moveToNext())
         }
+
+
     }
+
 
     fun addRound(view: View){
         var gameID = intent.getLongExtra(EXTRA_MESSAGE, 0)
@@ -188,7 +201,7 @@ class Game : AppCompatActivity() {
             deduction = 2
         }else if (tricks == 0)
         {
-            deduction = 100
+            deduction = 5
         }
         else
         {
@@ -196,13 +209,5 @@ class Game : AppCompatActivity() {
         }
 
         return current + deduction
-    }
-
-    private fun showHide(view:View) {
-        view.visibility = if (view.visibility == View.VISIBLE){
-            View.INVISIBLE
-        } else {
-            View.VISIBLE
-        }
     }
 }
