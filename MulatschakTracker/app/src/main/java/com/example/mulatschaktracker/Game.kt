@@ -1,5 +1,6 @@
 package com.example.mulatschaktracker
 
+//import com.example.mulatschaktracker.ui.GameFinished.sendMessage
 import android.content.Intent
 import android.os.Bundle
 import android.provider.AlarmClock.EXTRA_MESSAGE
@@ -9,26 +10,27 @@ import android.view.View
 import android.widget.TableLayout
 import android.widget.TableRow
 import android.widget.TextView
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.get
-//import com.example.mulatschaktracker.ui.GameFinished.sendMessage
+import androidx.fragment.app.Fragment
 import com.example.mulatschaktracker.ui.addGameRound.AddGameRoundActivity
 import com.example.mulatschaktracker.ui.statistics.GameFinishedFragment
-import org.w3c.dom.Text
-import javax.xml.datatype.DatatypeFactory.newInstance
-import javax.xml.parsers.DocumentBuilderFactory.newInstance
+import kotlin.collections.List
+import kotlin.collections.MutableList
+import kotlin.collections.MutableMap
+import kotlin.collections.iterator
+import kotlin.collections.mutableListOf
+import kotlin.collections.mutableMapOf
+import kotlin.collections.set
+import kotlin.collections.sortedBy
+import kotlin.collections.toList
+import kotlin.collections.toMap
+import kotlin.collections.toTypedArray
 
 
 class Game : AppCompatActivity() {
 
-    private var mapOfResult = mapOf<Int, String>()
-    private  var fragment : GameFinishedFragment?  = null
+    private lateinit var fragment : GameFinishedFragment
 
-    fun getResults() : Map<Int, String>
-    {
-        return  mapOfResult
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState
@@ -69,7 +71,7 @@ class Game : AppCompatActivity() {
 
 
         val tableLayout = findViewById<TableLayout>(R.id.GameTable)
-        val childCount: Int = tableLayout.getChildCount()
+        val childCount: Int = tableLayout.childCount
         tableLayout.removeViews(1, childCount - 1)
         val newRow = TableRow(this)
 
@@ -96,8 +98,13 @@ class Game : AppCompatActivity() {
         if (cursor.moveToFirst()) {
             do {
                 val nrow = TableRow(this)
+                var dataToPass : String? = null;
+
+                var data : MutableList<String> = mutableListOf()
 
                 score_p1 = calcScore(score_p1, cursor.getInt(cursor.getColumnIndex(ROUND_COLUMN_PLAYER1_TICKS)))
+                dataToPass =  game.player1 + "#" +score_p1.toString()
+                data.add(dataToPass)
                 val newTextP1 = TextView(this)
                 newTextP1.id = idcounter + 1
                 newTextP1.inputType = TYPE_CLASS_NUMBER
@@ -107,6 +114,8 @@ class Game : AppCompatActivity() {
                 idcounter = idcounter.plus(1)
 
                 score_p2 = calcScore(score_p2, cursor.getInt(cursor.getColumnIndex(ROUND_COLUMN_PLAYER2_TICKS)))
+                dataToPass =  game.player2 + "#" +score_p2.toString()
+                data.add(dataToPass)
                 val newTextP2 = TextView(this)
                 newTextP2.id = idcounter + 1
                 newTextP2.inputType = TYPE_CLASS_NUMBER
@@ -116,6 +125,9 @@ class Game : AppCompatActivity() {
                 idcounter = idcounter.plus(1)
 
                 score_p3 = calcScore(score_p3, cursor.getInt(cursor.getColumnIndex(ROUND_COLUMN_PLAYER3_TICKS)))
+                dataToPass =  game.player3 + "#" +score_p3.toString()
+                data.add(dataToPass)
+
                 val newTextP3 = TextView(this)
                 newTextP3.id = idcounter + 1
                 newTextP3.inputType = TYPE_CLASS_NUMBER
@@ -125,7 +137,11 @@ class Game : AppCompatActivity() {
                 idcounter = idcounter.plus(1)
 
                 score_p4 = calcScore(score_p4, cursor.getInt(cursor.getColumnIndex(ROUND_COLUMN_PLAYER4_TICKS)))
+                dataToPass =  game.player4 + "#" +score_p4.toString()
+                data.add(dataToPass)
+
                 val newTextP4 = TextView(this)
+
                 newTextP4.id = idcounter + 1
                 newTextP4.inputType = TYPE_CLASS_NUMBER
                 newTextP4.text = score_p4.toString()
@@ -134,39 +150,28 @@ class Game : AppCompatActivity() {
                 idcounter = idcounter.plus(1)
 
 
-              /*  var player1_won = false
-                var player2_won = false
-                var player3_won = false
-                var player4_won = false*/
-
-                val player1_textview = TextView(this)
-                val player2_textview = TextView(this)
-                val player3_textview = TextView(this)
-                val player4_textview = TextView(this)
-
-                val name_player1 = game.player1
-                val name_player2 = game.player2
-                val name_player3 = game.player3
-                val name_player4 = game.player4
 
 
-                val map = mapOf(score_p1 to game.player1, score_p2 to game.player2, score_p3 to game.player3, score_p4 to game.player4)
 
-                mapOfResult =  map
+              //  val map = mapOf(score_p1 to game.player1, score_p2 to game.player2, score_p3 to game.player3, score_p4 to game.player4)
+
+
+                println(data)
+                println()
+                println()
+                println()
+               // assert(false)
                 //val sorted_map = map.toSortedMap()
                 //val message = sendMessage()
                 //message.setMap(sorted_map)
                 //var temp = GameFinishedFragment()
                 //temp.setData(sorted_map)
 
-                for (i in 0 .. map.size) {
+                for (i in 0 .. data.size) {
                     if (score_p1 <= 0 || score_p2 <= 0 || score_p3 <= 0 ||score_p4 <= 0 ||
                         score_p1 >= 100 || score_p2 >= 100 || score_p3 >= 100 || score_p4 >= 100) {
-                      //  fragment = GameFinishedFragment.newInstance(mapOfResult)
-                        var bundle =  Bundle()
-                        bundle.putString("test", "pls work")
-                        fragment = GameFinishedFragment.newInstance("pls work")
-                        supportFragmentManager.beginTransaction().replace(R.id.Game_Finished, fragment!!).commit()
+
+
                         setContentView(R.layout.activity_game_finished)
 
                     }
@@ -188,10 +193,73 @@ class Game : AppCompatActivity() {
         val intent = Intent(this, AddGameRoundActivity::class.java).apply {
             putExtra(EXTRA_MESSAGE, gameID)
         }
-        startActivity(intent)
+         startActivity(intent)
     }
 
 
+    fun calculateString(arg : List<String>) : MutableList<String>
+    {
+        var place1 = findViewById<TextView>(R.id.textView)
+        var place2 = findViewById<TextView>(R.id.textView2)
+        var place3 = findViewById<TextView>(R.id.textView3)
+        var place4 = findViewById<TextView>(R.id.textView4)
+        var retval = mutableListOf<String>()
+        println(arg)
+        var map : MutableMap<String, Int> = mutableMapOf()
+
+        for( i in arg)
+        {
+             var name =  i.split('#').toTypedArray()
+            map[name[0]] = name[1].toInt()
+        }
+        var sortedMap  = map.toList().sortedBy { (_, value) -> value}.toMap()
+        var it = 1;
+        var dataToPass : String = ""
+        var firstPlace =  ""
+        var secondPlace = ""
+        var thirdPlace = ""
+        var fortPlace = ""
+        var previousVal = 0
+        for(i in sortedMap)
+        {
+            if(i.value < 1)
+            {
+                firstPlace =  firstPlace +  i.key + ' '
+                continue
+            }
+            if (secondPlace == "")
+            {
+                secondPlace = i.key
+                continue
+            }
+            if (thirdPlace == "")
+            {
+                thirdPlace = i.key
+                continue
+            }
+            if (fortPlace == "")
+            {
+                fortPlace = i.key
+                continue
+            }
+
+
+
+
+
+        }
+
+        retval.add(firstPlace)
+        retval.add(secondPlace)
+        retval.add(thirdPlace)
+        retval.add(fortPlace)
+
+        place1?.setText("1. Place $firstPlace")
+        place2?.setText("2. Place $secondPlace")
+        place3?.setText("3. Place $thirdPlace")
+        place4?.setText("4. Place $fortPlace")
+        return retval
+    }
 
     fun calcScore(current: Int, tricks: Int) : Int
     {
