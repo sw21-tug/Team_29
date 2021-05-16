@@ -69,6 +69,19 @@ class GameRepository(var appContext: Context) {
         return dbRead.query(ROUND_TABLE_NAME, projection, query, args, null, null, null )
     }
 
+    fun getGameFinished(gameID: Long) : Boolean
+    {
+       // TODO: ask the DB
+        return false;
+    }
+
+    fun getWinners(gameID: Long) : MutableList<String>
+    {
+        // TODO: getTheList of winners
+        var mutableList = mutableListOf<String>()
+        return mutableList
+    }
+
     fun getCursorRounds(gameID: Long) : Cursor {
         val dbRead = DataBaseHandler(appContext).readableDatabase
         val projection =  arrayOf<String>(ROUND_COLUMN_ID, ROUND_COLUMN_PLAYER1_TICKS, ROUND_COLUMN_PLAYER2_TICKS, ROUND_COLUMN_PLAYER3_TICKS, ROUND_COLUMN_PLAYER4_TICKS)

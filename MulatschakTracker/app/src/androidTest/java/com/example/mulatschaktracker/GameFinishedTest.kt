@@ -1,6 +1,8 @@
 package com.example.mulatschaktracker
 
 
+import android.content.Context
+import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso.onView
 
 import androidx.test.espresso.action.ViewActions
@@ -302,6 +304,93 @@ class GameFinishedTest {
         onView(withId(R.id.Game_Finished)).check(matches(isDisplayed()))
         onView(withId(R.id.textView)).check(matches(withText("1. Place Player 1 Player 2 Player 3 ")))
         onView(withId(R.id.textView2)).check(matches(withText("2. Place Player 4")))
+    }
+
+    @Test
+    fun gameFinishedDb()
+    {
+
+        // maybe reset the database
+        onView(withId(R.id.StartNewGameActivityButton)).perform(click())
+
+        val testString1 = "Test Player 1"
+        val testString2 = "Test Player 2"
+        val testString3 = "Test Player 3"
+        val testString4 = "Test Player 4"
+
+        onView(withId(R.id.Player1_EditText))
+                .perform(typeText(testString1), closeSoftKeyboard())
+        onView(withId(R.id.Player2_EditText))
+                .perform(typeText(testString2), closeSoftKeyboard())
+        onView(withId(R.id.Player3_EditText))
+                .perform(typeText(testString3), closeSoftKeyboard())
+        onView(withId(R.id.Player4_EditText))
+                .perform(typeText(testString4), closeSoftKeyboard())
+
+        onView(withId(R.id.StartNewGameButton)).perform(click())
+
+        onView(withId(R.id.EndGameButton)).perform(ViewActions.click())
+
+        for (i in 0..21) {
+            onView(withId(R.id.button_player_3)).perform(ViewActions.click())
+
+        }
+        onView(withId(R.id.endround)).perform(click())
+        val appContext: Context = ApplicationProvider.getApplicationContext();
+        val repo = GameRepository(appContext);
+       var game =  repo.getGameFinished(1)
+        assert(game)
+
+
+
+    }
+
+    @Test
+    fun getWinnerList()
+    {
+        onView(withId(R.id.StartNewGameActivityButton)).perform(click())
+
+
+        onView(withId(R.id.StartNewGameButton)).perform(click())
+
+        onView(withId(R.id.EndGameButton)).perform(ViewActions.click())
+
+        for (i in 0..21) {
+            onView(withId(R.id.button_player_3)).perform(ViewActions.click())
+
+        }
+        onView(withId(R.id.endround)).perform(click())
+        val appContext: Context = ApplicationProvider.getApplicationContext();
+        val repo = GameRepository(appContext);
+        var game =  repo.getGameFinished(1)
+        assert(game)
+        val listOfWinners = repo.getWinners(1)
+        assert(listOfWinners.first() == "Player 1")
+    }
+
+    @Test
+    fun getWinnerList2()
+    {
+        onView(withId(R.id.StartNewGameActivityButton)).perform(click())
+
+
+        onView(withId(R.id.StartNewGameButton)).perform(click())
+
+        onView(withId(R.id.EndGameButton)).perform(ViewActions.click())
+
+        for (i in 0..21) {
+            onView(withId(R.id.button_player_1)).perform(ViewActions.click())
+            onView(withId(R.id.button_player_2)).perform(ViewActions.click())
+        }
+        onView(withId(R.id.endround)).perform(click())
+        val appContext: Context = ApplicationProvider.getApplicationContext();
+        val repo = GameRepository(appContext);
+        var game =  repo.getGameFinished(1)
+        assert(game)
+        val listOfWinners = repo.getWinners(1)
+        assert(listOfWinners.first() == "Player 1")
+        assert(listOfWinners[1] == "Player 2")
+
     }
 
 }
