@@ -147,6 +147,7 @@ class Game : AppCompatActivity() {
                     if (score_p1 <= 0 || score_p2 <= 0 || score_p3 <= 0 ||score_p4 <= 0 ||
                         score_p1 >= 100 || score_p2 >= 100 || score_p3 >= 100 || score_p4 >= 100) {
                         setContentView(R.layout.activity_game_finished)
+                        calculateString(data)
                     }
                 }
                 repository.getLastRound(intent.getLongExtra(EXTRA_MESSAGE, 0))
@@ -193,9 +194,10 @@ class Game : AppCompatActivity() {
         var thirdPlace = ""
         var fortPlace = ""
         var previousVal = 0
+        var sortedValue = sortedMap.values
         for(i in sortedMap)
         {
-            if(i.value < 1)
+            if(i.value <= sortedValue.first())
             {
                 firstPlace =  firstPlace +  i.key + ' '
                 continue
