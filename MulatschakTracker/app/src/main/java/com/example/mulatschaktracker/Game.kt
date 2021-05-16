@@ -10,26 +10,20 @@ import android.view.View
 import android.widget.TableLayout
 import android.widget.TableRow
 import android.widget.TextView
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.mulatschaktracker.ui.addGameRound.AddGameRoundActivity
 import com.example.mulatschaktracker.ui.statistics.GameFinishedFragment
-import kotlin.collections.List
-import kotlin.collections.MutableList
-import kotlin.collections.MutableMap
-import kotlin.collections.iterator
-import kotlin.collections.mutableListOf
-import kotlin.collections.mutableMapOf
-import kotlin.collections.set
-import kotlin.collections.sortedBy
-import kotlin.collections.toList
-import kotlin.collections.toMap
-import kotlin.collections.toTypedArray
+import org.w3c.dom.Text
+import javax.xml.datatype.DatatypeFactory.newInstance
+import javax.xml.parsers.DocumentBuilderFactory.newInstance
 
 
 class Game : AppCompatActivity() {
 
-    private lateinit var fragment : GameFinishedFragment
+    private var mapOfResult = mapOf<Int, String>()
+    private  var fragment : GameFinishedFragment?  = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -71,7 +65,7 @@ class Game : AppCompatActivity() {
 
 
         val tableLayout = findViewById<TableLayout>(R.id.GameTable)
-        val childCount: Int = tableLayout.childCount
+        val childCount: Int = tableLayout.getChildCount()
         tableLayout.removeViews(1, childCount - 1)
         val newRow = TableRow(this)
 
@@ -141,7 +135,6 @@ class Game : AppCompatActivity() {
                 data.add(dataToPass)
 
                 val newTextP4 = TextView(this)
-
                 newTextP4.id = idcounter + 1
                 newTextP4.inputType = TYPE_CLASS_NUMBER
                 newTextP4.text = score_p4.toString()
@@ -150,28 +143,9 @@ class Game : AppCompatActivity() {
                 idcounter = idcounter.plus(1)
 
 
-
-
-
-              //  val map = mapOf(score_p1 to game.player1, score_p2 to game.player2, score_p3 to game.player3, score_p4 to game.player4)
-
-
-                println(data)
-                println()
-                println()
-                println()
-               // assert(false)
-                //val sorted_map = map.toSortedMap()
-                //val message = sendMessage()
-                //message.setMap(sorted_map)
-                //var temp = GameFinishedFragment()
-                //temp.setData(sorted_map)
-
                 for (i in 0 .. data.size) {
                     if (score_p1 <= 0 || score_p2 <= 0 || score_p3 <= 0 ||score_p4 <= 0 ||
                         score_p1 >= 100 || score_p2 >= 100 || score_p3 >= 100 || score_p4 >= 100) {
-
-
                         setContentView(R.layout.activity_game_finished)
                     }
                 }
