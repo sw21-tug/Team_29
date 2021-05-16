@@ -173,7 +173,6 @@ class Game : AppCompatActivity() {
 
 
                         setContentView(R.layout.activity_game_finished)
-
                     }
                 }
                 repository.getLastRound(intent.getLongExtra(EXTRA_MESSAGE, 0))
