@@ -309,9 +309,16 @@ class GameFinishedTest {
     @Test
     fun gameFinishedDb()
     {
-
+        val appContext: Context = ApplicationProvider.getApplicationContext();
+        val repo = GameRepository(appContext);
+        //repo.resetDatabase()
         // maybe reset the database
+        val appContext2: Context = ApplicationProvider.getApplicationContext();
+        val repo2 = UserRepository(appContext2);
+        repo2.resetDatabase()
         onView(withId(R.id.StartNewGameActivityButton)).perform(click())
+
+
 
         val testString1 = "Test Player 1"
         val testString2 = "Test Player 2"
@@ -336,8 +343,9 @@ class GameFinishedTest {
 
         }
         onView(withId(R.id.endround)).perform(click())
-        val appContext: Context = ApplicationProvider.getApplicationContext();
-        val repo = GameRepository(appContext);
+
+        var gameobject =  repo.getGame(1)
+        assert(gameobject.player1 ==  "Test Player 1")
        var game =  repo.getGameFinished(1)
         assert(game)
 
@@ -348,6 +356,12 @@ class GameFinishedTest {
     @Test
     fun getWinnerList()
     {
+        val appContext: Context = ApplicationProvider.getApplicationContext();
+        val repo = GameRepository(appContext);
+
+        val appContext2: Context = ApplicationProvider.getApplicationContext();
+        val repo2 = UserRepository(appContext2);
+        repo2.resetDatabase()
         onView(withId(R.id.StartNewGameActivityButton)).perform(click())
 
 
@@ -360,8 +374,7 @@ class GameFinishedTest {
 
         }
         onView(withId(R.id.endround)).perform(click())
-        val appContext: Context = ApplicationProvider.getApplicationContext();
-        val repo = GameRepository(appContext);
+
         var game =  repo.getGameFinished(1)
         assert(game)
         val listOfWinners = repo.getWinners(1)
@@ -371,6 +384,13 @@ class GameFinishedTest {
     @Test
     fun getWinnerList2()
     {
+
+        val appContext: Context = ApplicationProvider.getApplicationContext();
+        val repo = GameRepository(appContext);
+
+        val appContext2: Context = ApplicationProvider.getApplicationContext();
+        val repo2 = UserRepository(appContext2);
+        repo2.resetDatabase()
         onView(withId(R.id.StartNewGameActivityButton)).perform(click())
 
 
@@ -383,8 +403,7 @@ class GameFinishedTest {
             onView(withId(R.id.button_player_2)).perform(ViewActions.click())
         }
         onView(withId(R.id.endround)).perform(click())
-        val appContext: Context = ApplicationProvider.getApplicationContext();
-        val repo = GameRepository(appContext);
+
         var game =  repo.getGameFinished(1)
         assert(game)
         val listOfWinners = repo.getWinners(1)
