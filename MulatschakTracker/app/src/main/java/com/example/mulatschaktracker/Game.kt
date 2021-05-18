@@ -128,6 +128,20 @@ class Game : AppCompatActivity() {
                 nrow.addView(newTextP4, layoutParams)
                 idcounter = idcounter.plus(1)
 
+                if(underDogCount > 0){
+                    val newTextUnderdog = TextView(this)
+                    newTextUnderdog.inputType = TYPE_CLASS_NUMBER
+                    if(underDogCount > 1){
+                        newTextUnderdog.text = getString(R.string.dog_emoji,underDogCount.toString())
+                    } else {
+                        newTextUnderdog.text = getString(R.string.dog_emoji,"")
+                    }
+
+                    newTextUnderdog.setTextSize(TypedValue.COMPLEX_UNIT_SP, textSize)
+                    newTextUnderdog.gravity = Gravity.LEFT
+                    nrow.addView(newTextUnderdog, layoutParams)
+                }
+
                 var rowId = cursor.getInt(cursor.getColumnIndex(ROUND_COLUMN_ID))
                 nrow.id = rowIdCounter
 

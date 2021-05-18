@@ -153,6 +153,19 @@ class EditGameRoundActivityTest {
         checkValuePropagationAdd(rowId, R.id.button_player_4, arrayOf(4,8,12,16), arrayOf("21", "23", "25", "23"),false)
     }
 
+    @Test
+    fun valuePropagationRow2AddUnderdog() {
+        val rowId = 12001
+        checkValuePropagationAdd(rowId, R.id.UnderdogButton, arrayOf(1,2,3,4,
+            5,6,7,8,
+            9,10,11,12,
+            13,14,15,16),
+            arrayOf("21", "21", "21", "21",
+            "19", "20", "26", "23",
+            "29", "16", "24", "27",
+            "28", "15", "29", "25"),true)
+    }
+
     private fun checkValuePropagationAdd(rowId:Int, buttonId:Int, labelIds:Array<Int>, results:Array<String>, add :
     Boolean) {
         Espresso.onView(ViewMatchers.withId(rowId)).perform(ViewActions.longClick())
