@@ -6,9 +6,12 @@ import androidx.test.core.app.ActivityScenario
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.*
 import androidx.test.espresso.Espresso.onView
+import androidx.test.espresso.Espresso.pressBack
 import androidx.test.espresso.action.ViewActions
 import androidx.test.espresso.action.ViewActions.click
+import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers
+import androidx.test.espresso.matcher.ViewMatchers.withHint
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.example.mulatschaktracker.ui.addGameRound.AddGameRoundActivityTest.Companion.getText
@@ -58,6 +61,27 @@ class CheckUserNameFirstTest:TestCase(){
         onView(withId(R.id.StartNewGameActivityButton)).perform(click())
         assertEquals(userName, getText(onView(withId(R.id.Player1_EditText))))
         onView(withId(R.id.Player1_EditText)).perform(click())
-        assertEquals("", getText(onView(withId(R.id.textViewPlayer1))))
+        assertEquals("", getText(onView(withId(R.id.Player1_EditText))))
+    }
+
+    @Test
+    fun checkUserNameSetAsHint(){
+        onView(withId(R.id.StartNewGameActivityButton)).perform(click())
+        assertEquals(userName, getText(onView(withId(R.id.Player1_EditText))))
+        onView(withId(R.id.Player1_EditText)).perform(click())
+        onView(withId(R.id.Player1_EditText)).check(matches(withHint(userName)))
+        onView(withId(R.id.Player2_EditText)).perform(click())
+        onView(withId(R.id.Player1_EditText)).check(matches(withHint(userName)))
+    }
+
+    @Test
+    fun checkUserNameSetInGameFromEmptyField(){
+        onView(withId(R.id.StartNewGameActivityButton)).perform(click())
+        assertEquals(userName, getText(onView(withId(R.id.Player1_EditText))))
+        onView(withId(R.id.Player1_EditText)).perform(click())
+        onView(withId(R.id.Player1_EditText)).check(matches(withHint(userName)))
+        pressBack()
+        onView(withId(R.id.StartNewGameButton)).perform(click())
+        assertEquals(userName, getText(onView(withId(R.id.textViewPlayer1))))
     }
 }
