@@ -12,15 +12,25 @@ class StartNewGame : AppCompatActivity() {
         setTitle(R.string.title_startnewgame)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_start_new_game)
+
+        val userName = getLastUserName()
+
+        val editTextPlayer1 = findViewById<EditText>(R.id.Player1_EditText)
+        editTextPlayer1.setText(userName)
     }
 
     fun startGame(view : View) {
         val gameRepository = GameRepository(this)
         val userRepository = UserRepository(this)
+
+
+
         val editTextPlayer1 = findViewById<EditText>(R.id.Player1_EditText)
         val editTextPlayer2 = findViewById<EditText>(R.id.Player2_EditText)
         val editTextPlayer3 = findViewById<EditText>(R.id.Player3_EditText)
         val editTextPlayer4 = findViewById<EditText>(R.id.Player4_EditText)
+
+
 
         val namePlayer1 = if (editTextPlayer1.text.toString() != "") editTextPlayer1.text.toString() else editTextPlayer1.hint.toString()
         val namePlayer2 = if (editTextPlayer2.text.toString() != "") editTextPlayer2.text.toString() else editTextPlayer2.hint.toString()
@@ -30,9 +40,7 @@ class StartNewGame : AppCompatActivity() {
         //creating Game Object
         val newGameObject = GameObject(namePlayer1, namePlayer2, namePlayer3, namePlayer4)
 
-        val preferences = getSharedPreferences(PREFERENCENAME, MODE_PRIVATE)
-        val userName = preferences.getString(LASTUSER, "")
-        val user = userName?.let { userRepository.getUser(it) }
+        val user = getLastUserName()?.let { userRepository.getUser(it) }
 
         val gameID = user?.let { gameRepository.createGame(newGameObject, it.id) }
 
@@ -43,4 +51,12 @@ class StartNewGame : AppCompatActivity() {
         startActivity(intent)
 
     }
+
+    fun getLastUserName(): String?
+    {
+        val preferences = getSharedPreferences(PREFERENCENAME, MODE_PRIVATE)
+        return preferences.getString(LASTUSER, "")
+    }
+
+
 }
