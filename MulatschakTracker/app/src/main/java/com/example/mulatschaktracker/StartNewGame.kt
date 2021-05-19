@@ -18,6 +18,7 @@ class StartNewGame : AppCompatActivity() {
 
         val editTextPlayer1 = findViewById<EditText>(R.id.Player1_EditText)
         editTextPlayer1.setText(userName)
+        editTextPlayer1.hint = userName
 
         editTextPlayer1.setOnTouchListener(object : View.OnTouchListener {
             override fun onTouch(v: View?, event: MotionEvent?): Boolean {
