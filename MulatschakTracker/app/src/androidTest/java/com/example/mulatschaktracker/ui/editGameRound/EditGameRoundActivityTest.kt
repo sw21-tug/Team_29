@@ -1,5 +1,9 @@
 package com.example.mulatschaktracker.ui.editGameRound
 
+import android.app.Activity
+import android.app.ActivityManager
+import android.content.Context.ACTIVITY_SERVICE
+import androidx.test.InstrumentationRegistry
 import androidx.test.espresso.Espresso
 import androidx.test.espresso.action.ViewActions
 import androidx.test.espresso.assertion.ViewAssertions
@@ -8,6 +12,7 @@ import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner
 import com.example.mulatschaktracker.MainActivity
 import com.example.mulatschaktracker.R
+import com.example.mulatschaktracker.ui.addGameRound.AddGameRoundActivity
 import com.example.mulatschaktracker.ui.addGameRound.AddGameRoundActivityTest
 import org.junit.Assert
 import org.junit.Before
@@ -54,6 +59,7 @@ class EditGameRoundActivityTest {
         Espresso.onView(ViewMatchers.withId(R.id.button_player_2)).perform(ViewActions.click())
         Espresso.onView(ViewMatchers.withId(R.id.button_player_4)).perform(ViewActions.click())
         Espresso.onView(ViewMatchers.withId(R.id.button_player_4)).perform(ViewActions.click())
+
         Thread.sleep(waitTime)
         Espresso.onView(ViewMatchers.withId(R.id.endround)).perform(ViewActions.click())
     }
@@ -186,8 +192,9 @@ class EditGameRoundActivityTest {
     }
 
     private fun testRow(rowId: Int, buttonId: Int, labelId: Int, result: String, add:Boolean) {
-        Espresso.onView(ViewMatchers.withId(rowId)).perform(ViewActions.longClick())
         Thread.sleep(waitTime)
+        Espresso.onView(ViewMatchers.withId(rowId)).perform(ViewActions.longClick())
+        waitUntilActivityVisible<AddGameRoundActivity>()
         if (add) {
             Espresso.onView(ViewMatchers.withId(buttonId)).perform(ViewActions.click())
         } else {
@@ -210,6 +217,26 @@ class EditGameRoundActivityTest {
         Espresso.onView(ViewMatchers.withId(R.id.button_player_4))
             .check(ViewAssertions.matches(ViewMatchers.withText(b4)))
     }
+
+    inline fun <reified T : Activity> isVisible() : Boolean {
+        val am = InstrumentationRegistry.getContext().getSystemService(ACTIVITY_SERVICE) as ActivityManager
+        val visibleActivityName = am.appTasks[0].taskInfo.baseActivity?.className
+        return visibleActivityName == T::class.java.name
+    }
+
+    val TIMEOUT = 5000L
+    val CONDITION_CHECK_INTERVAL = 100L
+
+    inline fun <reified T : Activity> waitUntilActivityVisible() {
+        val startTime = System.currentTimeMillis()
+        while (!isVisible<T>()) {
+            Thread.sleep(CONDITION_CHECK_INTERVAL)
+            if (System.currentTimeMillis() - startTime >= TIMEOUT) {
+                throw AssertionError("Activity ${T::class.java.simpleName} not visible after $TIMEOUT milliseconds")
+            }
+        }
+    }
+
 
 }
 
