@@ -70,16 +70,28 @@ class GameRepository(var appContext: Context) {
     }
 
     fun getGameFinished(gameID: Long) : Boolean
+
     {
        // TODO: ask the DB
+
+
         return false;
     }
 
-    fun getWinners(gameID: Long) : MutableList<String>
+    fun getWinners(winnersID: Long) : WinnersObject
     {
-        // TODO: getTheList of winners
-        var mutableList = mutableListOf<String>()
-        return mutableList
+        val cursor = getCursorWinners(winnersID)
+        if (cursor.count == 1) {
+            cursor.moveToFirst()
+            val result = WinnersObject(cursor.getString(cursor.getColumnIndex(FIRST_WINNER_COLUMN)),
+                    cursor.getString(cursor.getColumnIndex(SECOND_WINNER_COLUMN)),
+                    cursor.getString(cursor.getColumnIndex(THIRD_WINNER_COLUMN)),
+                    cursor.getString(cursor.getColumnIndex(FOURTH_WINNER_COLUMN)))
+            result.id = cursor.getLong(
+                    cursor.getColumnIndex(GAME_COLUMN_ID))
+            return result
+        }
+        throw Exception("winners not found")
     }
 
     fun getCursorRounds(gameID: Long) : Cursor {
@@ -124,9 +136,8 @@ class GameRepository(var appContext: Context) {
                 result.move(1)
                 player1Points = calcScore(player1Points, result.getInt(result.getColumnIndex(ROUND_COLUMN_PLAYER1_TICKS)))
                 player2Points = calcScore(player2Points ,result.getInt(result.getColumnIndex(ROUND_COLUMN_PLAYER2_TICKS)))
-                        player3Points = calcScore(player3Points , result.getInt(result.getColumnIndex(ROUND_COLUMN_PLAYER3_TICKS)))
-                        player4Points = calcScore(player4Points , result.getInt(result.getColumnIndex(ROUND_COLUMN_PLAYER4_TICKS)))
-
+                player3Points = calcScore(player3Points , result.getInt(result.getColumnIndex(ROUND_COLUMN_PLAYER3_TICKS)))
+                player4Points = calcScore(player4Points , result.getInt(result.getColumnIndex(ROUND_COLUMN_PLAYER4_TICKS)))
             }
 
         var round  = RoundObject(player1Points,player2Points, player3Points, player4Points,0,0)
@@ -139,6 +150,25 @@ class GameRepository(var appContext: Context) {
         return round
     }
 
+    fun writeWinnersToDB(newWinnersObject : WinnersObject)  : Long {
 
+        val dbWrite = DataBaseHandler(appContext).writableDatabase
+        val values = ContentValues()
 
+        values.put(FIRST_WINNER_COLUMN, newWinnersObject.winner1)
+        values.put(SECOND_WINNER_COLUMN, newWinnersObject.winner2)
+        values.put(THIRD_WINNER_COLUMN, newWinnersObject.winner3)
+        values.put(FOURTH_WINNER_COLUMN, newWinnersObject.winner4)
+
+        return dbWrite.insert(WINNER_TABLE_NAME, null, values)
+    }
+
+    fun getCursorWinners(winnersID: Long) : Cursor {
+        val dbRead = DataBaseHandler(appContext).readableDatabase
+        val projection =  arrayOf<String>(WINNER_COLUMN_ID, FIRST_WINNER_COLUMN, SECOND_WINNER_COLUMN, THIRD_WINNER_COLUMN, FOURTH_WINNER_COLUMN)
+        val args = arrayOf<String>(winnersID.toString())
+
+        val query = "$WINNER_COLUMN_ID like ?"
+        return dbRead.query(WINNER_TABLE_NAME, projection, query, args, null, null, null )
+    }
 }

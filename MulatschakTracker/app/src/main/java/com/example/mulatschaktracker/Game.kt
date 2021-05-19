@@ -155,10 +155,47 @@ class Game : AppCompatActivity() {
 
                 tableLayout!!.addView(nrow)
 
+
+                //creating winners object and writing winners to database
+                var place1 = findViewById<TextView>(R.id.textView).toString()
+                var place2 = findViewById<TextView>(R.id.textView2).toString()
+                var place3 = findViewById<TextView>(R.id.textView3).toString()
+                var place4 = findViewById<TextView>(R.id.textView4).toString()
+
+
+                val listOfWinners = mutableListOf<String>()
+
+                for (i in 0 .. 3) {
+                    listOfWinners[i] = ""
+                }
+
+                if (score_p1 == 0)
+                {
+                    listOfWinners.add(place1)
+                    continue
+                }
+                if (score_p2 == 0)
+                {
+                    listOfWinners.add(place2)
+                    continue
+                }
+                if (score_p3 == 0)
+                {
+                    listOfWinners.add(place3)
+                    continue
+                }
+                if (score_p4 == 0)
+                {
+                    listOfWinners.add(place4)
+                    continue
+                }
+
+                val newWinnersObject = WinnersObject(listOfWinners[0], listOfWinners[1], listOfWinners[2], listOfWinners[3])
+                repository.writeWinnersToDB(newWinnersObject)
+
+
             } while (cursor.moveToNext())
         }
-
-
     }
 
 
@@ -217,11 +254,6 @@ class Game : AppCompatActivity() {
                 fortPlace = i.key
                 continue
             }
-
-
-
-
-
         }
 
         retval.add(firstPlace)
