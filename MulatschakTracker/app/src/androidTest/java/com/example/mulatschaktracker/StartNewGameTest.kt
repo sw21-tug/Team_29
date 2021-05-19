@@ -42,17 +42,18 @@ import org.junit.Rule
 class StartNewGameTest : TestCase() {
 
     lateinit var scenario : ActivityScenario<MainActivity>
-
+    val username: String = "NewUser"
 
     @Before
     public override fun setUp(){
+
         super.setUp()
         val  appContext: Context = ApplicationProvider.getApplicationContext();
         val userRepo = UserRepository(appContext)
         userRepo.resetDatabase()
-        userRepo.createUser(UserObject("NewUser"))
+        userRepo.createUser(UserObject(username))
         val preferences = appContext.getSharedPreferences(PREFERENCENAME, AppCompatActivity.MODE_PRIVATE)
-        preferences.edit().putString(LASTUSER, "NewUser").commit()
+        preferences.edit().putString(LASTUSER, username).commit()
         scenario = ActivityScenario.launch(MainActivity::class.java)
 
     }
@@ -114,7 +115,7 @@ class StartNewGameTest : TestCase() {
     fun startNewGameButtonShowsGameTable() {
         onView(withId(R.id.StartNewGameActivityButton)).perform(click())
         onView(withId(R.id.StartNewGameButton)).perform(click())
-        onView(withText("Player 1")).check(matches(isDisplayed()))
+        onView(withText(username)).check(matches(isDisplayed()))
     }
 
 
@@ -148,7 +149,7 @@ class StartNewGameTest : TestCase() {
 
     @Test
     fun gameStartsWithDefaultNames() {
-        val testString1 = "Player 1"
+        val testString1 = username
         val testString2 = "Player 2"
         val testString3 = "Player 3"
         val testString4 = "Player 4"
