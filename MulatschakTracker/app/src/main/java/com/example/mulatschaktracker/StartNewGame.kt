@@ -1,10 +1,11 @@
 package com.example.mulatschaktracker
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.MotionEvent
 import android.view.View
 import android.widget.EditText
+import androidx.appcompat.app.AppCompatActivity
 import com.example.mulatschaktracker.ui.home.GameRecyclerAdapter.GameViewHolder.Companion.GAME_ID
 
 class StartNewGame : AppCompatActivity() {
@@ -17,13 +18,22 @@ class StartNewGame : AppCompatActivity() {
 
         val editTextPlayer1 = findViewById<EditText>(R.id.Player1_EditText)
         editTextPlayer1.setText(userName)
+
+        editTextPlayer1.setOnTouchListener(object : View.OnTouchListener {
+            override fun onTouch(v: View?, event: MotionEvent?): Boolean {
+                when (event?.action) {
+                    MotionEvent.ACTION_DOWN -> editTextPlayer1.setText("")//Do Something
+                }
+
+                return v?.onTouchEvent(event) ?: true
+            }
+        })
+
     }
 
-    fun startGame(view : View) {
+    fun startGame(view: View) {
         val gameRepository = GameRepository(this)
         val userRepository = UserRepository(this)
-
-
 
         val editTextPlayer1 = findViewById<EditText>(R.id.Player1_EditText)
         val editTextPlayer2 = findViewById<EditText>(R.id.Player2_EditText)
@@ -31,11 +41,11 @@ class StartNewGame : AppCompatActivity() {
         val editTextPlayer4 = findViewById<EditText>(R.id.Player4_EditText)
 
 
-
         val namePlayer1 = if (editTextPlayer1.text.toString() != "") editTextPlayer1.text.toString() else editTextPlayer1.hint.toString()
         val namePlayer2 = if (editTextPlayer2.text.toString() != "") editTextPlayer2.text.toString() else editTextPlayer2.hint.toString()
         val namePlayer3 = if (editTextPlayer3.text.toString() != "") editTextPlayer3.text.toString() else editTextPlayer3.hint.toString()
         val namePlayer4 = if (editTextPlayer4.text.toString() != "") editTextPlayer4.text.toString() else editTextPlayer4.hint.toString()
+
 
         //creating Game Object
         val newGameObject = GameObject(namePlayer1, namePlayer2, namePlayer3, namePlayer4)
