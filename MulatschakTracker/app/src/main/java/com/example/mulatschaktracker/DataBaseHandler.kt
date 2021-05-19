@@ -32,7 +32,7 @@ val SECOND_WINNER_COLUMN = "second_winner"
 val THIRD_WINNER_COLUMN = "third_winner"
 val FOURTH_WINNER_COLUMN = "fourth_winner"
 val GAME_IS_FINISHED = "game_finished"
-
+val WINNER ="won"
 
 class DataBaseHandler(var context: Context) : SQLiteOpenHelper(context, DATABASENAME, null,DATABASE_VERSION)
         {
@@ -49,7 +49,12 @@ class DataBaseHandler(var context: Context) : SQLiteOpenHelper(context, DATABASE
                         GAME_COLUMN_PLAYER2 + " TEXT," +
                         GAME_COLUMN_PLAYER3 + " TEXT," +
                         GAME_COLUMN_PLAYER4 + " TEXT," +
-                        GAME_IS_FINISHED + "INTEGER" +
+                        GAME_IS_FINISHED + " INTEGER," +
+                        WINNER + " INTEGER," +
+                        FIRST_WINNER_COLUMN + " TEXT," +
+                        SECOND_WINNER_COLUMN + "TEXT," +
+                        THIRD_WINNER_COLUMN + "TEXT," +
+                        FOURTH_WINNER_COLUMN + "TEXT" +
                         ")")
 
                 db?.execSQL("CREATE TABLE " + ROUND_TABLE_NAME + " (" +
@@ -63,21 +68,12 @@ class DataBaseHandler(var context: Context) : SQLiteOpenHelper(context, DATABASE
                         ROUND_COLUMN_HEARTROUND + " INTEGER" +
                         ")")
 
-                db?.execSQL("CREATE TABLE " + WINNER_TABLE_NAME + " (" +
-                        WINNER_COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                        FIRST_WINNER_COLUMN + " TEXT," +
-                        SECOND_WINNER_COLUMN + "TEXT," +
-                        THIRD_WINNER_COLUMN + "TEXT," +
-                        FOURTH_WINNER_COLUMN + "TEXT" +
-                        ")")
-
             }
 
             override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
                 db?.execSQL("DROP TABLE IF EXISTS " + PERSON_TABLE_NAME);
                 db?.execSQL("DROP TABLE IF EXISTS " + GAME_TABLE_NAME);
                 db?.execSQL("DROP TABLE IF EXISTS " + ROUND_TABLE_NAME);
-                db?.execSQL("DROP TABLE IF EXISTS " + WINNER_TABLE_NAME);
                 onCreate(db);
             }
         }

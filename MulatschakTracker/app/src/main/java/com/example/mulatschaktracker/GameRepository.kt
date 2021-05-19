@@ -37,6 +37,16 @@ class GameRepository(var appContext: Context) {
         return dbWrite.insert(ROUND_TABLE_NAME, null, values)
     }
 
+    fun setGameFinished(gameID: Long): Int
+    {
+        val dbWrite = DataBaseHandler(appContext).writableDatabase
+        val values = ContentValues()
+        values.put(GAME_IS_FINISHED, 1)
+        var arr =  arrayOf<String>(gameID.toString())
+         return dbWrite.update(GAME_TABLE_NAME,values, GAME_COLUMN_ID + " = ?", arr)
+
+    }
+
     fun getGame(gameID: Long): GameObject {
         val cursor = getCursor(gameID)
         if (cursor.count == 1) {
@@ -72,21 +82,19 @@ class GameRepository(var appContext: Context) {
         return dbRead.query(ROUND_TABLE_NAME, projection, query, args, null, null, null )
     }
 
-    fun getGameFinished(gameID: Long) : Boolean
-
+    fun getGameFinished(gameID: Long) : Int
     {
-
-
-
-        return false;
+        var cursor =  getCursor(gameID)
+         cursor.moveToFirst()
+         return cursor.getInt(cursor.getColumnIndex(GAME_IS_FINISHED))
     }
 
-    fun getWinners(winnersID: Long) : WinnersObject
+    fun getWinners(gameId: Long) : GameObject
     {
-        val cursor = getCursorWinners(winnersID)
+        val cursor = getCursorWinners(gameId)
         if (cursor.count == 1) {
             cursor.moveToFirst()
-            val result = WinnersObject(cursor.getString(cursor.getColumnIndex(FIRST_WINNER_COLUMN)),
+            val result = GameObject(cursor.getString(cursor.getColumnIndex(FIRST_WINNER_COLUMN)),
                     cursor.getString(cursor.getColumnIndex(SECOND_WINNER_COLUMN)),
                     cursor.getString(cursor.getColumnIndex(THIRD_WINNER_COLUMN)),
                     cursor.getString(cursor.getColumnIndex(FOURTH_WINNER_COLUMN)))
@@ -153,25 +161,25 @@ class GameRepository(var appContext: Context) {
         return round
     }
 
-    fun writeWinnersToDB(newWinnersObject : WinnersObject)  : Long {
+    fun writeWinnersToDB(newGameObject: GameObject)  : Long {
 
         val dbWrite = DataBaseHandler(appContext).writableDatabase
         val values = ContentValues()
 
-        values.put(FIRST_WINNER_COLUMN, newWinnersObject.winner1)
-        values.put(SECOND_WINNER_COLUMN, newWinnersObject.winner2)
-        values.put(THIRD_WINNER_COLUMN, newWinnersObject.winner3)
-        values.put(FOURTH_WINNER_COLUMN, newWinnersObject.winner4)
+        values.put(FIRST_WINNER_COLUMN, newGameObject.player1won)
+        values.put(SECOND_WINNER_COLUMN, newGameObject.player2won)
+        values.put(THIRD_WINNER_COLUMN, newGameObject.player3won)
+        values.put(FOURTH_WINNER_COLUMN, newGameObject.player4won)
 
         return dbWrite.insert(WINNER_TABLE_NAME, null, values)
     }
 
-    fun getCursorWinners(winnersID: Long) : Cursor {
+    fun getCursorWinners(gameID: Long) : Cursor {
         val dbRead = DataBaseHandler(appContext).readableDatabase
-        val projection =  arrayOf<String>(WINNER_COLUMN_ID, FIRST_WINNER_COLUMN, SECOND_WINNER_COLUMN, THIRD_WINNER_COLUMN, FOURTH_WINNER_COLUMN)
-        val args = arrayOf<String>(winnersID.toString())
+        val projection =  arrayOf<String>(GAME_COLUMN_ID, FIRST_WINNER_COLUMN, SECOND_WINNER_COLUMN, THIRD_WINNER_COLUMN, FOURTH_WINNER_COLUMN)
+        val args = arrayOf<String>(gameID.toString())
 
-        val query = "$WINNER_COLUMN_ID like ?"
-        return dbRead.query(WINNER_TABLE_NAME, projection, query, args, null, null, null )
+        val query = "$GAME_COLUMN_ID like ?"
+        return dbRead.query(GAME_TABLE_NAME, projection, query, args, null, null, null )
     }
 }

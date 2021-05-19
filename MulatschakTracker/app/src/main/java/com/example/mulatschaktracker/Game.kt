@@ -149,7 +149,7 @@ class Game : AppCompatActivity() {
                     setContentView(R.layout.activity_game_finished)
                     tableLayout!!.addView(nrow)
                     calculateString(data)
-
+                    repository.setGameFinished(gameId)
 
                     //creating winners object and writing winners to database
                     var place1 = findViewById<TextView>(R.id.textView).toString()
@@ -159,7 +159,7 @@ class Game : AppCompatActivity() {
 
 
                     //add places the new entry in front of list
-                    val listOfWinners = mutableListOf<String>()
+                   /* val listOfWinners = mutableListOf<String>()
 
                     if (score_p1 == 0)
                     {
@@ -183,7 +183,7 @@ class Game : AppCompatActivity() {
                     }
 
                     val newWinnersObject = WinnersObject(listOfWinners[0], listOfWinners[1], listOfWinners[2], listOfWinners[3])
-                    repository.writeWinnersToDB(newWinnersObject)
+                    repository.writeWinnersToDB(newWinnersObject)*/
 
                 }
 
