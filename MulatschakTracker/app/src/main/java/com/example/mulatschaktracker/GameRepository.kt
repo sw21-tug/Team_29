@@ -17,6 +17,7 @@ class GameRepository(var appContext: Context) {
         values.put(GAME_COLUMN_PLAYER2, newGameObject.player2)
         values.put(GAME_COLUMN_PLAYER3, newGameObject.player3)
         values.put(GAME_COLUMN_PLAYER4, newGameObject.player4)
+        values.put(GAME_IS_FINISHED, newGameObject.finished)
 
         return dbWrite.insert(GAME_TABLE_NAME, null, values)
     }
@@ -46,6 +47,8 @@ class GameRepository(var appContext: Context) {
                     cursor.getString(cursor.getColumnIndex(GAME_COLUMN_PLAYER4)))
             result.id = cursor.getLong(
                     cursor.getColumnIndex(GAME_COLUMN_ID))
+            result.finished = cursor.getInt(
+                    cursor.getColumnIndex(GAME_IS_FINISHED))
             return result
         }
         throw Exception("game not found")
@@ -53,7 +56,7 @@ class GameRepository(var appContext: Context) {
 
     private fun getCursor(gameID: Long) : Cursor {
         val dbRead = DataBaseHandler(appContext).readableDatabase
-        val projection =  arrayOf<String>(GAME_COLUMN_ID, GAME_COLUMN_PLAYER1, GAME_COLUMN_PLAYER2, GAME_COLUMN_PLAYER3, GAME_COLUMN_PLAYER4)
+        val projection =  arrayOf<String>(GAME_COLUMN_ID, GAME_COLUMN_PLAYER1, GAME_COLUMN_PLAYER2, GAME_COLUMN_PLAYER3, GAME_COLUMN_PLAYER4, GAME_IS_FINISHED)
         val args = arrayOf<String>(gameID.toString())
 
         val query = "$GAME_COLUMN_ID like ?"
@@ -72,7 +75,7 @@ class GameRepository(var appContext: Context) {
     fun getGameFinished(gameID: Long) : Boolean
 
     {
-       // TODO: ask the DB
+
 
 
         return false;

@@ -54,8 +54,9 @@ class Game : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
 
+        val gameId: Long = intent.getLongExtra(EXTRA_MESSAGE, 0)
         val repository = GameRepository(this)
-        val game = repository.getGame(intent.getLongExtra(EXTRA_MESSAGE, 0))
+        val game = repository.getGame(gameId)
         var score_p1: Int = 21
         var score_p2: Int = 21
         var score_p3: Int = 21
@@ -85,8 +86,7 @@ class Game : AppCompatActivity() {
         }
         tableLayout!!.addView(newRow)
 
-
-        var cursor = repository.getCursor2(intent.getLongExtra(EXTRA_MESSAGE, 0))
+        var cursor = repository.getCursor2(gameId)
 
         var idcounter: Int = 4
         if (cursor.moveToFirst()) {
@@ -143,55 +143,50 @@ class Game : AppCompatActivity() {
                 idcounter = idcounter.plus(1)
 
 
-                for (i in 0 .. data.size) {
-                    if (score_p1 <= 0 || score_p2 <= 0 || score_p3 <= 0 ||score_p4 <= 0 ||
-                        score_p1 >= 100 || score_p2 >= 100 || score_p3 >= 100 || score_p4 >= 100) {
-                        setContentView(R.layout.activity_game_finished)
-                        calculateString(data)
+                if (score_p1 <= 0 || score_p2 <= 0 || score_p3 <= 0 ||score_p4 <= 0 ||
+                    score_p1 >= 100 || score_p2 >= 100 || score_p3 >= 100 || score_p4 >= 100) {
+
+                    setContentView(R.layout.activity_game_finished)
+                    tableLayout!!.addView(nrow)
+                    calculateString(data)
+
+
+                    //creating winners object and writing winners to database
+                    var place1 = findViewById<TextView>(R.id.textView).toString()
+                    var place2 = findViewById<TextView>(R.id.textView2).toString()
+                    var place3 = findViewById<TextView>(R.id.textView3).toString()
+                    var place4 = findViewById<TextView>(R.id.textView4).toString()
+
+
+                    //add places the new entry in front of list
+                    val listOfWinners = mutableListOf<String>()
+
+                    if (score_p1 == 0)
+                    {
+                        listOfWinners.add(place1)
+                        continue
                     }
-                }
-                repository.getLastRound(intent.getLongExtra(EXTRA_MESSAGE, 0))
-                repository.getLastRound(intent.getLongExtra(EXTRA_MESSAGE, 0))
+                    if (score_p2 == 0)
+                    {
+                        listOfWinners.add(place2)
+                        continue
+                    }
+                    if (score_p3 == 0)
+                    {
+                        listOfWinners.add(place3)
+                        continue
+                    }
+                    if (score_p4 == 0)
+                    {
+                        listOfWinners.add(place4)
+                        continue
+                    }
 
-                tableLayout!!.addView(nrow)
+                    val newWinnersObject = WinnersObject(listOfWinners[0], listOfWinners[1], listOfWinners[2], listOfWinners[3])
+                    repository.writeWinnersToDB(newWinnersObject)
 
-
-                //creating winners object and writing winners to database
-                var place1 = findViewById<TextView>(R.id.textView).toString()
-                var place2 = findViewById<TextView>(R.id.textView2).toString()
-                var place3 = findViewById<TextView>(R.id.textView3).toString()
-                var place4 = findViewById<TextView>(R.id.textView4).toString()
-
-
-                val listOfWinners = mutableListOf<String>()
-
-                for (i in 0 .. 3) {
-                    listOfWinners[i] = ""
-                }
-
-                if (score_p1 == 0)
-                {
-                    listOfWinners.add(place1)
-                    continue
-                }
-                if (score_p2 == 0)
-                {
-                    listOfWinners.add(place2)
-                    continue
-                }
-                if (score_p3 == 0)
-                {
-                    listOfWinners.add(place3)
-                    continue
-                }
-                if (score_p4 == 0)
-                {
-                    listOfWinners.add(place4)
-                    continue
                 }
 
-                val newWinnersObject = WinnersObject(listOfWinners[0], listOfWinners[1], listOfWinners[2], listOfWinners[3])
-                repository.writeWinnersToDB(newWinnersObject)
 
 
             } while (cursor.moveToNext())
@@ -285,4 +280,6 @@ class Game : AppCompatActivity() {
 
         return current + deduction
     }
+
+
 }
