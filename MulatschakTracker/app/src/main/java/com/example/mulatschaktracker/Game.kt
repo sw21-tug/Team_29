@@ -148,43 +148,9 @@ class Game : AppCompatActivity() {
 
                     setContentView(R.layout.activity_game_finished)
                     tableLayout!!.addView(nrow)
-                    calculateString(data)
+                     var todb =  calculateString(data)
                     repository.setGameFinished(gameId)
-
-                    //creating winners object and writing winners to database
-                    var place1 = findViewById<TextView>(R.id.textView).toString()
-                    var place2 = findViewById<TextView>(R.id.textView2).toString()
-                    var place3 = findViewById<TextView>(R.id.textView3).toString()
-                    var place4 = findViewById<TextView>(R.id.textView4).toString()
-
-
-                    //add places the new entry in front of list
-                   /* val listOfWinners = mutableListOf<String>()
-
-                    if (score_p1 == 0)
-                    {
-                        listOfWinners.add(place1)
-                        continue
-                    }
-                    if (score_p2 == 0)
-                    {
-                        listOfWinners.add(place2)
-                        continue
-                    }
-                    if (score_p3 == 0)
-                    {
-                        listOfWinners.add(place3)
-                        continue
-                    }
-                    if (score_p4 == 0)
-                    {
-                        listOfWinners.add(place4)
-                        continue
-                    }
-
-                    val newWinnersObject = WinnersObject(listOfWinners[0], listOfWinners[1], listOfWinners[2], listOfWinners[3])
-                    repository.writeWinnersToDB(newWinnersObject)*/
-
+                    repository.writeWinnersToDB(todb)
                 }
 
 
@@ -203,13 +169,12 @@ class Game : AppCompatActivity() {
     }
 
 
-    fun calculateString(arg : List<String>) : MutableList<String>
+    fun calculateString(arg : List<String>) : GameObject
     {
         var place1 = findViewById<TextView>(R.id.textView)
         var place2 = findViewById<TextView>(R.id.textView2)
         var place3 = findViewById<TextView>(R.id.textView3)
         var place4 = findViewById<TextView>(R.id.textView4)
-        var retval = mutableListOf<String>()
         println(arg)
         var map : MutableMap<String, Int> = mutableMapOf()
 
@@ -226,12 +191,34 @@ class Game : AppCompatActivity() {
         var thirdPlace = ""
         var fortPlace = ""
         var previousVal = 0
+        var winners1 = ""
+        var winners2 = ""
+        var winners3= ""
+        var winners4 = ""
+
+        var itr : Int =  0
         var sortedValue = sortedMap.values
         for(i in sortedMap)
         {
             if(i.value <= sortedValue.first())
             {
                 firstPlace =  firstPlace +  i.key + ' '
+                if(winners1 != "")
+                {
+                    winners1 = i.key
+                }
+                 else if(winners2 != "")
+                {
+                    winners2 = i.key
+                }
+                else if(winners3 != "")
+                {
+                    winners3 = i.key
+                }
+                else  if(winners4 != "")
+                {
+                    winners4 = i.key
+                }
                 continue
             }
             if (secondPlace == "")
@@ -251,15 +238,13 @@ class Game : AppCompatActivity() {
             }
         }
 
-        retval.add(firstPlace)
-        retval.add(secondPlace)
-        retval.add(thirdPlace)
-        retval.add(fortPlace)
 
         place1?.setText("1. Place $firstPlace")
         place2?.setText("2. Place $secondPlace")
         place3?.setText("3. Place $thirdPlace")
         place4?.setText("4. Place $fortPlace")
+
+        var retval = GameObject(winners1, winners2,winners3,winners4)
         return retval
     }
 

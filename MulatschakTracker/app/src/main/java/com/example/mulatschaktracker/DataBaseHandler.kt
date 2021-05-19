@@ -52,9 +52,9 @@ class DataBaseHandler(var context: Context) : SQLiteOpenHelper(context, DATABASE
                         GAME_IS_FINISHED + " INTEGER," +
                         WINNER + " INTEGER," +
                         FIRST_WINNER_COLUMN + " TEXT," +
-                        SECOND_WINNER_COLUMN + "TEXT," +
-                        THIRD_WINNER_COLUMN + "TEXT," +
-                        FOURTH_WINNER_COLUMN + "TEXT" +
+                        SECOND_WINNER_COLUMN + " TEXT," +
+                        THIRD_WINNER_COLUMN + " TEXT," +
+                        FOURTH_WINNER_COLUMN + " TEXT" +
                         ")")
 
                 db?.execSQL("CREATE TABLE " + ROUND_TABLE_NAME + " (" +
