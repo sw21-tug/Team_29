@@ -194,7 +194,8 @@ class EditGameRoundActivityTest {
     private fun testRow(rowId: Int, buttonId: Int, labelId: Int, result: String, add:Boolean) {
         Thread.sleep(waitTime)
         Espresso.onView(ViewMatchers.withId(rowId)).perform(ViewActions.longClick())
-        waitUntilActivityVisible<AddGameRoundActivity>()
+        Thread.sleep(waitTime)
+
         if (add) {
             Espresso.onView(ViewMatchers.withId(buttonId)).perform(ViewActions.click())
         } else {
@@ -217,26 +218,5 @@ class EditGameRoundActivityTest {
         Espresso.onView(ViewMatchers.withId(R.id.button_player_4))
             .check(ViewAssertions.matches(ViewMatchers.withText(b4)))
     }
-
-    inline fun <reified T : Activity> isVisible() : Boolean {
-        val am = InstrumentationRegistry.getContext().getSystemService(ACTIVITY_SERVICE) as ActivityManager
-        val visibleActivityName = am.appTasks[0].taskInfo.baseActivity?.className
-        return visibleActivityName == T::class.java.name
-    }
-
-    val TIMEOUT = 5000L
-    val CONDITION_CHECK_INTERVAL = 100L
-
-    inline fun <reified T : Activity> waitUntilActivityVisible() {
-        val startTime = System.currentTimeMillis()
-        while (!isVisible<T>()) {
-            Thread.sleep(CONDITION_CHECK_INTERVAL)
-            if (System.currentTimeMillis() - startTime >= TIMEOUT) {
-                throw AssertionError("Activity ${T::class.java.simpleName} not visible after $TIMEOUT milliseconds")
-            }
-        }
-    }
-
-
 }
 
