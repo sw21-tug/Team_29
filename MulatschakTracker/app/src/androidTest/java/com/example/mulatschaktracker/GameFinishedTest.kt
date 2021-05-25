@@ -354,7 +354,7 @@ class GameFinishedTest {
     }
 
     @Test
-    fun getWinnerList()
+    fun getWinnerList3()
     {
         val appContext: Context = ApplicationProvider.getApplicationContext();
         val repo = GameRepository(appContext);
@@ -378,11 +378,72 @@ class GameFinishedTest {
         var game =  repo.getGameFinished(1)
         assert(game == 1)
         val listOfWinners = repo.getWinners(1)
-        assert(listOfWinners.first() == "Player 1")
+        assert(listOfWinners.player1 == "Player 3")
+    }
+
+
+
+    @Test
+    fun getWinnerList4()
+    {
+        val appContext: Context = ApplicationProvider.getApplicationContext();
+        val repo = GameRepository(appContext);
+
+        val appContext2: Context = ApplicationProvider.getApplicationContext();
+        val repo2 = UserRepository(appContext2);
+        repo2.resetDatabase()
+        onView(withId(R.id.StartNewGameActivityButton)).perform(click())
+
+
+        onView(withId(R.id.StartNewGameButton)).perform(click())
+
+        onView(withId(R.id.EndGameButton)).perform(ViewActions.click())
+
+        for (i in 0..21) {
+            onView(withId(R.id.button_player_4)).perform(ViewActions.click())
+
+        }
+        onView(withId(R.id.endround)).perform(click())
+
+        var game =  repo.getGameFinished(1)
+        assert(game == 1)
+        val listOfWinners = repo.getWinners(1)
+        assert(listOfWinners.player1 == "Player 4")
     }
 
     @Test
-    fun getWinnerList2()
+    fun getWinnerList1()
+    {
+
+        val appContext: Context = ApplicationProvider.getApplicationContext();
+        val repo = GameRepository(appContext);
+
+        val appContext2: Context = ApplicationProvider.getApplicationContext();
+        val repo2 = UserRepository(appContext2);
+        repo2.resetDatabase()
+        onView(withId(R.id.StartNewGameActivityButton)).perform(click())
+
+
+        onView(withId(R.id.StartNewGameButton)).perform(click())
+
+        onView(withId(R.id.EndGameButton)).perform(ViewActions.click())
+
+        for (i in 0..21) {
+            onView(withId(R.id.button_player_1)).perform(ViewActions.click())
+          //  onView(withId(R.id.button_player_2)).perform(ViewActions.click())
+        }
+        onView(withId(R.id.endround)).perform(click())
+
+        var game =  repo.getGameFinished(1)
+        assert(game == 1)
+        val listOfWinners = repo.getWinners(1)
+        assert(listOfWinners.player1 == "Player 1")
+
+    }
+
+
+    @Test
+    fun getWinnerList12()
     {
 
         val appContext: Context = ApplicationProvider.getApplicationContext();
@@ -407,9 +468,145 @@ class GameFinishedTest {
         var game =  repo.getGameFinished(1)
         assert(game == 1)
         val listOfWinners = repo.getWinners(1)
-        assert(listOfWinners.player1 == "")
-        assert(listOfWinners.player2 == "")
+        assert(listOfWinners.player1 == "Player 1")
+        assert(listOfWinners.player2 == "Player 2")
 
+    }
+
+
+
+    @Test
+    fun getWinnerList123()
+    {
+
+        val appContext: Context = ApplicationProvider.getApplicationContext();
+        val repo = GameRepository(appContext);
+
+        val appContext2: Context = ApplicationProvider.getApplicationContext();
+        val repo2 = UserRepository(appContext2);
+        repo2.resetDatabase()
+        onView(withId(R.id.StartNewGameActivityButton)).perform(click())
+
+
+        onView(withId(R.id.StartNewGameButton)).perform(click())
+
+        onView(withId(R.id.EndGameButton)).perform(ViewActions.click())
+
+        for (i in 0..21) {
+            onView(withId(R.id.button_player_1)).perform(ViewActions.click())
+            onView(withId(R.id.button_player_2)).perform(ViewActions.click())
+            onView(withId(R.id.button_player_3)).perform(ViewActions.click())
+
+        }
+        onView(withId(R.id.endround)).perform(click())
+
+        var game =  repo.getGameFinished(1)
+        assert(game == 1)
+        val listOfWinners = repo.getWinners(1)
+        assert(listOfWinners.player1 == "Player 1")
+        assert(listOfWinners.player2 == "Player 2")
+        assert(listOfWinners.player3 == "Player 3")
+    }
+
+
+    @Test
+    fun getWinnerList1234()
+    {
+
+        val appContext: Context = ApplicationProvider.getApplicationContext();
+        val repo = GameRepository(appContext);
+
+        val appContext2: Context = ApplicationProvider.getApplicationContext();
+        val repo2 = UserRepository(appContext2);
+        repo2.resetDatabase()
+        onView(withId(R.id.StartNewGameActivityButton)).perform(click())
+
+
+        onView(withId(R.id.StartNewGameButton)).perform(click())
+
+        onView(withId(R.id.EndGameButton)).perform(ViewActions.click())
+
+        for (i in 0..21) {
+            onView(withId(R.id.button_player_1)).perform(ViewActions.click())
+            onView(withId(R.id.button_player_2)).perform(ViewActions.click())
+            onView(withId(R.id.button_player_3)).perform(ViewActions.click())
+            onView(withId(R.id.button_player_4)).perform(ViewActions.click())
+        }
+        onView(withId(R.id.endround)).perform(click())
+
+        var game =  repo.getGameFinished(1)
+        assert(game == 1)
+        val listOfWinners = repo.getWinners(1)
+        assert(listOfWinners.player1 == "Player 1")
+        assert(listOfWinners.player2 == "Player 2")
+        assert(listOfWinners.player3 == "Player 3")
+        assert(listOfWinners.player4 == "Player 4")
+    }
+
+
+
+    @Test
+    fun getWinnerList13()
+    {
+
+        val appContext: Context = ApplicationProvider.getApplicationContext();
+        val repo = GameRepository(appContext);
+
+        val appContext2: Context = ApplicationProvider.getApplicationContext();
+        val repo2 = UserRepository(appContext2);
+        repo2.resetDatabase()
+        onView(withId(R.id.StartNewGameActivityButton)).perform(click())
+
+
+        onView(withId(R.id.StartNewGameButton)).perform(click())
+
+        onView(withId(R.id.EndGameButton)).perform(ViewActions.click())
+
+        for (i in 0..21) {
+            onView(withId(R.id.button_player_1)).perform(ViewActions.click())
+            onView(withId(R.id.button_player_3)).perform(ViewActions.click())
+        }
+        onView(withId(R.id.endround)).perform(click())
+
+        var game =  repo.getGameFinished(1)
+        assert(game == 1)
+        val listOfWinners = repo.getWinners(1)
+        assert(listOfWinners.player1 == "Player 1")
+        assert(listOfWinners.player2 == "Player 3")
+    }
+
+
+
+
+
+    @Test
+    fun getWinnerList24()
+    {
+
+        val appContext: Context = ApplicationProvider.getApplicationContext();
+        val repo = GameRepository(appContext);
+
+        val appContext2: Context = ApplicationProvider.getApplicationContext();
+        val repo2 = UserRepository(appContext2);
+        repo2.resetDatabase()
+        onView(withId(R.id.StartNewGameActivityButton)).perform(click())
+
+
+        onView(withId(R.id.StartNewGameButton)).perform(click())
+
+        onView(withId(R.id.EndGameButton)).perform(ViewActions.click())
+
+        for (i in 0..21) {
+            onView(withId(R.id.button_player_2)).perform(ViewActions.click())
+            onView(withId(R.id.button_player_4)).perform(ViewActions.click())
+        }
+        onView(withId(R.id.endround)).perform(click())
+
+        var game =  repo.getGameFinished(1)
+        assert(game == 1)
+        val listOfWinners = repo.getWinners(1)
+        assert(listOfWinners.player1 == "Player 2")
+        assert(listOfWinners.player2 == "Player 4")
     }
 
 }
