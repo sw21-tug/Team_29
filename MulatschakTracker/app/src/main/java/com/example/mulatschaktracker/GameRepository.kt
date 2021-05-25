@@ -106,7 +106,6 @@ class GameRepository(var appContext: Context) {
             result.id = cursor.getLong(
                     cursor.getColumnIndex(GAME_COLUMN_ID))
             result.finished = 1
-           var str =    result.player1
 
             return result
         }
@@ -161,25 +160,34 @@ class GameRepository(var appContext: Context) {
 
         var round  = RoundObject(player1Points,player2Points, player3Points, player4Points,0,0)
 
-        println(player1Points)
-        println(player2Points)
-        println(player3Points)
-        println(player4Points)
 
         return round
     }
 
-    fun writeWinnersToDB(newGameObject: GameObject)  : Long {
+  /*/  fun setGameFinished(gameID: Long): Int
+    {
+        val dbWrite = DataBaseHandler(appContext).writableDatabase
+        val values = ContentValues()
+        values.put(GAME_IS_FINISHED, 1)
+        var arr =  arrayOf<String>(gameID.toString())
+        return dbWrite.update(GAME_TABLE_NAME,values, GAME_COLUMN_ID + " = ?", arr)
+
+    }*/
+
+
+    fun writeWinnersToDB(newGameObject: GameObject, gameID: Long) {
 
         val dbWrite = DataBaseHandler(appContext).writableDatabase
         val values = ContentValues()
         println(newGameObject.player1)
-        values.put(FIRST_WINNER_COLUMN, newGameObject.player1won)
-        values.put(SECOND_WINNER_COLUMN, newGameObject.player2won)
-        values.put(THIRD_WINNER_COLUMN, newGameObject.player3won)
-        values.put(FOURTH_WINNER_COLUMN, newGameObject.player4won)
+        println(newGameObject.player2)
+        var arr =  arrayOf<String>(gameID.toString())
+        values.put(FIRST_WINNER_COLUMN, newGameObject.player1)
+        values.put(SECOND_WINNER_COLUMN, newGameObject.player2)
+        values.put(THIRD_WINNER_COLUMN, newGameObject.player3)
+        values.put(FOURTH_WINNER_COLUMN, newGameObject.player4)
 
-        return dbWrite.insert(WINNER_TABLE_NAME, null, values)
+        dbWrite.update(GAME_TABLE_NAME,values, "$GAME_COLUMN_ID = ?", arr)
     }
 
     fun getCursorWinners(gameID: Long) : Cursor {

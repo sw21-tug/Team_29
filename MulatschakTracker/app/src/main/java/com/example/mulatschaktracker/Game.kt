@@ -150,7 +150,7 @@ class Game : AppCompatActivity() {
                     tableLayout!!.addView(nrow)
                      var todb =  calculateString(data)
                     repository.setGameFinished(gameId)
-                    repository.writeWinnersToDB(todb)
+                    repository.writeWinnersToDB(todb, gameId)
                 }
 
 
@@ -184,13 +184,10 @@ class Game : AppCompatActivity() {
             map[name[0]] = name[1].toInt()
         }
         var sortedMap  = map.toList().sortedBy { (_, value) -> value}.toMap()
-        var it = 1;
-        var dataToPass : String = ""
         var firstPlace =  ""
         var secondPlace = ""
         var thirdPlace = ""
         var fortPlace = ""
-        var previousVal = 0
         var winners1 = ""
         var winners2 = ""
         var winners3= ""
@@ -203,21 +200,35 @@ class Game : AppCompatActivity() {
             if(i.value <= sortedValue.first())
             {
                 firstPlace =  firstPlace +  i.key + ' '
-                if(winners1 != "")
+                if(winners1 == "")
                 {
+                    println(i.key)
                     winners1 = i.key
+                    continue
                 }
-                 else if(winners2 != "")
+                if(winners2 == "")
                 {
+                    println(i.key)
+
                     winners2 = i.key
+                    continue
+
                 }
-                else if(winners3 != "")
+                if(winners3 == "")
                 {
+                    println(i.key)
+
                     winners3 = i.key
+                    continue
+
                 }
-                else  if(winners4 != "")
+                if(winners4 == "")
                 {
+                    println(i.key)
+
                     winners4 = i.key
+                    continue
+
                 }
                 continue
             }
