@@ -1,5 +1,6 @@
 package com.example.mulatschaktracker.ui.addGameRound
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.widget.Button
 
@@ -13,6 +14,7 @@ import com.example.mulatschaktracker.ui.home.GameRecyclerAdapter.GameViewHolder.
 
 class AddGameRoundActivity : AppCompatActivity() {
 
+    @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)

@@ -459,7 +459,7 @@ class AddGameRoundActivityTest : TestCase(){
     }
 
     @Test
-    fun is_tvPlayerRightScoreHeart() {
+    fun is_tvPlayerHeart() {
         onView(withId(R.id.StartNewGameActivityButton)).perform(ViewActions.click())
         onView(withId(R.id.StartNewGameButton)).perform(ViewActions.click())
         onView(withId(R.id.AddRoundButton)).perform(ViewActions.click())
@@ -470,7 +470,12 @@ class AddGameRoundActivityTest : TestCase(){
         onView(withId(R.id.button_player_4)).perform(ViewActions.click())
 
         onView(withId(R.id.HeartRoundButton)).perform(ViewActions.click())
-        onView(withId(R.id.HeartRoundButton)).check(matches(isSelected()))
+        assertEquals("Heart Round Active", getText(onView(withId(R.id.HeartRoundButton))))
+        //assertEquals(getText(R.string.heart_round_active), getText(onView(withId(R.id.HeartRoundButton))))
+
+        onView(withId(R.id.HeartRoundButton)).perform(ViewActions.click())
+        assertEquals("Heart Round Inactive", getText(onView(withId(R.id.HeartRoundButton))))
+        //assertEquals(R.string.heart_round, getText(onView(withId(R.id.HeartRoundButton))))
 
     }
 
