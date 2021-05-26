@@ -10,6 +10,7 @@
     <string name="Player4">Игрок 4</string>
     <string name="EnterNewPlayer">Введите имена игроков</string>
     <string name="heart_round">Раунд Черви</string>
+    <string name="heart_round_active">Раунд Черви активный</string>
     <string name="underdog">Проигравший</string>
     <string name="end_game">Конец игры</string>
     <string name="app_name">MulatschakTracker</string>
