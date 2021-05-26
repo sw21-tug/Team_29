@@ -148,6 +148,43 @@ class GameRepositoryTest {
 
     }
 
+    @Test
+    fun addHeartRoundTest() {
+        val appContext: Context = ApplicationProvider.getApplicationContext();
+
+        //Test for the activity of starting a new game
+        val userRepo = UserRepository(appContext)
+        userRepo.resetDatabase()
+        val gameRepo = GameRepository(appContext)
+        val userID = userRepo.createUser(UserObject("NewUser"))
+        val gameId = gameRepo.createGame(GameObject("Player 1", "Player 2", "Player 3", "Player 4"),userID)
+
+        val round1 = gameRepo.enterNewRound(RoundObject(2,1,0,-1,0,0),gameId)
+        val round2 = gameRepo.enterNewRound(RoundObject(0,2,1,-1,0,0),gameId)
+        val round3 = gameRepo.enterNewRound(RoundObject(1,1,0,2,0,0),gameId)
+
+        var roundObject = gameRepo.getRound(round2.toInt())
+
+        assertEquals(roundObject.p1,0)
+        assertEquals(roundObject.p2,2)
+        assertEquals(roundObject.p3,1)
+        assertEquals(roundObject.p4,-1)
+        assertEquals(roundObject.ud,0)
+
+        roundObject.ud = 1
+
+        gameRepo.updateRound(round2.toInt(), roundObject)
+
+        val roundObjectAfterUnderdog = gameRepo.getRound(round2.toInt())
+
+        assertEquals(0, roundObjectAfterUnderdog.p1)
+        assertEquals(2, roundObjectAfterUnderdog.p2)
+        assertEquals(1, roundObjectAfterUnderdog.p3)
+        assertEquals(-1, roundObjectAfterUnderdog.p4)
+        assertEquals(1,roundObjectAfterUnderdog.ud)
+
+
+    }
 
 
 }

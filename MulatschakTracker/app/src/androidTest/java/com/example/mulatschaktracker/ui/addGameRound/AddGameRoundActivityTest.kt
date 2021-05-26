@@ -11,8 +11,9 @@ import androidx.test.espresso.ViewAction
 import androidx.test.espresso.ViewInteraction
 import androidx.test.espresso.action.ViewActions
 import androidx.test.espresso.assertion.ViewAssertions
+import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers
-import androidx.test.espresso.matcher.ViewMatchers.withId
+import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner
 import com.example.mulatschaktracker.*
@@ -456,6 +457,25 @@ class AddGameRoundActivityTest : TestCase(){
         assertEquals("17", getText(onView(withId(7))))
         assertEquals("13", getText(onView(withId(8))))
     }
+
+    @Test
+    fun is_tvPlayerRightScoreHeart() {
+        onView(withId(R.id.StartNewGameActivityButton)).perform(ViewActions.click())
+        onView(withId(R.id.StartNewGameButton)).perform(ViewActions.click())
+        onView(withId(R.id.AddRoundButton)).perform(ViewActions.click())
+
+        onView(withId(R.id.button_player_1)).perform(ViewActions.longClick())
+        onView(withId(R.id.button_player_3)).perform(ViewActions.click())
+        onView(withId(R.id.button_player_4)).perform(ViewActions.click())
+        onView(withId(R.id.button_player_4)).perform(ViewActions.click())
+
+        onView(withId(R.id.HeartRoundButton)).perform(ViewActions.click())
+        onView(withId(R.id.HeartRoundButton)).check(matches(isSelected()))
+
+    }
+
+
+
 
     @Test
     fun readGameFromDatabase(){
