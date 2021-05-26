@@ -1,5 +1,9 @@
 package com.example.mulatschaktracker.ui.editGameRound
 
+import android.app.Activity
+import android.app.ActivityManager
+import android.content.Context.ACTIVITY_SERVICE
+import androidx.test.InstrumentationRegistry
 import androidx.test.espresso.Espresso
 import androidx.test.espresso.action.ViewActions
 import androidx.test.espresso.assertion.ViewAssertions
@@ -8,6 +12,7 @@ import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner
 import com.example.mulatschaktracker.MainActivity
 import com.example.mulatschaktracker.R
+import com.example.mulatschaktracker.ui.addGameRound.AddGameRoundActivity
 import com.example.mulatschaktracker.ui.addGameRound.AddGameRoundActivityTest
 import org.junit.Assert
 import org.junit.Before
@@ -54,6 +59,7 @@ class EditGameRoundActivityTest {
         Espresso.onView(ViewMatchers.withId(R.id.button_player_2)).perform(ViewActions.click())
         Espresso.onView(ViewMatchers.withId(R.id.button_player_4)).perform(ViewActions.click())
         Espresso.onView(ViewMatchers.withId(R.id.button_player_4)).perform(ViewActions.click())
+
         Thread.sleep(waitTime)
         Espresso.onView(ViewMatchers.withId(R.id.endround)).perform(ViewActions.click())
     }
@@ -153,6 +159,19 @@ class EditGameRoundActivityTest {
         checkValuePropagationAdd(rowId, R.id.button_player_4, arrayOf(4,8,12,16), arrayOf("21", "23", "25", "23"),false)
     }
 
+    @Test
+    fun valuePropagationRow2AddUnderdog() {
+        val rowId = 12001
+        checkValuePropagationAdd(rowId, R.id.UnderdogButton, arrayOf(1,2,3,4,
+            5,6,7,8,
+            9,10,11,12,
+            13,14,15,16),
+            arrayOf("21", "21", "21", "21",
+            "19", "20", "26", "23",
+            "29", "16", "24", "27",
+            "28", "15", "29", "25"),true)
+    }
+
     private fun checkValuePropagationAdd(rowId:Int, buttonId:Int, labelIds:Array<Int>, results:Array<String>, add :
     Boolean) {
         Espresso.onView(ViewMatchers.withId(rowId)).perform(ViewActions.longClick())
@@ -173,8 +192,10 @@ class EditGameRoundActivityTest {
     }
 
     private fun testRow(rowId: Int, buttonId: Int, labelId: Int, result: String, add:Boolean) {
+        Thread.sleep(waitTime)
         Espresso.onView(ViewMatchers.withId(rowId)).perform(ViewActions.longClick())
         Thread.sleep(waitTime)
+
         if (add) {
             Espresso.onView(ViewMatchers.withId(buttonId)).perform(ViewActions.click())
         } else {
@@ -197,6 +218,5 @@ class EditGameRoundActivityTest {
         Espresso.onView(ViewMatchers.withId(R.id.button_player_4))
             .check(ViewAssertions.matches(ViewMatchers.withText(b4)))
     }
-
 }
 

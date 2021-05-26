@@ -33,16 +33,20 @@ class AddGameRoundActivity : AppCompatActivity() {
         val buttonPlayer2 = findViewById<Button>(R.id.button_player_2)
         val buttonPlayer3 = findViewById<Button>(R.id.button_player_3)
         val buttonPlayer4 = findViewById<Button>(R.id.button_player_4)
+        val buttonUnderDog = findViewById<Button>(R.id.UnderdogButton)
 
         val tv_playre1 = findViewById<TextView>(R.id.tvPlayerOne)
         val tv_playre2 = findViewById<TextView>(R.id.tvPlayerTwo)
         val tv_playre3 = findViewById<TextView>(R.id.tvPlayerThree)
         val tv_playre4 = findViewById<TextView>(R.id.tvPlayerFour)
+        val tv_UnderDog = findViewById<TextView>(R.id.tvUnderdogRound)
 
         tv_playre1.text = game.player1
         tv_playre2.text = game.player2
         tv_playre3.text = game.player3
         tv_playre4.text = game.player4
+        tv_UnderDog.text = gameupdate.Underdog.toString()
+
 
         var ro: RoundObject? = null
         if(roundId > 0)
@@ -52,6 +56,7 @@ class AddGameRoundActivity : AppCompatActivity() {
             gameupdate.scorePlayer2 = ro.p2
             gameupdate.scorePlayer3 = ro.p3
             gameupdate.scorePlayer4 = ro.p4
+            gameupdate.Underdog = ro.ud
         }
 
 
@@ -79,7 +84,18 @@ class AddGameRoundActivity : AppCompatActivity() {
             gameupdate.incrementP4()
             buttonPlayer4.text = checkLeft(gameupdate.scorePlayer4)
         }
+        buttonUnderDog.setOnClickListener{
+            gameupdate.incrementUnderdog()
+            tv_UnderDog.text = gameupdate.Underdog.toString()
+        }
 
+        buttonUnderDog.setOnLongClickListener{
+            if (gameupdate.Underdog >= 1) {
+                gameupdate.decrementUnderdog()
+            }
+            tv_UnderDog.text = gameupdate.Underdog.toString()
+            true
+        }
 
         buttonPlayer1.setOnLongClickListener {
             if(gameupdate.scorePlayer1 > -1)
@@ -88,7 +104,6 @@ class AddGameRoundActivity : AppCompatActivity() {
                 buttonPlayer1.text = checkLeft(gameupdate.scorePlayer1)
             }
             true
-
         }
 
         buttonPlayer2.setOnLongClickListener {
@@ -115,13 +130,14 @@ class AddGameRoundActivity : AppCompatActivity() {
 
         buttonSendToDb.setOnClickListener {
 
-            val new_round = RoundObject(gameupdate.scorePlayer1, gameupdate.scorePlayer2, gameupdate.scorePlayer3, gameupdate.scorePlayer4,0,0)
+            val new_round = RoundObject(gameupdate.scorePlayer1, gameupdate.scorePlayer2, gameupdate.scorePlayer3, gameupdate.scorePlayer4,gameupdate.Underdog,0)
             if (roundId > 0  && ro != null)
             {
                 ro.p1 = gameupdate.scorePlayer1
                 ro.p2 = gameupdate.scorePlayer2
                 ro.p3 = gameupdate.scorePlayer3
                 ro.p4 = gameupdate.scorePlayer4
+                ro.ud = gameupdate.Underdog
                 repository.updateRound(roundId, ro)
             }
             else
@@ -131,6 +147,8 @@ class AddGameRoundActivity : AppCompatActivity() {
 
             finish()
         }
+
+
     }
 
 

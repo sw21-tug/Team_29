@@ -173,7 +173,33 @@
 
 
             </LinearLayout>
+        </LinearLayout>
+            <Button
+                android:id="@+id/HeartRoundButton"
+                android:layout_width="180dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginBottom="10dp"
+                android:text="@string/heart_round"
+                 />
 
+        <Button
+                android:id="@+id/UnderdogButton"
+                android:layout_width="180dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginBottom="10dp"
+                android:text="@string/underdog"
+                />
+        <TextView
+            android:id="@+id/tvUnderdogRound"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
+            android:text="UnderdogRound: 0" />
             <Button
                 android:id="@+id/endround"
                 android:layout_width="match_parent"
@@ -182,6 +208,6 @@
                 android:text="@string/end_round"
 
                 />
-        </LinearLayout>
+
     </LinearLayout>
 </androidx.wear.widget.BoxInsetLayout>
