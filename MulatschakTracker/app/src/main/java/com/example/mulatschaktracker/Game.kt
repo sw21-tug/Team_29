@@ -156,7 +156,8 @@ class Game : AppCompatActivity() {
                     repository.writeWinnersToDB(todb, gameId)
                     var button: Button = findViewById(R.id.game_finished_back_button)
                     button.setOnClickListener(View.OnClickListener(){
-                      setContentView(R.layout.activity_game)
+                      setContentView(R.layout.activity_main)
+
                     })
 
                 }
