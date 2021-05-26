@@ -34,6 +34,7 @@ class AddGameRoundActivity : AppCompatActivity() {
         val buttonPlayer3 = findViewById<Button>(R.id.button_player_3)
         val buttonPlayer4 = findViewById<Button>(R.id.button_player_4)
         val buttonUnderDog = findViewById<Button>(R.id.UnderdogButton)
+        val buttonHeart = findViewById<Button>(R.id.HeartRoundButton)
 
         val tv_playre1 = findViewById<TextView>(R.id.tvPlayerOne)
         val tv_playre2 = findViewById<TextView>(R.id.tvPlayerTwo)
@@ -84,10 +85,21 @@ class AddGameRoundActivity : AppCompatActivity() {
             gameupdate.incrementP4()
             buttonPlayer4.text = checkLeft(gameupdate.scorePlayer4)
         }
+
+
         buttonUnderDog.setOnClickListener{
             gameupdate.incrementUnderdog()
             tv_UnderDog.text = gameupdate.Underdog.toString()
         }
+
+
+        buttonHeart.setOnClickListener{
+            //gameupdate.setHeartround()
+            buttonHeart.isSelected = true
+            buttonHeart.is
+
+        }
+
 
         buttonUnderDog.setOnLongClickListener{
             if (gameupdate.Underdog >= 1) {
