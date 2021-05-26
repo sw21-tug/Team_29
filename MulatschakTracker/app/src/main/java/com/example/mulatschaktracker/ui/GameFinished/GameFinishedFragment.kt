@@ -47,13 +47,15 @@ import com.example.mulatschaktracker.R
 
         val root = inflater.inflate(R.layout.activity_game_finished, container, false)
 
-        val backButton: Button = root.findViewById<View>(R.id.game_finished_back_button) as Button
+       /* val backButton: Button = root.findViewById<View>(R.id.game_finished_back_button) as Button
         backButton.setOnClickListener{ root ->
             var fragment = requireFragmentManager().findFragmentById(R.id.nav_host_fragment)
             if (fragment != null) {
-                getFragmentManager()?.beginTransaction()?.replace((root!!.parent as ViewGroup).id,fragment)?.commit()
+                if (container != null) {
+                    getFragmentManager()?.beginTransaction()?.replace(container.id,fragment)?.commit()
+                }
             }
-        }
+        }*/
 
 
 
