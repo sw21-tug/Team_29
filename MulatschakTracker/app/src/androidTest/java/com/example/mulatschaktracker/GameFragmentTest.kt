@@ -116,6 +116,39 @@ class GameFragmentTest:TestCase() {
     }
 
 
+    @Test
+    //Test if the backbutton works correctly on GameScreen
+    fun checkBackButtonFromGameScreen() {
+        onView(withId(R.id.StartNewGameActivityButton)).perform(click())
+        onView(withId(R.id.StartNewGameButton)).perform(click())
+        pressBack();
+        onView(withId(R.id.StartNewGameActivityButton)).check(matches(isDisplayed()))
+    }
+    @Test
+    //Test if the backbutton works correctly on Edit screen
+    fun checkBackButtonFromEditGameScreen() {
+        onView(withId(R.id.StartNewGameActivityButton)).perform(click())
+        onView(withId(R.id.StartNewGameButton)).perform(click())
+        onView(withId(R.id.AddRoundButton)).perform(click())
+        pressBack();
+        onView(withId(R.id.AddRoundButton)).check(matches(isDisplayed()))
+    }
+
+    @Test
+    //Test if the backbutton works correctly when leaving Edit screen
+    fun checkBackButtonAfterEditGameScreen() {
+        onView(withId(R.id.StartNewGameActivityButton)).perform(click())
+        onView(withId(R.id.StartNewGameButton)).perform(click())
+        onView(withId(R.id.AddRoundButton)).perform(click())
+        onView(withId(R.id.button_player_1)).perform(click())
+        onView(withId(R.id.endround)).perform(click())
+        onView(withId(R.id.AddRoundButton)).perform(click())
+        onView(withId(R.id.button_player_2)).perform(click())
+        onView(withId(R.id.endround)).perform(click())
+        pressBack();
+        onView(withId(R.id.StartNewGameActivityButton)).check(matches(isDisplayed()))
+    }
+
 
 
 }
