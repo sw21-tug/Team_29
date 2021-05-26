@@ -8,20 +8,16 @@ import android.provider.AlarmClock.EXTRA_MESSAGE
 import android.text.InputType.TYPE_CLASS_NUMBER
 import android.view.Gravity
 import android.view.View
-import android.widget.Button
-import android.widget.TableLayout
-import android.widget.TableRow
-import android.widget.TextView
+import android.widget.*
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
 import com.example.mulatschaktracker.ui.addGameRound.AddGameRoundActivity
 import com.example.mulatschaktracker.ui.statistics.GameFinishedFragment
 import org.w3c.dom.Text
 import javax.xml.datatype.DatatypeFactory.newInstance
 import javax.xml.parsers.DocumentBuilderFactory.newInstance
-
+import androidx.appcompat.widget.Toolbar
+import androidx.navigation.ui.setupWithNavController
 
 class Game : AppCompatActivity() {
 
@@ -156,8 +152,9 @@ class Game : AppCompatActivity() {
                     repository.writeWinnersToDB(todb, gameId)
                     var button: Button = findViewById(R.id.game_finished_back_button)
                     button.setOnClickListener(View.OnClickListener(){
-                      setContentView(R.layout.activity_main)
-
+                                       val mainIntent = Intent(this, MainActivity::class.java);
+                        this.finish()
+                        startActivity(mainIntent);
                     })
 
                 }
@@ -289,7 +286,3 @@ class Game : AppCompatActivity() {
 
 }
 
-private fun Button.setOnClickListener() : Boolean {
-
-    return true
-}

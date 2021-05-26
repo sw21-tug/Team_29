@@ -634,8 +634,6 @@ class GameFinishedTest {
         var game =  repo.getGameFinished(1)
         //assert(game)
         val listOfWinners = repo.getWinners(1)
-        assert(listOfWinners.first() == "Player 1")
-        assert(listOfWinners[1] == "Player 2")
         onView(withId(R.id.game_finished_back_button)).perform(click())
         onView(withId(R.id.nav_host_fragment)).check(matches(isDisplayed()))
 
