@@ -39,4 +39,9 @@
     <string name="no_running_games">No Running Games</string>
     <string name="end_round">End Round</string>
 
+    <string name="alert_delete_user">Are you sure you want to delete all your data. This step cannot be undone?</string>
+    <string name="delete_user_button">Delete Account</string>
+    <string name="yes">Yes</string>
+    <string name="cancel">Cancel</string>
+
 </resources>
