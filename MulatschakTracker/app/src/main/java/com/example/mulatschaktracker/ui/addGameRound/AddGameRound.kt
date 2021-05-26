@@ -10,7 +10,7 @@ class AddGameRound {
     var scorePlayer3: Int
     var scorePlayer4: Int
     var Underdog: Int = 0
-    var Heartround : Int = 0
+    var Heartround: Boolean = false
 
 
     init
@@ -21,6 +21,7 @@ class AddGameRound {
         this.scorePlayer3 = 0
         this.scorePlayer4 = 0
         this.Underdog = 0
+
 
     }
 
@@ -73,6 +74,11 @@ class AddGameRound {
     fun decrementUnderdog()
     {
         this.Underdog = this.Underdog.minus(1)
+    }
+
+    fun setHeartRound(active: Boolean)
+    {
+        this.Heartround = active;
     }
 
 

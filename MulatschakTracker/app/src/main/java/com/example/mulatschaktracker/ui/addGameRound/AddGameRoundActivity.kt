@@ -96,7 +96,18 @@ class AddGameRoundActivity : AppCompatActivity() {
         buttonHeart.setOnClickListener{
             //gameupdate.setHeartround()
             buttonHeart.isSelected = true
-            buttonHeart.text = "Heartround Active"
+
+
+            if (gameupdate.Heartround == true)
+            {
+                gameupdate.setHeartRound(false)
+                buttonHeart.text = "Heartround Active"
+            }
+            else
+            {
+                buttonHeart.text = "Heartround InActive"
+                gameupdate.setHeartRound(true);
+            }
 
         }
 
