@@ -386,7 +386,7 @@ class AddGameRoundActivityTest : TestCase(){
         onView(withId(R.id.UnderdogButton)).perform(ViewActions.click())
         onView(withId(R.id.UnderdogButton)).perform(ViewActions.click())
         onView(withId(R.id.UnderdogButton)).perform(ViewActions.longClick())
-        onView(withId(R.id.UnderdogButton))
+        onView(withId(R.id.tvUnderdogRound))
             .check(ViewAssertions.matches(ViewMatchers.withText("1")))
     }
 

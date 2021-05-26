@@ -130,7 +130,7 @@ class AddGameRoundActivity : AppCompatActivity() {
 
         buttonSendToDb.setOnClickListener {
 
-            val new_round = RoundObject(gameupdate.scorePlayer1, gameupdate.scorePlayer2, gameupdate.scorePlayer3, gameupdate.scorePlayer4,0,gameupdate.Underdog)
+            val new_round = RoundObject(gameupdate.scorePlayer1, gameupdate.scorePlayer2, gameupdate.scorePlayer3, gameupdate.scorePlayer4,gameupdate.Underdog,0)
             if (roundId > 0  && ro != null)
             {
                 ro.p1 = gameupdate.scorePlayer1

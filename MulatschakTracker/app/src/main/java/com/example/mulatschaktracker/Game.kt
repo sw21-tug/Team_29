@@ -3,6 +3,7 @@ package com.example.mulatschaktracker
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
 import android.text.InputType.TYPE_CLASS_NUMBER
 import android.util.TypedValue
 import android.view.Gravity
@@ -160,7 +161,12 @@ class Game : AppCompatActivity() {
                 rowIdCounter = rowIdCounter.plus(1)
 
                 nrow.setOnLongClickListener{
-                    editRound(rowId)
+
+                    val handler : Handler = Handler();
+                    handler.postDelayed( Runnable {
+                        editRound(rowId)
+                    }, 400)
+
                     return@setOnLongClickListener true
                 }
 
