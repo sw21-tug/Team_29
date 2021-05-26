@@ -1,18 +1,21 @@
 package com.example.mulatschaktracker
 
 //import com.example.mulatschaktracker.ui.GameFinished.sendMessage
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.provider.AlarmClock.EXTRA_MESSAGE
 import android.text.InputType.TYPE_CLASS_NUMBER
 import android.view.Gravity
 import android.view.View
+import android.widget.Button
 import android.widget.TableLayout
 import android.widget.TableRow
 import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import com.example.mulatschaktracker.ui.addGameRound.AddGameRoundActivity
 import com.example.mulatschaktracker.ui.statistics.GameFinishedFragment
 import org.w3c.dom.Text
@@ -50,6 +53,7 @@ class Game : AppCompatActivity() {
     }
 
 
+    @SuppressLint("ResourceType")
     override fun onResume() {
         super.onResume()
 
@@ -150,6 +154,11 @@ class Game : AppCompatActivity() {
                      var todb =  calculateString(data)
                     repository.setGameFinished(gameId)
                     repository.writeWinnersToDB(todb, gameId)
+                    var button: Button = findViewById(R.id.game_finished_back_button)
+                    button.setOnClickListener(View.OnClickListener(){
+                      setContentView(R.layout.activity_game)
+                    })
+
                 }
 
 
@@ -277,4 +286,9 @@ class Game : AppCompatActivity() {
     }
 
 
+}
+
+private fun Button.setOnClickListener() : Boolean {
+
+    return true
 }

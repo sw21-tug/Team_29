@@ -47,61 +47,18 @@ import com.example.mulatschaktracker.R
 
         val root = inflater.inflate(R.layout.activity_game_finished, container, false)
 
-       /* val backButton: Button = root.findViewById<View>(R.id.game_finished_back_button) as Button
+        val backButton: Button = root.findViewById<View>(R.id.game_finished_back_button) as Button
         backButton.setOnClickListener{ root ->
             var fragment = requireFragmentManager().findFragmentById(R.id.nav_host_fragment)
-            if (fragment != null) {
+            /*if (fragment != null) {
                 if (container != null) {
                     getFragmentManager()?.beginTransaction()?.replace(container.id,fragment)?.commit()
                 }
-            }
-        }*/
-
-
-
-
-        //val textView: TextView = root.findViewById(R.id.Game_Finished)
-        /*var place1 = ""
-        var place2 = ""
-        var place3 = ""
-        var place4 = ""
-
-        if(arguments != null)
-        {
-            passedarg = arguments?.getString(ARG_NAME)
+            }*/
         }
-        var parsed = passedarg?.split('!')?.toTypedArray()
-        if (parsed != null) {
-            for (i in parsed)
-            {
-                println(i + " in fragment")
-                var numCheck =  i.split("#").toTypedArray()
-                for(it in numCheck.indices)
-                {
-                    println(numCheck + " work")
-                }
-                if(numCheck.last() == "" || numCheck.first() == "" )
-                {
-                    continue
-                }
-                if ( numCheck.last().toInt() == 1)
-                {
-                    place1 = place1 + numCheck.first()+ ' '
-                }
-                else if ( numCheck.last().toInt() == 2)
-                {
-                    place2 = place2 + numCheck.first()+ ' '
-                }
-                else  if ( numCheck.last().toInt() == 3)
-                {
-                    place3 = place3 + numCheck.first()+ ' '
-                }
-                else if ( numCheck.last().toInt() == 4)
-                {
-                    place4 = place4 + numCheck.first()+ ' '
-                }
-            }
-        }*/
+
+
+
 
         //text.refreshDrawableState()
         return root
