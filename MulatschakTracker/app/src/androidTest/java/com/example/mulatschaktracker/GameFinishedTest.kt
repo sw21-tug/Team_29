@@ -609,4 +609,37 @@ class GameFinishedTest {
         assert(listOfWinners.player2 == "Player 4")
     }
 
+    @Test
+    fun backButton()
+    {
+
+        val appContext: Context = ApplicationProvider.getApplicationContext();
+        val repo = GameRepository(appContext);
+
+        val appContext2: Context = ApplicationProvider.getApplicationContext();
+        val repo2 = UserRepository(appContext2);
+        repo2.resetDatabase()
+        onView(withId(R.id.StartNewGameActivityButton)).perform(click())
+
+
+        onView(withId(R.id.StartNewGameButton)).perform(click())
+
+        onView(withId(R.id.EndGameButton)).perform(ViewActions.click())
+
+        for (i in 0..21) {
+            onView(withId(R.id.button_player_1)).perform(ViewActions.click())
+            onView(withId(R.id.button_player_2)).perform(ViewActions.click())
+        }
+        onView(withId(R.id.endround)).perform(click())
+
+        var game =  repo.getGameFinished(1)
+        //assert(game)
+        val listOfWinners = repo.getWinners(1)
+        assert(listOfWinners.first() == "Player 1")
+        assert(listOfWinners[1] == "Player 2")
+        onView(withId(R.id.BackToHome)).perform(click())
+        onView(withId(R.id.nav_host_fragment)).check(matches(isDisplayed()))
+
+    }
+
 }
