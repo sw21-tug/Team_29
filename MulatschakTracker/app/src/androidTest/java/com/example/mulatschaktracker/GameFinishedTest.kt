@@ -24,7 +24,6 @@ import org.junit.runner.RunWith
 
 import org.junit.Assert.*
 import org.junit.Rule
-import java.util.EnumSet.allOf
 
 
 /**
@@ -637,7 +636,7 @@ class GameFinishedTest {
         val listOfWinners = repo.getWinners(1)
         assert(listOfWinners.first() == "Player 1")
         assert(listOfWinners[1] == "Player 2")
-        onView(withId(R.id.BackToHome)).perform(click())
+        onView(withId(R.id.game_finished_back_button)).perform(click())
         onView(withId(R.id.nav_host_fragment)).check(matches(isDisplayed()))
 
     }

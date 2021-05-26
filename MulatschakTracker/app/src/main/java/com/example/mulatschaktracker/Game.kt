@@ -32,7 +32,6 @@ class Game : AppCompatActivity() {
         setContentView(R.layout.activity_game)
 
 
-
         val repository = GameRepository(this)
         val game = repository.getGame(intent.getLongExtra(EXTRA_MESSAGE, 0))
         findViewById<TextView>(R.id.textViewPlayer1).apply {

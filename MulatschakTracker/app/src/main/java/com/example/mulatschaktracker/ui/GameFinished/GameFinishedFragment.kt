@@ -1,16 +1,15 @@
 package com.example.mulatschaktracker.ui.statistics
-import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
-import android.widget.TextView
+import android.widget.Button
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
+import androidx.fragment.app.FragmentManager
 import com.example.mulatschaktracker.R
+
+
 //import com.example.mulatschaktracker.ui.GameFinished.sendMessage
 
 
@@ -41,6 +40,7 @@ import com.example.mulatschaktracker.R
             {
                 passedarg = arguments?.getString(ARG_NAME)
             }
+
         }
 
     override fun onCreateView(
@@ -48,7 +48,16 @@ import com.example.mulatschaktracker.R
             container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
+
+        supportFragmentManager().beginTransaction().replace(R.id.container, new tasks()).commit()
         val root = inflater.inflate(R.layout.activity_game_finished, container, false)
+
+        val backButton: Button = root.findViewById<View>(R.id.game_finished_back_button) as Button
+
+        backButton.setOnClickListener { root ->
+            setContentView(R.layout.fragment_games)}
+
+
         //val textView: TextView = root.findViewById(R.id.Game_Finished)
         /*var place1 = ""
         var place2 = ""
