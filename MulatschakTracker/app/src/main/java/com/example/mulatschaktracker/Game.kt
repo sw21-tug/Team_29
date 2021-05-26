@@ -1,5 +1,6 @@
 package com.example.mulatschaktracker
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
@@ -10,8 +11,13 @@ import android.view.View
 import android.widget.TableLayout
 import android.widget.TableRow
 import android.widget.TextView
+import androidx.activity.addCallback
 import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.Navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.NavHostFragment.findNavController
 import com.example.mulatschaktracker.ui.addGameRound.AddGameRoundActivity
+import com.example.mulatschaktracker.ui.createUser.CreateUserActivity
 
 import com.example.mulatschaktracker.ui.home.GameRecyclerAdapter.GameViewHolder.Companion.GAME_ID
 import kotlin.math.pow
@@ -20,6 +26,7 @@ class Game : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_game)
+
         val repository = GameRepository(this)
         val game = repository.getGame(intent.getLongExtra(GAME_ID, 0))
 
@@ -38,6 +45,11 @@ class Game : AppCompatActivity() {
 
     }
 
+    override fun onBackPressed() {
+        super.onBackPressed()
+        val mainIntent = Intent(this, MainActivity::class.java);
+        startActivity(mainIntent);
+    }
 
     override fun onResume() {
         super.onResume()
