@@ -1,12 +1,11 @@
 package com.example.mulatschaktracker.ui.statistics
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.replace
 import com.example.mulatschaktracker.R
 
 
@@ -14,9 +13,6 @@ import com.example.mulatschaktracker.R
 
 
     class GameFinishedFragment : Fragment() {
-    //private var data = mapOf<Int, String>()
-
-
         private  var passedarg :  String? = null
         companion object {
             private var ARG_NAME=  "name"
@@ -49,13 +45,17 @@ import com.example.mulatschaktracker.R
             savedInstanceState: Bundle?
     ): View? {
 
-        supportFragmentManager().beginTransaction().replace(R.id.container, new tasks()).commit()
         val root = inflater.inflate(R.layout.activity_game_finished, container, false)
 
         val backButton: Button = root.findViewById<View>(R.id.game_finished_back_button) as Button
+        backButton.setOnClickListener{ root ->
+            var fragment = requireFragmentManager().findFragmentById(R.id.nav_host_fragment)
+            if (fragment != null) {
+                getFragmentManager()?.beginTransaction()?.replace((root!!.parent as ViewGroup).id,fragment)?.commit()
+            }
+        }
 
-        backButton.setOnClickListener { root ->
-            setContentView(R.layout.fragment_games)}
+
 
 
         //val textView: TextView = root.findViewById(R.id.Game_Finished)
