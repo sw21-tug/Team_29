@@ -177,7 +177,7 @@
 
         <Button
             android:id="@+id/HeartRoundButton"
-            android:layout_width="230dp"
+            android:layout_width="280dp"
             android:layout_height="50dp"
             android:layout_marginStart="5dp"
             android:layout_marginEnd="5dp"

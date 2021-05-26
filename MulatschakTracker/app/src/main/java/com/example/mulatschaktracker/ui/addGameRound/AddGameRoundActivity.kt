@@ -101,11 +101,11 @@ class AddGameRoundActivity : AppCompatActivity() {
             if (gameupdate.Heartround == true)
             {
                 gameupdate.setHeartRound(false)
-                buttonHeart.text = "Heartround Active"
+                buttonHeart.text = resources.getString(R.string.heart_round)
             }
             else
             {
-                buttonHeart.text = "Heartround InActive"
+                buttonHeart.text = resources.getString(R.string.heart_round_active)
                 gameupdate.setHeartRound(true);
             }
 
