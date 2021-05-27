@@ -76,10 +76,10 @@ class Game : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
 
-        val gameId: Long = intent.getLongExtra(EXTRA_MESSAGE, 0)
+        val gameId: Long = intent.getLongExtra(GAME_ID, 0)
         val repository = GameRepository(this)
         
-        val game = repository.getGame(intent.getLongExtra(GAME_ID, 0))
+        val game = repository.getGame(gameId)
 
         var score_p1: Int = 21
         var score_p2: Int = 21
@@ -133,14 +133,15 @@ class Game : AppCompatActivity() {
 
 
 
-                score_p1 = calcScore(score_p1, cursor.getInt(cursor.getColumnIndex(ROUND_COLUMN_PLAYER1_TICKS)))
-                dataToPass =  game.player1 + "#" +score_p1.toString()
-                data.add(dataToPass)
+
 
                 val underDogCount = cursor.getInt(cursor.getColumnIndex(ROUND_COLUMN_UNDERDOG))
 
+
                 val tricksP1 = cursor.getInt(cursor.getColumnIndex(ROUND_COLUMN_PLAYER1_TICKS))
                 score_p1 = calcScore(score_p1, tricksP1,underDogCount)
+                dataToPass =  game.player1 + "#" +score_p1.toString()
+                data.add(dataToPass)
 
                 val newTextP1 = TextView(this)
                 newTextP1.id = idcounter + 1
@@ -166,7 +167,6 @@ class Game : AppCompatActivity() {
                 nrow.addView(newTextP2, layoutParams)
                 idcounter = idcounter.plus(1)
 
-                score_p3 = calcScore(score_p3, cursor.getInt(cursor.getColumnIndex(ROUND_COLUMN_PLAYER3_TICKS)))
                
                 val tricksP3 = cursor.getInt(cursor.getColumnIndex(ROUND_COLUMN_PLAYER3_TICKS))
                 score_p3 = calcScore(score_p3, tricksP3,underDogCount)
@@ -183,8 +183,7 @@ class Game : AppCompatActivity() {
                 idcounter = idcounter.plus(1)
 
 
-                score_p4 = calcScore(score_p4, cursor.getInt(cursor.getColumnIndex(ROUND_COLUMN_PLAYER4_TICKS)))
-                
+
 
 
                 val tricksP4 = cursor.getInt(cursor.getColumnIndex(ROUND_COLUMN_PLAYER4_TICKS))

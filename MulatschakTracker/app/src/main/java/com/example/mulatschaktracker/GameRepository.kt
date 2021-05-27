@@ -44,19 +44,15 @@ class GameRepository(var appContext: Context) {
     }
 
 
-    fun setGameFinished(gameID: Long): Int
-    {
+    fun setGameFinished(gameID: Long): Int {
         val dbWrite = DataBaseHandler(appContext).writableDatabase
         val values = ContentValues()
         values.put(GAME_IS_FINISHED, 1)
-        var arr =  arrayOf<String>(gameID.toString())
-         return dbWrite.update(GAME_TABLE_NAME,values, GAME_COLUMN_ID + " = ?", arr)
+        var arr = arrayOf<String>(gameID.toString())
+        return dbWrite.update(GAME_TABLE_NAME, values, GAME_COLUMN_ID + " = ?", arr)
 
+    }
 
-    /**
-     *  Drops and recreates the whole database
-     *  Use with CAUTION!!!
-     */
     fun resetDatabase() {
         val db =  DataBaseHandler(appContext).writableDatabase
         DataBaseHandler(appContext).onUpgrade(db, 0, 0)
@@ -234,7 +230,7 @@ class GameRepository(var appContext: Context) {
         return current + deduction
     }
 
-    fun getLastRound(gameID: Long) : RoundObject
+   /* fun getLastRound(gameID: Long) : RoundObject
     {
         //var midle = gameID - 1
         var result = getCursor2( gameID)
@@ -256,7 +252,7 @@ class GameRepository(var appContext: Context) {
 
 
         return round
-    }
+    }*/
 
   /*/  fun setGameFinished(gameID: Long): Int
     {

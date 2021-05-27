@@ -11,7 +11,7 @@ import com.example.mulatschaktracker.R
 
 class StatisticsFragment : Fragment() {
 
-    private lateinit var statisticsViewModel: GameFinishedViewModel
+    private lateinit var statisticsViewModel: StatisticsViewModel
 
     override fun onCreateView(
             inflater: LayoutInflater,
@@ -19,7 +19,7 @@ class StatisticsFragment : Fragment() {
             savedInstanceState: Bundle?
     ): View? {
         statisticsViewModel =
-                ViewModelProvider(this).get(GameFinishedViewModel::class.java)
+                ViewModelProvider(this).get(StatisticsViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_statistics, container, false)
         return root
     }
