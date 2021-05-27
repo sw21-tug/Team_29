@@ -1,8 +1,7 @@
 package com.example.mulatschaktracker
-import java.io.Serializable
 
-
-class RoundObject(i: Int, i1: Int, i2: Int, i3: Int, u: Int, h: Int): Serializable {
+class RoundObjectFromDB(id: Int ,i: Int, i1: Int, i2: Int, i3: Int, h: Int, u: Int) {
+    var id: Int = id
     var p1: Int = i
     var p2: Int = i1
     var p3: Int = i2

@@ -58,7 +58,6 @@ class BottomNavigationTest : TestCase() {
     @Test
     fun checkHistoryWindow() {
         onView(withId(R.id.navigation_statistic)).perform(click())
-        //onView(withId(R.id.navigation_history)).perform(click())
         onView(withId(R.id.text_statistic)).check(matches(isDisplayed()))
     }
 
