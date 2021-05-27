@@ -34,6 +34,7 @@ val FOURTH_WINNER_COLUMN = "fourth_winner"
 val GAME_IS_FINISHED = "game_finished"
 val WINNER ="won"
 
+
 class DataBaseHandler(var context: Context) : SQLiteOpenHelper(context, DATABASENAME, null,DATABASE_VERSION)
         {
 

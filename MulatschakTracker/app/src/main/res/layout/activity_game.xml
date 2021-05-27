@@ -34,61 +34,57 @@
                     android:id="@+id/textViewPlayer1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center" />
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:gravity="center"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/textViewPlayer2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center" />
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:gravity="center"
+                    android:textSize="18sp"
+                    android:textStyle="bold"/>
 
                 <TextView
                     android:id="@+id/textViewPlayer3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center" />
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:gravity="center"
+                    android:textSize="18sp"
+                    android:textStyle="bold"/>
 
                 <TextView
                     android:id="@+id/textViewPlayer4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center" />
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:gravity="center"
+                    android:textSize="18sp"
+                    android:textStyle="bold"/>
 
                 <TextView
                     android:id="@+id/specialRoundRd1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
                     android:gravity="center" />
             </TableRow>
         </TableLayout>
     </androidx.core.widget.NestedScrollView>
 
-    <Button
-        android:id="@+id/HeartRoundButton"
-        android:layout_width="180dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="48dp"
-        android:layout_marginEnd="5dp"
-        android:layout_marginBottom="10dp"
-        android:text="@string/heart_round"
-        app:layout_constraintBottom_toTopOf="@id/EndGameButton"
-        app:layout_constraintEnd_toStartOf="@+id/UnderdogButton"
-        app:layout_constraintStart_toStartOf="parent" />
+
 
     <Button
-        android:id="@+id/UnderdogButton"
-        android:layout_width="180dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="5dp"
-        android:layout_marginEnd="48dp"
-        android:layout_marginBottom="10dp"
-        android:text="@string/underdog"
-        app:layout_constraintBottom_toTopOf="@id/EndGameButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/HeartRoundButton" />
-
-    <Button
-        android:id="@+id/EndGameButton"
+        android:id="@+id/AddRoundButton"
         android:layout_width="300dp"
         android:layout_height="50dp"
         android:layout_marginStart="130dp"

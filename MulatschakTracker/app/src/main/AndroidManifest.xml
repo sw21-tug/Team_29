@@ -1,53 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.mulatschaktracker">
+          package="com.example.mulatschaktracker">
+  <application
+      android:allowBackup="true"
+      android:icon="@mipmap/mulatschak_logo"
+      android:label="@string/app_name"
+      android:roundIcon="@mipmap/mulatschak_logo"
+      android:supportsRtl="true"
+      android:theme="@style/Theme.MulatschakTracker">
+    <activity
+        android:name=".MainActivity"
+        android:label="@string/app_name">
+      <intent-filter>
+        <action android:name="android.intent.action.MAIN"/>
 
-    <uses-permission android:name="android.permission.WAKE_LOCK" />
+        <category android:name="android.intent.category.LAUNCHER"/>
+      </intent-filter>
+    </activity>
+      <activity
+          android:name=".ui.addGameRound.AddGameRoundActivity"
+          android:label="@string/title_activity_add_game_round">
+      </activity>
+    <activity
+        android:name=".ui.createUser.CreateUserActivity"
+        android:label="@string/title_activity_create_user"
+        android:theme="@style/Theme.MulatschakTracker.NoActionBar">
+    </activity>
 
-    <uses-feature android:name="android.hardware.type.watch" />
-
-    <application
-        android:allowBackup="true"
-        android:icon="@mipmap/mulatschak_logo"
-        android:label="@string/app_name"
-        android:roundIcon="@mipmap/mulatschak_logo"
-        android:supportsRtl="true"
-        android:theme="@style/Theme.MulatschakTracker">
-        <uses-library
-            android:name="com.google.android.wearable"
-            android:required="false" />
-
-        <!--
-               Set to true if your app is Standalone, that is, it does not require the handheld
-               app to run.
-        -->
-        <meta-data
-            android:name="com.google.android.wearable.standalone"
-            android:value="true" />
-        <activity
-            android:name=".MainActivity"
-            android:label="@string/app_name">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name=".ui.addGameRound.AddGameRoundActivity"
-            android:label="@string/title_activity_add_game_round">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name=".ui.createUser.CreateUserActivity"
-            android:label="@string/title_activity_create_user"
-            android:theme="@style/Theme.MulatschakTracker.NoActionBar"></activity>
-        <activity android:name=".Game" />
-        <activity
+      <activity android:name=".Game"
+          android:label=""
+          android:parentActivityName=".MainActivity">
+      <meta-data
+          android:name="android.support.PARENT_ACTIVITY"
+          android:value=".MainActivity" />
+      </activity>
+      <activity
             android:name=".StartNewGame"
             android:label="@string/title_startnewgame"
             android:parentActivityName=".MainActivity">
@@ -55,7 +42,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
         </activity>
-
-    </application>
+  </application>
 
 </manifest>

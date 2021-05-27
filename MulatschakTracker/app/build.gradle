@@ -30,6 +30,10 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+
+    testOptions {
+        animationsDisabled = true
+    }
 }
 
 dependencies {
@@ -49,6 +53,7 @@ dependencies {
     implementation 'android.arch.navigation:navigation-fragment-ktx:1.0.0'
     implementation 'android.arch.navigation:navigation-ui-ktx:1.0.0'
     implementation 'androidx.wear:wear:1.1.0'
+    implementation 'androidx.preference:preference:1.1.1'
     testImplementation 'junit:junit:4.+'
     testCompile 'junit:junit:4.12'
     testCompile 'org.robolectric:robolectric:3.0'
@@ -56,6 +61,9 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
     compileOnly 'com.google.android.wearable:wearable:2.8.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-contrib:3.3.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-intents:3.3.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-accessibility:3.3.0'
 
 }
 

@@ -42,14 +42,20 @@ Sprint 1:
 
 Sprint 2:
 
+- \#1 [MULI-6](https://github.com/sw21-tug/Team_29/issues/6): Update Game State
+- \#2 [MULI-23](https://github.com/sw21-tug/Team_29/issues/33): Language Support for Russian
+- \#4 [MULI-15](https://github.com/sw21-tug/Team_29/issues/15): Show Currently Running Games
+- \#5 [MULI-13](https://github.com/sw21-tug/Team_29/issues/13): Edit Past Rounds
+
 Sprint 3:
+- \#1 [MULI-18](https://github.com/sw21-tug/Team_29/issues/28): Back Button should go to Homescreen during game
+- \#2 [MULI-25](https://github.com/sw21-tug/Team_29/issues/45): Set yourself as player 1 always
+- \#3 [MULI-3](https://github.com/sw21-tug/Team_29/issues/3): Delete my account
 
 Sprint 4:
 
 # Features In Development
 
-- [MULI-6](https://github.com/sw21-tug/Team_29/issues/6): Update Game State
-- [MULI-23](https://github.com/sw21-tug/Team_29/issues/33): Language Support for Russian
 - [MULI-8](https://github.com/sw21-tug/Team_29/issues/8): Game is finished
-- [MULI-15](https://github.com/sw21-tug/Team_29/issues/15): Show Currently Running Games
-- [MULI-13](https://github.com/sw21-tug/Team_29/issues/13): Edit Past Rounds
+- [MULI-21](https://github.com/sw21-tug/Team_29/issues/31): Show past games on History Tab
+- [MULI-10](https://github.com/sw21-tug/Team_29/issues/10): Game Rule (Underdog)
