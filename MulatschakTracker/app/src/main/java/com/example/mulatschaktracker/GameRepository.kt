@@ -62,14 +62,23 @@ class GameRepository(var appContext: Context) {
                     cursor.getString(cursor.getColumnIndex(GAME_COLUMN_PLAYER4)))
             result.id = cursor.getLong(
                     cursor.getColumnIndex(GAME_COLUMN_ID))
-            result.finished = cursor.getInt(
-                    cursor.getColumnIndex(GAME_IS_FINISHED))
             return result
         }
         throw Exception("game not found")
     }
 
     private fun getCursor(gameID: Long) : Cursor {
+        val dbRead = DataBaseHandler(appContext).readableDatabase
+        val projection =  arrayOf<String>(GAME_COLUMN_ID, GAME_COLUMN_PLAYER1, GAME_COLUMN_PLAYER2, GAME_COLUMN_PLAYER3, GAME_COLUMN_PLAYER4)
+        val args = arrayOf<String>(gameID.toString())
+
+        val query = "$GAME_COLUMN_ID like ?"
+        return dbRead.query(GAME_TABLE_NAME, projection, query, args, null, null, null )
+    }
+
+
+    private fun getCursor3(gameID: Long): Cursor
+    {
         val dbRead = DataBaseHandler(appContext).readableDatabase
         val projection =  arrayOf<String>(GAME_COLUMN_ID, GAME_COLUMN_PLAYER1, GAME_COLUMN_PLAYER2, GAME_COLUMN_PLAYER3, GAME_COLUMN_PLAYER4, GAME_IS_FINISHED)
         val args = arrayOf<String>(gameID.toString())
@@ -89,7 +98,7 @@ class GameRepository(var appContext: Context) {
 
     fun getGameFinished(gameID: Long) : Int
     {
-        var cursor =  getCursor(gameID)
+        var cursor =  getCursor3(gameID)
          cursor.moveToFirst()
          return cursor.getInt(cursor.getColumnIndex(GAME_IS_FINISHED))
     }

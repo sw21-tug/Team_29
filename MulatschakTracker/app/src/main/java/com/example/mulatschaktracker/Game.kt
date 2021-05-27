@@ -90,10 +90,16 @@ class Game : AppCompatActivity() {
         var idcounter: Int = 4
         if (cursor.moveToFirst()) {
             do {
+
+
+
+
                 val nrow = TableRow(this)
                 var dataToPass : String? = null;
 
                 var data : MutableList<String> = mutableListOf()
+
+
 
                 score_p1 = calcScore(score_p1, cursor.getInt(cursor.getColumnIndex(ROUND_COLUMN_PLAYER1_TICKS)))
                 dataToPass =  game.player1 + "#" +score_p1.toString()
@@ -143,21 +149,22 @@ class Game : AppCompatActivity() {
 
 
                 if (score_p1 <= 0 || score_p2 <= 0 || score_p3 <= 0 ||score_p4 <= 0 ||
-                    score_p1 >= 100 || score_p2 >= 100 || score_p3 >= 100 || score_p4 >= 100) {
+                        score_p1 >= 100 || score_p2 >= 100 || score_p3 >= 100 || score_p4 >= 100) {
 
                     setContentView(R.layout.activity_game_finished)
-                    tableLayout!!.addView(nrow)
-                     var todb =  calculateString(data)
+                    var todb =  calculateString(data)
                     repository.setGameFinished(gameId)
                     repository.writeWinnersToDB(todb, gameId)
                     var button: Button = findViewById(R.id.game_finished_back_button)
                     button.setOnClickListener(View.OnClickListener(){
-                                       val mainIntent = Intent(this, MainActivity::class.java);
+                        val mainIntent = Intent(this, MainActivity::class.java);
                         this.finish()
                         startActivity(mainIntent);
                     })
 
                 }
+
+                tableLayout!!.addView(nrow)
 
 
 
