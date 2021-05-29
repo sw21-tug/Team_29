@@ -50,7 +50,7 @@ class HomeFragment : Fragment() {
 
             try {
                 val user = userName?.let { userRepository.getUser(it) }
-                gameList = user?.let { gameRepository.getGames(it.id) }!!
+                gameList = user?.let { gameRepository.getGames(it.id, false) }!!
             } catch (e: Exception) {
             }
         }

@@ -122,21 +122,13 @@ class Game : AppCompatActivity() {
         if (cursor.moveToFirst()) {
             do {
 
-
-
-
                 val nrow = TableRow(this)
 
                 var dataToPass : String? = null;
 
                 var data : MutableList<String> = mutableListOf()
 
-
-
-
-
                 val underDogCount = cursor.getInt(cursor.getColumnIndex(ROUND_COLUMN_UNDERDOG))
-
 
                 val tricksP1 = cursor.getInt(cursor.getColumnIndex(ROUND_COLUMN_PLAYER1_TICKS))
                 score_p1 = calcScore(score_p1, tricksP1,underDogCount)
@@ -151,7 +143,6 @@ class Game : AppCompatActivity() {
                 newTextP1.gravity = Gravity.CENTER
                 nrow.addView(newTextP1, layoutParams)
                 idcounter = idcounter.plus(1)
-
 
                 val tricksP2 = cursor.getInt(cursor.getColumnIndex(ROUND_COLUMN_PLAYER2_TICKS))
                 score_p2 = calcScore(score_p2, tricksP2, underDogCount)
@@ -181,10 +172,6 @@ class Game : AppCompatActivity() {
                 newTextP3.gravity = Gravity.CENTER
                 nrow.addView(newTextP3, layoutParams)
                 idcounter = idcounter.plus(1)
-
-
-
-
 
                 val tricksP4 = cursor.getInt(cursor.getColumnIndex(ROUND_COLUMN_PLAYER4_TICKS))
                 score_p4 = calcScore(score_p4, tricksP4, underDogCount)
@@ -229,15 +216,13 @@ class Game : AppCompatActivity() {
                     return@setOnLongClickListener true
                 }
 
-
-
                 if (score_p1 <= 0 || score_p2 <= 0 || score_p3 <= 0 ||score_p4 <= 0 ||
                         score_p1 >= 100 || score_p2 >= 100 || score_p3 >= 100 || score_p4 >= 100) {
 
                     setContentView(R.layout.activity_game_finished)
                     var todb =  calculateString(data)
-                    repository.setGameFinished(gameId)
-                    repository.writeWinnersToDB(todb, gameId)
+                    val res1 = repository.setGameFinished(gameId)
+                    val res2 = repository.writeWinnersToDB(todb, gameId)
                     var button: Button = findViewById(R.id.game_finished_back_button)
                     button.setOnClickListener(View.OnClickListener(){
                         val mainIntent = Intent(this, MainActivity::class.java);

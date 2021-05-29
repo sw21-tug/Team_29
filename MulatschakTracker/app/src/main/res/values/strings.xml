@@ -31,6 +31,7 @@
     <string name="game">Game %1$d</string>
     <string name="players_signature" translatable="false">%1$s, %2$s, %3$s, %4$s</string>
     <string name="no_running_games">No Running Games</string>
+    <string name="no_finished_games">No Finished Games</string>
 
     <string name="initial_game_stat_points">0</string>
     <string name="player_one">Player One</string>

@@ -44,4 +44,11 @@
     <string name="yes">Yes</string>
     <string name="cancel">Cancel</string>
 
+    <string name="Victory">Victory!</string>
+    <string name="FirstPlace"> took the cake</string>
+    <string name="SecondPlace"> snacked some cake as well</string>
+    <string name="ThirdPlace"> also got some cake</string>
+    <string name="FourthPlace"> probably wont happen, ever</string>
+    <string name="no_finished_games">No Finished Games</string>
+
 </resources>
