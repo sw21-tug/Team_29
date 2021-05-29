@@ -6,6 +6,10 @@ import android.database.Cursor
 
 class GameRepository(var appContext: Context) {
 
+    private val projection = arrayOf<String>(GAME_COLUMN_ID, GAME_COLUMN_PLAYER1, GAME_COLUMN_PLAYER2,
+        GAME_COLUMN_PLAYER3, GAME_COLUMN_PLAYER4, GAME_IS_FINISHED, FIRST_WINNER_COLUMN, SECOND_WINNER_COLUMN,
+        THIRD_WINNER_COLUMN, FOURTH_WINNER_COLUMN)
+
     fun createGame(newGameObject: GameObject, userID: Long): Long {
 
         val dbWrite = DataBaseHandler(appContext).writableDatabase
@@ -49,7 +53,7 @@ class GameRepository(var appContext: Context) {
         val values = ContentValues()
         values.put(GAME_IS_FINISHED, 1)
         var arr = arrayOf<String>(gameID.toString())
-        return dbWrite.update(GAME_TABLE_NAME, values, GAME_COLUMN_ID + " = ?", arr)
+        return dbWrite.update(GAME_TABLE_NAME, values, "$GAME_COLUMN_ID = ?", arr)
 
     }
 
@@ -74,7 +78,7 @@ class GameRepository(var appContext: Context) {
         throw Exception("game not found")
     }
 
-    fun getGames(userID: Long): List<GameObject> {
+    fun getGames(userID: Long, finished: Boolean): List<GameObject> {
         val cursor = getCursorByUser(userID)
         var gameList : MutableList<GameObject> = ArrayList()
         if(cursor.count > 0){
@@ -86,9 +90,21 @@ class GameRepository(var appContext: Context) {
                         cursor.getString(cursor.getColumnIndex(GAME_COLUMN_PLAYER4)))
                 game.id = cursor.getLong(
                         cursor.getColumnIndex(GAME_COLUMN_ID))
-                gameList.add(game)
+                if (!cursor.isNull(cursor.getColumnIndex(GAME_IS_FINISHED))) {
+                    game.finished = cursor.getInt(cursor.getColumnIndex(GAME_IS_FINISHED))
+                } else {
+                    game.finished = 0
+                }
+                if (finished) {
+                    if (game.finished > 0) {
+                        gameList.add(game)
+                    }
+                }else {
+                    if (game.finished == 0) {
+                        gameList.add(game)
+                    }
+                }
             } while (cursor.moveToNext())
-
             return gameList
         }
         return gameList
@@ -96,7 +112,6 @@ class GameRepository(var appContext: Context) {
 
     private fun getCursorByUser(userID: Long) : Cursor {
         val dbRead = DataBaseHandler(appContext).readableDatabase
-        val projection =  arrayOf<String>(GAME_COLUMN_ID, GAME_COLUMN_PLAYER1, GAME_COLUMN_PLAYER2, GAME_COLUMN_PLAYER3, GAME_COLUMN_PLAYER4)
         val args = arrayOf<String>(userID.toString())
 
         val query = "$GAME_COLUMN_USER_ID like ?"
@@ -105,9 +120,7 @@ class GameRepository(var appContext: Context) {
 
     private fun getCursor(gameID: Long) : Cursor {
         val dbRead = DataBaseHandler(appContext).readableDatabase
-        val projection =  arrayOf<String>(GAME_COLUMN_ID, GAME_COLUMN_PLAYER1, GAME_COLUMN_PLAYER2, GAME_COLUMN_PLAYER3, GAME_COLUMN_PLAYER4)
         val args = arrayOf<String>(gameID.toString())
-
         val query = "$GAME_COLUMN_ID like ?"
         return dbRead.query(GAME_TABLE_NAME, projection, query, args, null, null, null )
     }
@@ -116,9 +129,7 @@ class GameRepository(var appContext: Context) {
     private fun getCursor3(gameID: Long): Cursor
     {
         val dbRead = DataBaseHandler(appContext).readableDatabase
-        val projection =  arrayOf<String>(GAME_COLUMN_ID, GAME_COLUMN_PLAYER1, GAME_COLUMN_PLAYER2, GAME_COLUMN_PLAYER3, GAME_COLUMN_PLAYER4, GAME_IS_FINISHED)
         val args = arrayOf<String>(gameID.toString())
-
         val query = "$GAME_COLUMN_ID like ?"
         return dbRead.query(GAME_TABLE_NAME, projection, query, args, null, null, null )
     }
@@ -127,11 +138,12 @@ class GameRepository(var appContext: Context) {
     fun getCursorRounds(gameID: Long) : Cursor {
 
         val dbRead = DataBaseHandler(appContext).readableDatabase
-        val projection =  arrayOf<String>(ROUND_COLUMN_ID, ROUND_COLUMN_PLAYER1_TICKS, ROUND_COLUMN_PLAYER2_TICKS, ROUND_COLUMN_PLAYER3_TICKS, ROUND_COLUMN_PLAYER4_TICKS, ROUND_COLUMN_UNDERDOG, ROUND_COLUMN_HEARTROUND)
+        val roundProjection =  arrayOf<String>(ROUND_COLUMN_ID, ROUND_COLUMN_PLAYER1_TICKS, ROUND_COLUMN_PLAYER2_TICKS,
+            ROUND_COLUMN_PLAYER3_TICKS, ROUND_COLUMN_PLAYER4_TICKS, ROUND_COLUMN_UNDERDOG, ROUND_COLUMN_HEARTROUND)
         val args = arrayOf<String>(gameID.toString())
 
         val query = "$ROUND_COLUMN_GAME_ID like ?"
-        return dbRead.query(ROUND_TABLE_NAME, projection, query, args, null, null, null )
+        return dbRead.query(ROUND_TABLE_NAME, roundProjection, query, args, null, null, null )
     }
 
     fun getGameFinished(gameID: Long) : Int
@@ -164,11 +176,11 @@ class GameRepository(var appContext: Context) {
     private fun getCursorRound(roundId: Int) : Cursor {
 
         val dbRead = DataBaseHandler(appContext).readableDatabase
-        val projection =  arrayOf<String>(ROUND_COLUMN_ID, ROUND_COLUMN_PLAYER1_TICKS, ROUND_COLUMN_PLAYER2_TICKS, ROUND_COLUMN_PLAYER3_TICKS, ROUND_COLUMN_PLAYER4_TICKS, ROUND_COLUMN_UNDERDOG, ROUND_COLUMN_HEARTROUND)
+        val roundProjection =  arrayOf<String>(ROUND_COLUMN_ID, ROUND_COLUMN_PLAYER1_TICKS, ROUND_COLUMN_PLAYER2_TICKS, ROUND_COLUMN_PLAYER3_TICKS, ROUND_COLUMN_PLAYER4_TICKS, ROUND_COLUMN_UNDERDOG, ROUND_COLUMN_HEARTROUND)
         val args = arrayOf<String>(roundId.toString())
 
         val query = "$ROUND_COLUMN_ID like ?"
-        return dbRead.query(ROUND_TABLE_NAME, projection, query, args, null, null, null )
+        return dbRead.query(ROUND_TABLE_NAME, roundProjection, query, args, null, null, null )
     }
 
 
@@ -254,18 +266,7 @@ class GameRepository(var appContext: Context) {
         return round
     }*/
 
-  /*/  fun setGameFinished(gameID: Long): Int
-    {
-        val dbWrite = DataBaseHandler(appContext).writableDatabase
-        val values = ContentValues()
-        values.put(GAME_IS_FINISHED, 1)
-        var arr =  arrayOf<String>(gameID.toString())
-        return dbWrite.update(GAME_TABLE_NAME,values, GAME_COLUMN_ID + " = ?", arr)
-
-    }*/
-
-
-    fun writeWinnersToDB(newGameObject: GameObject, gameID: Long) {
+    fun writeWinnersToDB(newGameObject: GameObject, gameID: Long) : Int {
 
         val dbWrite = DataBaseHandler(appContext).writableDatabase
         val values = ContentValues()
@@ -277,15 +278,16 @@ class GameRepository(var appContext: Context) {
         values.put(THIRD_WINNER_COLUMN, newGameObject.player3)
         values.put(FOURTH_WINNER_COLUMN, newGameObject.player4)
 
-        dbWrite.update(GAME_TABLE_NAME,values, "$GAME_COLUMN_ID = ?", arr)
+        return dbWrite.update(GAME_TABLE_NAME,values, "$GAME_COLUMN_ID = ?", arr)
     }
 
     fun getCursorWinners(gameID: Long) : Cursor {
         val dbRead = DataBaseHandler(appContext).readableDatabase
-        val projection =  arrayOf<String>(GAME_COLUMN_ID, FIRST_WINNER_COLUMN, SECOND_WINNER_COLUMN, THIRD_WINNER_COLUMN, FOURTH_WINNER_COLUMN)
+        val winnerProjection =  arrayOf<String>(GAME_COLUMN_ID, FIRST_WINNER_COLUMN, SECOND_WINNER_COLUMN,
+            THIRD_WINNER_COLUMN, FOURTH_WINNER_COLUMN)
         val args = arrayOf<String>(gameID.toString())
 
         val query = "$GAME_COLUMN_ID like ?"
-        return dbRead.query(GAME_TABLE_NAME, projection, query, args, null, null, null )
+        return dbRead.query(GAME_TABLE_NAME, winnerProjection, query, args, null, null, null )
     }
 }

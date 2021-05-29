@@ -37,11 +37,18 @@
     <string name="hello_second_fragment">Привет второй фрагмент. Арг.: %1$s</string>
     <string name="game">игры %1$d</string>
     <string name="no_running_games">Нет запущенных игр</string>
+    <string name="no_finished_games">TODO: No Finished Games</string>
     <string name="enter_username">Введите имя пользователя</string>
     <string name="end_round">Конец раунда</string>
     <string name="alert_delete_user">Вы действительно хотите удалить все данные? Это действие не может быть отменено?</string>
     <string name="delete_user_button">Удалить аккаунт</string>
     <string name="yes">Да</string>
     <string name="cancel">Отменить</string>
+
+    <string name="Victory">Victory!</string>
+    <string name="FirstPlace"> took the cake</string>
+    <string name="SecondPlace"> snacked some cake as well</string>
+    <string name="ThirdPlace"> also got some cake</string>
+    <string name="FourthPlace"> probably wont happen, ever</string>
 
 </resources>
