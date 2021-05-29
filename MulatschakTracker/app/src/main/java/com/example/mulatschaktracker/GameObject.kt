@@ -6,5 +6,10 @@ class GameObject(player1: String, player2: String, player3: String, player4: Str
     var player2: String = player2
     var player3: String = player3
     var player4: String = player4
+    var finished: Int = 0
+    var player1won: Int = 0
+    var player2won: Int = 0
+    var player3won: Int = 0
+    var player4won: Int = 0
     var rounds: List<RoundObject> = emptyList()
 }

@@ -37,11 +37,17 @@
     <string name="player_two">Player Two</string>
     <string name="player_three">Player Three</string>
     <string name="player_four">Player Four</string>
+    <string name="Victory">Victory!</string>
+    <string name="FirstPlace"> took the cake</string>
+    <string name="SecondPlace"> snacked some cake as well</string>
+    <string name="ThirdPlace"> also got some cake</string>
+    <string name="FourthPlace"> probably wont happen, ever</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="enter_username">Enter Username</string>
     <string name="end_round">End Round</string>
+    <string name="dog_emoji" translatable="false">&#128054; %1$s</string>
 
     <string name="alert_delete_user">Are you sure you want to delete all your data. This step cannot be undone?</string>
     <string name="delete_user_button">Delete Account</string>

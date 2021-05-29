@@ -105,6 +105,16 @@ class AddGameRoundActivityTest : TestCase(){
             .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
     }
 
+    @Test
+    fun test_isButtonUnderdogDisplayed() {
+        onView(withId(R.id.StartNewGameActivityButton)).perform(ViewActions.click())
+        onView(withId(R.id.StartNewGameButton)).perform(ViewActions.click())
+        onView(withId(R.id.AddRoundButton)).perform(ViewActions.click())
+
+        onView(withId(R.id.UnderdogButton))
+            .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
+    }
+
 
     @Test
     fun is_tvPlayer1Displayed() {
@@ -143,6 +153,16 @@ class AddGameRoundActivityTest : TestCase(){
         onView(withId(R.id.AddRoundButton)).perform(ViewActions.click())
 
         onView(withId(R.id.tvPlayerFour))
+            .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
+    }
+
+    @Test
+    fun is_tvUnderdogDisplayed() {
+        onView(withId(R.id.StartNewGameActivityButton)).perform(ViewActions.click())
+        onView(withId(R.id.StartNewGameButton)).perform(ViewActions.click())
+        onView(withId(R.id.AddRoundButton)).perform(ViewActions.click())
+
+        onView(withId(R.id.tvUnderdogRound))
             .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
     }
 
@@ -236,6 +256,19 @@ class AddGameRoundActivityTest : TestCase(){
             .check(ViewAssertions.matches(ViewMatchers.withText("1")))
     }
 
+    @Test
+    fun test_buttonUnderdogClickableAndIncrement() {
+        onView(withId(R.id.StartNewGameActivityButton)).perform(ViewActions.click())
+        onView(withId(R.id.StartNewGameButton)).perform(ViewActions.click())
+        onView(withId(R.id.AddRoundButton)).perform(ViewActions.click())
+
+        onView(withId(R.id.UnderdogButton)).perform(ViewActions.click())
+        onView(withId(R.id.tvUnderdogRound))
+            .check(ViewAssertions.matches(ViewMatchers.withText("1")))
+    }
+
+
+
 
     @Test
     fun test_button1LongClickableAndIncrementFail() {
@@ -281,8 +314,16 @@ class AddGameRoundActivityTest : TestCase(){
             .check(ViewAssertions.matches(ViewMatchers.withText("LEFT")))
     }
 
+    @Test
+    fun test_buttonUnderdogLongClickableAndIncrementFail() {
+        onView(withId(R.id.StartNewGameActivityButton)).perform(ViewActions.click())
+        onView(withId(R.id.StartNewGameButton)).perform(ViewActions.click())
+        onView(withId(R.id.AddRoundButton)).perform(ViewActions.click())
 
-
+        onView(withId(R.id.UnderdogButton)).perform(ViewActions.longClick())
+        onView(withId(R.id.tvUnderdogRound))
+            .check(ViewAssertions.matches(ViewMatchers.withText("0")))
+    }
 
     @Test
     fun test_button1LongClickableAndIncrement() {
@@ -337,6 +378,19 @@ class AddGameRoundActivityTest : TestCase(){
     }
 
     @Test
+    fun test_buttonUnderdogLongClickableAndIncrement() {
+        onView(ViewMatchers.withId(R.id.StartNewGameActivityButton)).perform(ViewActions.click())
+        onView(withId(R.id.StartNewGameButton)).perform(ViewActions.click())
+        onView(withId(R.id.AddRoundButton)).perform(ViewActions.click())
+
+        onView(withId(R.id.UnderdogButton)).perform(ViewActions.click())
+        onView(withId(R.id.UnderdogButton)).perform(ViewActions.click())
+        onView(withId(R.id.UnderdogButton)).perform(ViewActions.longClick())
+        onView(withId(R.id.tvUnderdogRound))
+            .check(ViewAssertions.matches(ViewMatchers.withText("1")))
+    }
+
+    @Test
     fun is_tvPlayerRightScore() {
         onView(withId(R.id.StartNewGameActivityButton)).perform(ViewActions.click())
         onView(withId(R.id.StartNewGameButton)).perform(ViewActions.click())
@@ -356,6 +410,51 @@ class AddGameRoundActivityTest : TestCase(){
         assertEquals("26", getText(onView(withId(6))))
         assertEquals("20", getText(onView(withId(7))))
         assertEquals("19", getText(onView(withId(8))))
+    }
+
+    @Test
+    fun is_tvPlayerRightScoreUnderdog() {
+        onView(withId(R.id.StartNewGameActivityButton)).perform(ViewActions.click())
+        onView(withId(R.id.StartNewGameButton)).perform(ViewActions.click())
+        onView(withId(R.id.AddRoundButton)).perform(ViewActions.click())
+
+        onView(withId(R.id.button_player_1)).perform(ViewActions.longClick())
+        onView(withId(R.id.button_player_3)).perform(ViewActions.click())
+        onView(withId(R.id.button_player_4)).perform(ViewActions.click())
+        onView(withId(R.id.button_player_4)).perform(ViewActions.click())
+        onView(withId(R.id.UnderdogButton)).perform(ViewActions.click())
+        onView(withId(R.id.endround)).perform(ViewActions.click())
+
+
+
+
+        assertEquals("25", getText(onView(withId(5))))
+        assertEquals("31", getText(onView(withId(6))))
+        assertEquals("19", getText(onView(withId(7))))
+        assertEquals("17", getText(onView(withId(8))))
+    }
+
+    @Test
+    fun is_tvPlayerRightScoreUnderdogx2() {
+        onView(withId(R.id.StartNewGameActivityButton)).perform(ViewActions.click())
+        onView(withId(R.id.StartNewGameButton)).perform(ViewActions.click())
+        onView(withId(R.id.AddRoundButton)).perform(ViewActions.click())
+
+        onView(withId(R.id.button_player_1)).perform(ViewActions.longClick())
+        onView(withId(R.id.button_player_3)).perform(ViewActions.click())
+        onView(withId(R.id.button_player_4)).perform(ViewActions.click())
+        onView(withId(R.id.button_player_4)).perform(ViewActions.click())
+        onView(withId(R.id.UnderdogButton)).perform(ViewActions.click())
+        onView(withId(R.id.UnderdogButton)).perform(ViewActions.click())
+        onView(withId(R.id.endround)).perform(ViewActions.click())
+
+
+
+
+        assertEquals("29", getText(onView(withId(5))))
+        assertEquals("41", getText(onView(withId(6))))
+        assertEquals("17", getText(onView(withId(7))))
+        assertEquals("13", getText(onView(withId(8))))
     }
 
     @Test
