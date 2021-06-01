@@ -60,6 +60,9 @@ class AddGameRoundActivity : AppCompatActivity() {
             gameupdate.scorePlayer3 = ro.p3
             gameupdate.scorePlayer4 = ro.p4
             gameupdate.Underdog = ro.ud
+            gameupdate.Heartround = ro.hr
+
+
         }
 
 
@@ -100,7 +103,7 @@ class AddGameRoundActivity : AppCompatActivity() {
             buttonHeart.isSelected = true
 
 
-            if (gameupdate.Heartround == true)
+            if (gameupdate.Heartround > 0)
             {
                 gameupdate.setHeartRound(false)
                 buttonHeart.text = resources.getString(R.string.heart_round)
@@ -155,7 +158,7 @@ class AddGameRoundActivity : AppCompatActivity() {
 
         buttonSendToDb.setOnClickListener {
 
-            val new_round = RoundObject(gameupdate.scorePlayer1, gameupdate.scorePlayer2, gameupdate.scorePlayer3, gameupdate.scorePlayer4,gameupdate.Underdog,0)
+            val new_round = RoundObject(gameupdate.scorePlayer1, gameupdate.scorePlayer2, gameupdate.scorePlayer3, gameupdate.scorePlayer4,gameupdate.Underdog, gameupdate.Heartround)
             if (roundId > 0  && ro != null)
             {
                 ro.p1 = gameupdate.scorePlayer1
@@ -163,6 +166,8 @@ class AddGameRoundActivity : AppCompatActivity() {
                 ro.p3 = gameupdate.scorePlayer3
                 ro.p4 = gameupdate.scorePlayer4
                 ro.ud = gameupdate.Underdog
+                ro.hr = gameupdate.Heartround
+
                 repository.updateRound(roundId, ro)
             }
             else
