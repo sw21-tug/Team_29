@@ -8,9 +8,9 @@
     <string name="Player3">Player 3</string>
     <string name="Player4">Player 4</string>
     <string name="EnterNewPlayer">Enter Player Names</string>
-    <string name="heart_round">Heart Round</string>
-    <string name="heart_round_active">Heart Round Active</string>
-    <string name="underdog">Underdog</string>
+    <string name="heart_round">&#128148;</string>
+    <string name="heart_round_active">&#10084;</string>
+    <string name="underdog">&#128054;</string>
     <string name="end_game">End Game</string>
     <string name="add_round">Add Round</string>
     <string name="app_name">MulatschakTracker</string>
