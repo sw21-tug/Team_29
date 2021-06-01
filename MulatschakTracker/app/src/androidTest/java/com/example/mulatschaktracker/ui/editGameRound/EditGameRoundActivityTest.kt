@@ -1,9 +1,5 @@
 package com.example.mulatschaktracker.ui.editGameRound
 
-import android.app.Activity
-import android.app.ActivityManager
-import android.content.Context.ACTIVITY_SERVICE
-import androidx.test.InstrumentationRegistry
 import androidx.test.espresso.Espresso
 import androidx.test.espresso.action.ViewActions
 import androidx.test.espresso.assertion.ViewAssertions
@@ -12,7 +8,6 @@ import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner
 import com.example.mulatschaktracker.MainActivity
 import com.example.mulatschaktracker.R
-import com.example.mulatschaktracker.ui.addGameRound.AddGameRoundActivity
 import com.example.mulatschaktracker.ui.addGameRound.AddGameRoundActivityTest
 import org.junit.Assert
 import org.junit.Before
