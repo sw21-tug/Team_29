@@ -455,7 +455,7 @@ class AddGameRoundActivityTest : TestCase(){
     }
 
     @Test
-    fun is_tvPlayerHeart2() {
+    fun is_tvPlayerHeart() {
 
         onView(withId(R.id.StartNewGameActivityButton)).perform(ViewActions.click())
         onView(withId(R.id.StartNewGameButton)).perform(ViewActions.click())
@@ -477,7 +477,7 @@ class AddGameRoundActivityTest : TestCase(){
     }
 
     @Test
-    fun is_tvPlayerHeart() {
+    fun is_heartround_displayed_in_game_test() {
 
         onView(withId(R.id.StartNewGameActivityButton)).perform(ViewActions.click())
         onView(withId(R.id.StartNewGameButton)).perform(ViewActions.click())
@@ -487,12 +487,13 @@ class AddGameRoundActivityTest : TestCase(){
         onView(withId(R.id.button_player_3)).perform(ViewActions.click())
         onView(withId(R.id.button_player_4)).perform(ViewActions.click())
         onView(withId(R.id.button_player_4)).perform(ViewActions.click())
-
         onView(withId(R.id.HeartRoundButton)).perform(ViewActions.click())
         onView(withId(R.id.endround)).perform(ViewActions.click())
 
-        
-
+        assertEquals("25", getText(onView(withId(5))))
+        assertEquals("31", getText(onView(withId(6))))
+        assertEquals("19", getText(onView(withId(7))))
+        assertEquals("17", getText(onView(withId(8))))
 
     }
 
