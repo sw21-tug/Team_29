@@ -11,15 +11,15 @@ You will have your own user profile to track all that data.
 
 **Developers**
 - Vladyslav Batohov
-- Jonathan Breitenthaler
 - Tim Celec
 - Raphael Hannes Innig
 - Stefan Knežević
-- Mario Meglitsch
 - Milán Pados
 
 **Senior Developers**
 - Johannes Leibetseder
+- Jonathan Breitenthaler
+- Mario Meglitsch
 
 **Scrum Master**
 - Gillsu George Thekkekara Puthenparampil
@@ -51,11 +51,18 @@ Sprint 3:
 - \#1 [MULI-18](https://github.com/sw21-tug/Team_29/issues/28): Back Button should go to Homescreen during game
 - \#2 [MULI-25](https://github.com/sw21-tug/Team_29/issues/45): Set yourself as player 1 always
 - \#3 [MULI-3](https://github.com/sw21-tug/Team_29/issues/3): Delete my account
+- \#4 [MULI-8](https://github.com/sw21-tug/Team_29/issues/8): Game is finished
 
 Sprint 4:
+- [MULI-21](https://github.com/sw21-tug/Team_29/issues/31): Show past games on History Tab
+- [MULI-10](https://github.com/sw21-tug/Team_29/issues/10): Game Rule (Underdog)
+- [MULI-20](https://github.com/sw21-tug/Team_29/issues/30): Add Username to the top of the homescreen
+- [MULI-9](https://github.com/sw21-tug/Team_29/issues/9): Game Rule (Hearts Round)
 
 # Features In Development
 
-- [MULI-8](https://github.com/sw21-tug/Team_29/issues/8): Game is finished
-- [MULI-21](https://github.com/sw21-tug/Team_29/issues/31): Show past games on History Tab
-- [MULI-10](https://github.com/sw21-tug/Team_29/issues/10): Game Rule (Underdog)
+- [MULI-22](https://github.com/sw21-tug/Team_29/issues/32): Show Details of past games
+- [MULI-27](https://github.com/sw21-tug/Team_29/issues/48): Adapt Ruleset
+- [MULI-11](https://github.com/sw21-tug/Team_29/issues/11): Game Rule (Muli)
+
+
