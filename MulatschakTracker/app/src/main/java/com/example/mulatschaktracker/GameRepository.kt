@@ -8,7 +8,7 @@ class GameRepository(var appContext: Context) {
 
     private val projection = arrayOf<String>(GAME_COLUMN_ID, GAME_COLUMN_PLAYER1, GAME_COLUMN_PLAYER2,
         GAME_COLUMN_PLAYER3, GAME_COLUMN_PLAYER4, GAME_IS_FINISHED, FIRST_WINNER_COLUMN, SECOND_WINNER_COLUMN,
-        THIRD_WINNER_COLUMN, FOURTH_WINNER_COLUMN)
+        THIRD_WINNER_COLUMN, FOURTH_WINNER_COLUMN, GAME_MODE)
 
     fun createGame(newGameObject: GameObject, userID: Long): Long {
 
