@@ -8,7 +8,8 @@
     <string name="Player3">Player 3</string>
     <string name="Player4">Player 4</string>
     <string name="EnterNewPlayer">Enter Player Names</string>
-    <string name="heart_round">Heart Round</string>
+    <string name="heart_round">&#128148;</string>
+    <string name="heart_round_active">&#10084;</string>
     <string name="underdog">Underdog</string>
     <string name="end_game">End Game</string>
     <string name="app_name">MulatschakTracker</string>
@@ -43,5 +44,12 @@
     <string name="delete_user_button">Delete Account</string>
     <string name="yes">Yes</string>
     <string name="cancel">Cancel</string>
+
+    <string name="Victory">Victory!</string>
+    <string name="FirstPlace"> took the cake</string>
+    <string name="SecondPlace"> snacked some cake as well</string>
+    <string name="ThirdPlace"> also got some cake</string>
+    <string name="FourthPlace"> probably wont happen, ever</string>
+    <string name="no_finished_games">No Finished Games</string>
 
 </resources>

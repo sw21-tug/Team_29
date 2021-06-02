@@ -12,16 +12,13 @@ import androidx.test.espresso.ViewInteraction
 import androidx.test.espresso.action.ViewActions
 import androidx.test.espresso.assertion.ViewAssertions
 import androidx.test.espresso.matcher.ViewMatchers
-import androidx.test.espresso.matcher.ViewMatchers.withId
-import androidx.test.ext.junit.rules.ActivityScenarioRule
+import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner
 import com.example.mulatschaktracker.*
 import junit.framework.TestCase
 import org.hamcrest.Matcher
 import org.junit.After
-import org.junit.Assert.*
 import org.junit.Before
-import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 
@@ -458,16 +455,68 @@ class AddGameRoundActivityTest : TestCase(){
     }
 
     @Test
+    fun is_tvPlayerHeart() {
+
+        onView(withId(R.id.StartNewGameActivityButton)).perform(ViewActions.click())
+        onView(withId(R.id.StartNewGameButton)).perform(ViewActions.click())
+        onView(withId(R.id.AddRoundButton)).perform(ViewActions.click())
+
+        onView(withId(R.id.button_player_1)).perform(ViewActions.longClick())
+        onView(withId(R.id.button_player_3)).perform(ViewActions.click())
+        onView(withId(R.id.button_player_4)).perform(ViewActions.click())
+        onView(withId(R.id.button_player_4)).perform(ViewActions.click())
+
+        onView(withId(R.id.HeartRoundButton)).perform(ViewActions.click())
+        assertEquals("❤", getText(onView(withId(R.id.HeartRoundButton))))
+        //assertEquals(getText(R.string.heart_round_active), getText(onView(withId(R.id.HeartRoundButton))))
+
+        onView(withId(R.id.HeartRoundButton)).perform(ViewActions.click())
+        assertEquals("\uD83D\uDC94", getText(onView(withId(R.id.HeartRoundButton))))
+
+
+    }
+
+    @Test
+    fun is_heartround_displayed_in_game_test() {
+
+        onView(withId(R.id.StartNewGameActivityButton)).perform(ViewActions.click())
+        onView(withId(R.id.StartNewGameButton)).perform(ViewActions.click())
+        onView(withId(R.id.AddRoundButton)).perform(ViewActions.click())
+
+        onView(withId(R.id.button_player_1)).perform(ViewActions.longClick())
+        onView(withId(R.id.button_player_3)).perform(ViewActions.click())
+        onView(withId(R.id.button_player_4)).perform(ViewActions.click())
+        onView(withId(R.id.button_player_4)).perform(ViewActions.click())
+        onView(withId(R.id.HeartRoundButton)).perform(ViewActions.click())
+        onView(withId(R.id.endround)).perform(ViewActions.click())
+
+        assertEquals("25", getText(onView(withId(5))))
+        assertEquals("31", getText(onView(withId(6))))
+        assertEquals("19", getText(onView(withId(7))))
+        assertEquals("17", getText(onView(withId(8))))
+
+    }
+
+
+
+
+
+
+    @Test
     fun readGameFromDatabase(){
         var scorePlayer1 = 0
         var scorePlayer2 = 0
         var scorePlayer3 = 0
         var scorePlayer4 = 0
+        var heartRound = 0
+        var underDog = 0
 
         val scoreToSavePlayer1 = -1
         val scoreToSavePlayer2 = 0
         val scoreToSavePlayer3 = 1
         val scoreToSavePlayer4 = 2
+        val heartRoundToSave = 1
+        val underdogToSave = 2
 
         val gameObject = GameObject("Player 1", "Player 2", "Player 3", "Player 4")
         val appContext: Context = ApplicationProvider.getApplicationContext()
@@ -475,7 +524,7 @@ class AddGameRoundActivityTest : TestCase(){
         val newGameId = repo.createGame(gameObject, userID)
         val gameObjectFromDb = repo.getGame(newGameId)
 
-        val new_round = RoundObject(scoreToSavePlayer1, scoreToSavePlayer2, scoreToSavePlayer3, scoreToSavePlayer4, 0, 0)
+        val new_round = RoundObject(scoreToSavePlayer1, scoreToSavePlayer2, scoreToSavePlayer3, scoreToSavePlayer4, underdogToSave, heartRoundToSave)
         repo.enterNewRound(new_round, newGameId)
 
         val cursor = repo.getCursorRounds(newGameId)
@@ -484,12 +533,17 @@ class AddGameRoundActivityTest : TestCase(){
             scorePlayer2 = cursor.getInt(cursor.getColumnIndex(ROUND_COLUMN_PLAYER2_TICKS))
             scorePlayer3 = cursor.getInt(cursor.getColumnIndex(ROUND_COLUMN_PLAYER3_TICKS))
             scorePlayer4 = cursor.getInt(cursor.getColumnIndex(ROUND_COLUMN_PLAYER4_TICKS))
+            heartRound = cursor.getInt(cursor.getColumnIndex(ROUND_COLUMN_HEARTROUND))
+            underDog = cursor.getInt(cursor.getColumnIndex(ROUND_COLUMN_UNDERDOG))
+
         }
 
         assertEquals(scoreToSavePlayer1, scorePlayer1)
         assertEquals(scoreToSavePlayer2, scorePlayer2)
         assertEquals(scoreToSavePlayer3, scorePlayer3)
         assertEquals(scoreToSavePlayer4, scorePlayer4)
+        assertEquals(heartRoundToSave, heartRound)
+        assertEquals(underdogToSave, underDog)
 
     }
 

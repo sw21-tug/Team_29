@@ -1,5 +1,6 @@
 package com.example.mulatschaktracker.ui.addGameRound
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.widget.Button
 
@@ -13,6 +14,7 @@ import com.example.mulatschaktracker.ui.home.GameRecyclerAdapter.GameViewHolder.
 
 class AddGameRoundActivity : AppCompatActivity() {
 
+    @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
@@ -34,6 +36,7 @@ class AddGameRoundActivity : AppCompatActivity() {
         val buttonPlayer3 = findViewById<Button>(R.id.button_player_3)
         val buttonPlayer4 = findViewById<Button>(R.id.button_player_4)
         val buttonUnderDog = findViewById<Button>(R.id.UnderdogButton)
+        val buttonHeart = findViewById<Button>(R.id.HeartRoundButton)
 
         val tv_playre1 = findViewById<TextView>(R.id.tvPlayerOne)
         val tv_playre2 = findViewById<TextView>(R.id.tvPlayerTwo)
@@ -57,6 +60,9 @@ class AddGameRoundActivity : AppCompatActivity() {
             gameupdate.scorePlayer3 = ro.p3
             gameupdate.scorePlayer4 = ro.p4
             gameupdate.Underdog = ro.ud
+            gameupdate.Heartround = ro.hr
+
+
         }
 
 
@@ -84,10 +90,32 @@ class AddGameRoundActivity : AppCompatActivity() {
             gameupdate.incrementP4()
             buttonPlayer4.text = checkLeft(gameupdate.scorePlayer4)
         }
+
+
         buttonUnderDog.setOnClickListener{
             gameupdate.incrementUnderdog()
             tv_UnderDog.text = gameupdate.Underdog.toString()
         }
+
+
+        buttonHeart.setOnClickListener{
+            //gameupdate.setHeartround()
+            buttonHeart.isSelected = true
+
+
+            if (gameupdate.Heartround > 0)
+            {
+                gameupdate.setHeartRound(false)
+                buttonHeart.text = resources.getString(R.string.heart_round)
+            }
+            else
+            {
+                buttonHeart.text = resources.getString(R.string.heart_round_active)
+                gameupdate.setHeartRound(true);
+            }
+
+        }
+
 
         buttonUnderDog.setOnLongClickListener{
             if (gameupdate.Underdog >= 1) {
@@ -130,7 +158,7 @@ class AddGameRoundActivity : AppCompatActivity() {
 
         buttonSendToDb.setOnClickListener {
 
-            val new_round = RoundObject(gameupdate.scorePlayer1, gameupdate.scorePlayer2, gameupdate.scorePlayer3, gameupdate.scorePlayer4,gameupdate.Underdog,0)
+            val new_round = RoundObject(gameupdate.scorePlayer1, gameupdate.scorePlayer2, gameupdate.scorePlayer3, gameupdate.scorePlayer4,gameupdate.Underdog, gameupdate.Heartround)
             if (roundId > 0  && ro != null)
             {
                 ro.p1 = gameupdate.scorePlayer1
@@ -138,6 +166,8 @@ class AddGameRoundActivity : AppCompatActivity() {
                 ro.p3 = gameupdate.scorePlayer3
                 ro.p4 = gameupdate.scorePlayer4
                 ro.ud = gameupdate.Underdog
+                ro.hr = gameupdate.Heartround
+
                 repository.updateRound(roundId, ro)
             }
             else

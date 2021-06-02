@@ -8,8 +8,9 @@
     <string name="Player3">Player 3</string>
     <string name="Player4">Player 4</string>
     <string name="EnterNewPlayer">Enter Player Names</string>
-    <string name="heart_round">Heart Round</string>
-    <string name="underdog">Underdog</string>
+    <string name="heart_round">&#128148;</string>
+    <string name="heart_round_active">&#10084;</string>
+    <string name="underdog">&#128054;</string>
     <string name="end_game">End Game</string>
     <string name="add_round">Add Round</string>
     <string name="app_name">MulatschakTracker</string>
@@ -31,6 +32,7 @@
     <string name="game">Game %1$d</string>
     <string name="players_signature" translatable="false">%1$s, %2$s, %3$s, %4$s</string>
     <string name="no_running_games">No Running Games</string>
+    <string name="no_finished_games">No Finished Games</string>
 
     <string name="initial_game_stat_points">0</string>
     <string name="player_one">Player One</string>

@@ -78,7 +78,7 @@ class Game : AppCompatActivity() {
 
         val gameId: Long = intent.getLongExtra(GAME_ID, 0)
         val repository = GameRepository(this)
-        
+
         val game = repository.getGame(gameId)
 
         var score_p1: Int = 21
@@ -122,27 +122,19 @@ class Game : AppCompatActivity() {
         if (cursor.moveToFirst()) {
             do {
 
-
-
-
                 val nrow = TableRow(this)
 
                 var dataToPass : String? = null;
 
                 var data : MutableList<String> = mutableListOf()
 
-
-
-
-
                 val underDogCount = cursor.getInt(cursor.getColumnIndex(ROUND_COLUMN_UNDERDOG))
-
+                val heartRound = cursor.getInt(cursor.getColumnIndex(ROUND_COLUMN_HEARTROUND))
 
                 val tricksP1 = cursor.getInt(cursor.getColumnIndex(ROUND_COLUMN_PLAYER1_TICKS))
-                score_p1 = calcScore(score_p1, tricksP1,underDogCount)
+                score_p1 = calcScore(score_p1, tricksP1,underDogCount, heartRound)
                 dataToPass =  game.player1 + "#" +score_p1.toString()
                 data.add(dataToPass)
-
                 val newTextP1 = TextView(this)
                 newTextP1.id = idcounter + 1
                 newTextP1.inputType = TYPE_CLASS_NUMBER
@@ -152,12 +144,11 @@ class Game : AppCompatActivity() {
                 nrow.addView(newTextP1, layoutParams)
                 idcounter = idcounter.plus(1)
 
-
                 val tricksP2 = cursor.getInt(cursor.getColumnIndex(ROUND_COLUMN_PLAYER2_TICKS))
-                score_p2 = calcScore(score_p2, tricksP2, underDogCount)
+                score_p2 = calcScore(score_p2, tricksP2, underDogCount, heartRound)
                  dataToPass =  game.player2 + "#" +score_p2.toString()
                 data.add(dataToPass)
-                
+
                 val newTextP2 = TextView(this)
                 newTextP2.id = idcounter + 1
                 newTextP2.inputType = TYPE_CLASS_NUMBER
@@ -167,12 +158,11 @@ class Game : AppCompatActivity() {
                 nrow.addView(newTextP2, layoutParams)
                 idcounter = idcounter.plus(1)
 
-               
+
                 val tricksP3 = cursor.getInt(cursor.getColumnIndex(ROUND_COLUMN_PLAYER3_TICKS))
-                score_p3 = calcScore(score_p3, tricksP3,underDogCount)
+                score_p3 = calcScore(score_p3, tricksP3,underDogCount, heartRound)
                  dataToPass =  game.player3 + "#" +score_p3.toString()
                 data.add(dataToPass)
-
                 val newTextP3 = TextView(this)
                 newTextP3.id = idcounter + 1
                 newTextP3.inputType = TYPE_CLASS_NUMBER
@@ -182,15 +172,10 @@ class Game : AppCompatActivity() {
                 nrow.addView(newTextP3, layoutParams)
                 idcounter = idcounter.plus(1)
 
-
-
-
-
                 val tricksP4 = cursor.getInt(cursor.getColumnIndex(ROUND_COLUMN_PLAYER4_TICKS))
-                score_p4 = calcScore(score_p4, tricksP4, underDogCount)
+                score_p4 = calcScore(score_p4, tricksP4, underDogCount, heartRound)
                 dataToPass =  game.player4 + "#" +score_p4.toString()
                 data.add(dataToPass)
-
                 val newTextP4 = TextView(this)
                 newTextP4.id = idcounter + 1
                 newTextP4.inputType = TYPE_CLASS_NUMBER
@@ -214,6 +199,16 @@ class Game : AppCompatActivity() {
                     nrow.addView(newTextUnderdog, layoutParams)
                 }
 
+                if(heartRound > 0){
+                    val newTextHeart = TextView(this)
+                    //newTextUnderdog.inputType = TYPE_CLASS_NUMBER
+                    newTextHeart.text = getString(R.string.heart_round_active)
+
+                    newTextHeart.setTextSize(TypedValue.COMPLEX_UNIT_SP, textSize)
+                    newTextHeart.gravity = Gravity.LEFT
+                    nrow.addView(newTextHeart, layoutParams)
+                }
+
                 var rowId = cursor.getInt(cursor.getColumnIndex(ROUND_COLUMN_ID))
                 nrow.id = rowIdCounter
 
@@ -229,15 +224,13 @@ class Game : AppCompatActivity() {
                     return@setOnLongClickListener true
                 }
 
-
-
                 if (score_p1 <= 0 || score_p2 <= 0 || score_p3 <= 0 ||score_p4 <= 0 ||
                         score_p1 >= 100 || score_p2 >= 100 || score_p3 >= 100 || score_p4 >= 100) {
 
                     setContentView(R.layout.activity_game_finished)
                     var todb =  calculateString(data)
-                    repository.setGameFinished(gameId)
-                    repository.writeWinnersToDB(todb, gameId)
+                    val res1 = repository.setGameFinished(gameId)
+                    val res2 = repository.writeWinnersToDB(todb, gameId)
                     var button: Button = findViewById(R.id.game_finished_back_button)
                     button.setOnClickListener(View.OnClickListener(){
                         val mainIntent = Intent(this, MainActivity::class.java);
@@ -369,12 +362,14 @@ class Game : AppCompatActivity() {
         return retval
     }
 
-    fun calcScore(current: Int, tricks: Int, UnderDog: Int) : Int
+    fun calcScore(current: Int, tricks: Int, UnderDog: Int, HeartRound: Int) : Int
     {
         var deduction:Int
-        var scoreMultiplicator =  2.0f
-        scoreMultiplicator = scoreMultiplicator.pow(UnderDog)
-        var scoreFactor = scoreMultiplicator.toInt()
+        var scoreMultiplicatorDog =  2.0f
+        var scoreMultiplicatorHeart =  2.0f
+        scoreMultiplicatorDog = scoreMultiplicatorDog.pow(UnderDog)
+        scoreMultiplicatorHeart = scoreMultiplicatorHeart.pow(HeartRound)
+        var scoreFactor = scoreMultiplicatorDog.toInt() * scoreMultiplicatorHeart.toInt()
 
         if(tricks == -1)
         {
