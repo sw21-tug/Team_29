@@ -78,7 +78,7 @@ class GameRepositoryTest {
 
         val gameId1 = gameRepo.createGame(GameObject("Player 1", "Player 2", "Player 3", "Player 4"),userID)
         val gameId2 = gameRepo.createGame(GameObject("Player 1", "Player 2", "Player 3", "Player 4"),userID)
-        val gameList = gameRepo.getGames(userID)
+        val gameList = gameRepo.getGames(userID,false)
         assertEquals(gameId1,gameList[0].id)
         assertEquals(gameId2,gameList[1].id)
     }
@@ -93,7 +93,7 @@ class GameRepositoryTest {
         val gameRepo = GameRepository(appContext)
         val userID = userRepo.createUser(UserObject("NewUser"))
 
-        val gameList = gameRepo.getGames(userID)
+        val gameList = gameRepo.getGames(userID, false)
         assertEquals(0,gameList.size)
     }
 
@@ -106,7 +106,7 @@ class GameRepositoryTest {
         userRepo.resetDatabase()
         val gameRepo = GameRepository(appContext)
         val userID : Long = 1
-        val gameList = gameRepo.getGames(userID)
+        val gameList = gameRepo.getGames(userID,false)
         assertEquals(0,gameList.size)
     }
 
