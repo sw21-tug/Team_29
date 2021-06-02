@@ -19,6 +19,7 @@ import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import junit.framework.AssertionFailedError
 import junit.framework.TestCase
 import org.hamcrest.Matcher
 
@@ -129,7 +130,7 @@ class HistoryFragmentTest:TestCase() {
         onView(withId(R.id.StartNewGameActivityButton)).check(matches(isDisplayed()))
     }
 
-    @Test(expected = NoMatchingViewException::class)
+    @Test(expected = AssertionFailedError::class)
     fun checkAddRoundButtonHistoryDetailFragment(){
         onView(withId(R.id.historyRecyclerView))
             .perform(RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(0, click()))
