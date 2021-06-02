@@ -10,6 +10,7 @@ import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.*
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.Espresso.pressBack
+import androidx.test.espresso.action.ViewActions
 import androidx.test.espresso.action.ViewActions.*
 import androidx.test.espresso.assertion.ViewAssertions
 import androidx.test.espresso.assertion.ViewAssertions.matches
@@ -149,6 +150,16 @@ class GameFragmentTest:TestCase() {
         onView(withId(R.id.StartNewGameActivityButton)).check(matches(isDisplayed()))
     }
 
+    @Test
+    fun checkReplacingFiveByMuli() {
+        onView(withId(R.id.StartNewGameActivityButton)).perform(click())
+        onView(withId(R.id.StartNewGameButton)).perform(click())
+        onView(withId(R.id.AddRoundButton)).perform(click())
+        for (i in 0..4){
+            onView(withId(R.id.button_player_1)).perform(ViewActions.click())
+        }
+        assertEquals("MULI", getText(onView(withId(R.id.button_player_1))))
+    }
 
 
 }
