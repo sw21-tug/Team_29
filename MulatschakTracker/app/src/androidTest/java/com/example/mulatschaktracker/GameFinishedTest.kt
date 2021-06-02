@@ -84,6 +84,16 @@ class GameFinishedTest : TestCase(){
     }
 
     @Test
+    fun noOneWon() {
+        onView(withId(R.id.StartNewGameActivityButton)).perform(ViewActions.click())
+        onView(withId(R.id.StartNewGameButton)).perform(ViewActions.click())
+        onView(withId(R.id.AddRoundButton)).perform(ViewActions.click())
+        onView(withId(R.id.button_player_3)).perform(ViewActions.click())
+        onView(withId(R.id.endround)).perform(click())
+        onView(withId(R.id.AddRoundButton)).perform(ViewActions.click())
+        onView(withId(R.id.Game_Finished)).check(doesNotExist())
+    }
+    @Test
     fun user3With100Points() {
         onView(withId(R.id.StartNewGameActivityButton)).perform(ViewActions.click())
         onView(withId(R.id.StartNewGameButton)).perform(ViewActions.click())
@@ -100,17 +110,6 @@ class GameFinishedTest : TestCase(){
 
         onView(withId(R.id.endround)).perform(click())
         onView(withId(R.id.Game_Finished)).check(matches(isDisplayed()))
-    }
-
-    @Test
-    fun noOneWon() {
-        onView(withId(R.id.StartNewGameActivityButton)).perform(ViewActions.click())
-        onView(withId(R.id.StartNewGameButton)).perform(ViewActions.click())
-        onView(withId(R.id.AddRoundButton)).perform(ViewActions.click())
-        onView(withId(R.id.button_player_3)).perform(ViewActions.click())
-        onView(withId(R.id.endround)).perform(click())
-        onView(withId(R.id.AddRoundButton)).perform(ViewActions.click())
-        onView(withId(R.id.Game_Finished)).check(doesNotExist())
     }
 
 
@@ -612,16 +611,8 @@ class GameFinishedTest : TestCase(){
     @Test
     fun backButton()
     {
-
-        val appContext: Context = ApplicationProvider.getApplicationContext();
-        val repo = GameRepository(appContext);
-
-
         onView(withId(R.id.StartNewGameActivityButton)).perform(click())
-
-
         onView(withId(R.id.StartNewGameButton)).perform(click())
-
         onView(withId(R.id.AddRoundButton)).perform(ViewActions.click())
 
         for (i in 0..21) {
@@ -630,13 +621,8 @@ class GameFinishedTest : TestCase(){
         }
         onView(withId(R.id.endround)).perform(click())
 
-        var game =  repo.getGameFinished(1)
-        //assert(game)
-        val listOfWinners = repo.getWinners(1)
         onView(withId(R.id.game_finished_back_button)).perform(click())
-        Thread.sleep(waitTime)
-        onView(withId(R.id.nav_host_fragment)).check(matches(isDisplayed()))
-
+        onView(withId(R.id.navigation_home)).check(matches(isDisplayed()))
     }
 
 }
