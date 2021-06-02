@@ -75,7 +75,18 @@ class AddGameRoundActivity : AppCompatActivity() {
 
         buttonPlayer1.setOnClickListener {
             gameupdate.incrementP1()
+
+            if (gameupdate.scorePlayer1 >= 5)
+            {
+                gameupdate.scorePlayer1 = 5
+            }
+
             buttonPlayer1.text = checkLeft(gameupdate.scorePlayer1)
+
+            if (buttonPlayer1.text == "5")
+            {
+                buttonPlayer1.text = "MULI"
+            }
         }
 
         buttonPlayer2.setOnClickListener {
@@ -90,6 +101,8 @@ class AddGameRoundActivity : AppCompatActivity() {
             gameupdate.incrementP4()
             buttonPlayer4.text = checkLeft(gameupdate.scorePlayer4)
         }
+
+
 
 
         buttonUnderDog.setOnClickListener{

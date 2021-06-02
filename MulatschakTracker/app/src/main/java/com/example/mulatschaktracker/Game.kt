@@ -378,7 +378,12 @@ class Game : AppCompatActivity() {
         if(tricks == -1)
         {
             deduction = 2
-        }else if (tricks == 0)
+        }
+        else if (tricks == 5)
+        {
+            deduction = -10
+        }
+        else if (tricks == 0)
         {
             deduction = 5
         }
