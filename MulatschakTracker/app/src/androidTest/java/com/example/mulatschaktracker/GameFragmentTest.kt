@@ -15,9 +15,11 @@ import androidx.test.espresso.action.ViewActions.*
 import androidx.test.espresso.assertion.ViewAssertions
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.contrib.RecyclerViewActions
+import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import com.example.mulatschaktracker.ui.addGameRound.AddGameRoundActivityTest
 import junit.framework.TestCase
 import org.hamcrest.Matcher
 
@@ -151,7 +153,7 @@ class GameFragmentTest:TestCase() {
     }
 
     @Test
-    fun checkReplacingFiveByMuli() {
+    fun checkReplacingFiveByMuliForPlayer1() {
         onView(withId(R.id.StartNewGameActivityButton)).perform(click())
         onView(withId(R.id.StartNewGameButton)).perform(click())
         onView(withId(R.id.AddRoundButton)).perform(click())
@@ -161,5 +163,43 @@ class GameFragmentTest:TestCase() {
         assertEquals("MULI", getText(onView(withId(R.id.button_player_1))))
     }
 
+    @Test
+    fun checkDoublePointsForPlayer1() {
+        onView(withId(R.id.StartNewGameActivityButton)).perform(click())
+        onView(withId(R.id.StartNewGameButton)).perform(click())
+        onView(withId(R.id.AddRoundButton)).perform(click())
+        for (i in 0..4){
+            onView(withId(R.id.button_player_1)).perform(ViewActions.click())
+        }
+        onView(withId(R.id.endround)).perform(click())
+        assertEquals("11", AddGameRoundActivityTest.getText(onView(withId(5))))
+        assertEquals("26", AddGameRoundActivityTest.getText(onView(withId(6))))
+        assertEquals("26", AddGameRoundActivityTest.getText(onView(withId(7))))
+        assertEquals("26", AddGameRoundActivityTest.getText(onView(withId(8))))
+    }
 
+    @Test
+    fun checkNoAdditionAfterMuliForOtherPlayers(){
+        onView(withId(R.id.StartNewGameActivityButton)).perform(click())
+        onView(withId(R.id.StartNewGameButton)).perform(click())
+        onView(withId(R.id.AddRoundButton)).perform(click())
+        for (i in 0..4){
+            onView(withId(R.id.button_player_1)).perform(ViewActions.click())
+        }
+        onView(withId(R.id.button_player_2)).perform(ViewActions.click())
+        onView(withId(R.id.button_player_2))
+                .check(ViewAssertions.matches(ViewMatchers.withText("0")))
+    }
+
+    @Test
+    fun checkNoAdditionAfterMuliForMuliPlayer(){
+        onView(withId(R.id.StartNewGameActivityButton)).perform(click())
+        onView(withId(R.id.StartNewGameButton)).perform(click())
+        onView(withId(R.id.AddRoundButton)).perform(click())
+        for (i in 0..4){
+            onView(withId(R.id.button_player_1)).perform(ViewActions.click())
+        }
+        onView(withId(R.id.button_player_1)).perform(ViewActions.click())
+        assertEquals("MULI", getText(onView(withId(R.id.button_player_1))))
+    }
 }
