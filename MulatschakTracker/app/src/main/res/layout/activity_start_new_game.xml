@@ -106,5 +106,18 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Player4_EditText" />
+
+
+    <CheckBox
+        android:id="@+id/GameMode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:text="Carinthia Mode"
+        app:layout_constraintBottom_toTopOf="@+id/StartNewGameButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Player4_EditText" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
 
