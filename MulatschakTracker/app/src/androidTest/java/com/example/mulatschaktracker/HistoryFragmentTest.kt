@@ -10,10 +10,12 @@ import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.*
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.Espresso.pressBack
+import androidx.test.espresso.action.ViewActions
 import androidx.test.espresso.action.ViewActions.*
 import androidx.test.espresso.assertion.ViewAssertions
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.contrib.RecyclerViewActions
+import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -55,9 +57,11 @@ class HistoryFragmentTest:TestCase() {
         gameRepo = GameRepository(appContext)
         var gameObject = GameObject(playerName,playerName,playerName,playerName)
         gameObject.finished = 1
-        gameRepo.createGame(gameObject,userID)
+        val gameId = gameRepo.createGame(gameObject,userID)
         gameObject.finished = 0
         gameRepo.createGame(gameObject,userID)
+        val roundObject = RoundObject(2, 0, -1 ,3,0 ,0)
+        gameRepo.enterNewRound(roundObject, gameId)
 
         val preferences = appContext.getSharedPreferences(PREFERENCENAME, AppCompatActivity.MODE_PRIVATE)
         preferences.edit().putString(LASTUSER, userName).commit()
@@ -99,6 +103,39 @@ class HistoryFragmentTest:TestCase() {
         assertEquals(playerName, getText(onView(withId(R.id.textViewPlayer3))))
         assertEquals(playerName, getText(onView(withId(R.id.textViewPlayer4))))
     }
+
+    @Test
+    fun editHistoryDetailFragment(){
+        onView(withId(R.id.historyRecyclerView))
+            .perform(RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(0, click()))
+        onView(withId(12000)).perform(longClick())
+        Thread.sleep(300)
+        assertEquals(playerName, getText(onView(withId(R.id.textViewPlayer1))))
+        assertEquals(playerName, getText(onView(withId(R.id.textViewPlayer2))))
+        assertEquals(playerName, getText(onView(withId(R.id.textViewPlayer3))))
+        assertEquals(playerName, getText(onView(withId(R.id.textViewPlayer4))))
+    }
+
+    @Test(expected = NoMatchingViewException::class)
+    fun closeHistoryDetailFragment(){
+        onView(withId(R.id.historyRecyclerView))
+            .perform(RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(0, click()))
+        pressBack()
+        Thread.sleep(200)
+        assertEquals(getText(onView(withId(R.id.game_textview_players))),
+            "PlayerName, PlayerName, PlayerName, PlayerName"
+        )
+
+        onView(withId(R.id.StartNewGameActivityButton)).check(matches(isDisplayed()))
+    }
+
+    @Test(expected = NoMatchingViewException::class)
+    fun checkAddRoundButtonHistoryDetailFragment(){
+        onView(withId(R.id.historyRecyclerView))
+            .perform(RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(0, click()))
+        onView(withId(R.id.AddRoundButton)).check(matches(isDisplayed()))
+    }
+
 
     //helper function for comparing 2 strings from textboxes
     fun getText(matcher: ViewInteraction): String {
