@@ -46,7 +46,7 @@ class Game : AppCompatActivity() {
         val repository = GameRepository(this)
 
         val game = repository.getGame(intent.getLongExtra(GAME_ID, 0))
-
+        game.gamemode = repository.getGameMode(intent.getLongExtra(GAME_ID, 0))
         findViewById<TextView>(R.id.textViewPlayer1).apply {
             text = game.player1
         }
