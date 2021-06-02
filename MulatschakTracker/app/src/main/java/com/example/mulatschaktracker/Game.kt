@@ -27,6 +27,7 @@ class Game : AppCompatActivity() {
 
     private var mapOfResult = mapOf<Int, String>()
     private  var fragment : GameFinishedFragment?  = null
+    private var points : Int = 21
 
     private val layoutParams = TableRow.LayoutParams(
         TableRow.LayoutParams.WRAP_CONTENT,
@@ -90,10 +91,14 @@ class Game : AppCompatActivity() {
 
         val game = repository.getGame(gameId)
 
-        var score_p1: Int = 21
-        var score_p2: Int = 21
-        var score_p3: Int = 21
-        var score_p4: Int = 21
+        if(game.gamemode == 1)
+        {
+            points = 15;
+        }
+        var score_p1: Int = points
+        var score_p2: Int = points
+        var score_p3: Int = points
+        var score_p4: Int = points
         // text size in sp
 
 
