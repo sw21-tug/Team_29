@@ -43,6 +43,8 @@ class GameFinishedTest : TestCase(){
     lateinit var scenario : ActivityScenario<MainActivity>
     val username: String = "Player 1"
 
+    private val waitTime:Long = 400
+
     @Before
     public override fun setUp(){
 
@@ -88,6 +90,7 @@ class GameFinishedTest : TestCase(){
         onView(withId(R.id.AddRoundButton)).perform(ViewActions.click())
 
         for (i in 0..14) {
+            Thread.sleep(waitTime)
             onView(withId(R.id.button_player_1)).perform(ViewActions.click())
             onView(withId(R.id.endround)).perform(click())
             onView(withId(R.id.AddRoundButton)).perform(ViewActions.click())
@@ -118,11 +121,12 @@ class GameFinishedTest : TestCase(){
         onView(withId(R.id.AddRoundButton)).perform(ViewActions.click())
 
         for (i in 0..14) {
-
+            Thread.sleep(waitTime)
             onView(withId(R.id.button_player_2)).perform(ViewActions.click())
             onView(withId(R.id.button_player_3)).perform(ViewActions.click())
 
             onView(withId(R.id.endround)).perform(click())
+            Thread.sleep(waitTime)
             onView(withId(R.id.AddRoundButton)).perform(ViewActions.click())
 
         }
@@ -139,12 +143,16 @@ class GameFinishedTest : TestCase(){
         onView(withId(R.id.AddRoundButton)).perform(ViewActions.click())
 
         for (i in 0..14) {
+
+            Thread.sleep(waitTime)
             onView(withId(R.id.button_player_1)).perform(ViewActions.click())
             onView(withId(R.id.button_player_2)).perform(ViewActions.click())
             onView(withId(R.id.button_player_3)).perform(ViewActions.click())
 
             onView(withId(R.id.endround)).perform(click())
+            Thread.sleep(waitTime)
             onView(withId(R.id.AddRoundButton)).perform(ViewActions.click())
+
 
         }
         onView(withId(R.id.button_player_1)).perform(ViewActions.click())
@@ -315,11 +323,13 @@ class GameFinishedTest : TestCase(){
         onView(withId(R.id.AddRoundButton)).perform(ViewActions.click())
 
         for (i in 0..14) {
+            Thread.sleep(waitTime)
             onView(withId(R.id.button_player_1)).perform(ViewActions.click())
             onView(withId(R.id.button_player_2)).perform(ViewActions.click())
             onView(withId(R.id.button_player_3)).perform(ViewActions.click())
 
             onView(withId(R.id.endround)).perform(click())
+            Thread.sleep(waitTime)
             onView(withId(R.id.AddRoundButton)).perform(ViewActions.click())
 
         }
@@ -624,6 +634,7 @@ class GameFinishedTest : TestCase(){
         //assert(game)
         val listOfWinners = repo.getWinners(1)
         onView(withId(R.id.game_finished_back_button)).perform(click())
+        Thread.sleep(waitTime)
         onView(withId(R.id.nav_host_fragment)).check(matches(isDisplayed()))
 
     }

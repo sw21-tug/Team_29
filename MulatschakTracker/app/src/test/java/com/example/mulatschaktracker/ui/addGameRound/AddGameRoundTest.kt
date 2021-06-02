@@ -88,5 +88,13 @@ class AddGameRoundTest
         Assert.assertEquals(0, gameupdate.scorePlayer4)
     }
 
+    @Test
+    fun heartRound() {
+        gameupdate.setHeartRound(true)
+        Assert.assertEquals(1, gameupdate.Heartround)
+        gameupdate.setHeartRound(false)
+        Assert.assertEquals(0, gameupdate.Heartround)
+    }
+
 
 }
