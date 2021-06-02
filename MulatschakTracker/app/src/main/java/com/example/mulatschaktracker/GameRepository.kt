@@ -18,16 +18,13 @@ class GameRepository(var appContext: Context) {
         values.put(GAME_COLUMN_PLAYER2, newGameObject.player2)
         values.put(GAME_COLUMN_PLAYER3, newGameObject.player3)
         values.put(GAME_COLUMN_PLAYER4, newGameObject.player4)
-        values.put(GAME_MODE, newGameObject.gamemode);
         values.put(GAME_IS_FINISHED, newGameObject.finished)
         values.put(FIRST_WINNER_COLUMN, "")
         values.put(SECOND_WINNER_COLUMN, "")
         values.put(THIRD_WINNER_COLUMN, "")
         values.put(FOURTH_WINNER_COLUMN, "")
-
-
         values.put(GAME_COLUMN_USER_ID, userID)
-
+        values.put(GAME_MODE, newGameObject.gamemode);
 
         return dbWrite.insert(GAME_TABLE_NAME, null, values)
     }
@@ -69,7 +66,7 @@ class GameRepository(var appContext: Context) {
         val cursor = getCursor(gameID)
         if (cursor.count == 1) {
             cursor.moveToFirst()
-            result = (cursor.getInt(cursor.getColumnIndex(GAME_MODE))) // maybe crash ?
+            result = cursor.getInt(cursor.getColumnIndex(GAME_MODE)) // maybe crash ?
         }
         return result
     }
