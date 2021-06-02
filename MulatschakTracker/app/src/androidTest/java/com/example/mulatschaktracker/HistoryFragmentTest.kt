@@ -1,5 +1,6 @@
 package com.example.mulatschaktracker
 
+
 import android.content.Context
 import android.view.View
 import android.widget.TextView
@@ -7,33 +8,25 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import androidx.test.core.app.ActivityScenario
 import androidx.test.core.app.ApplicationProvider
-import androidx.test.espresso.*
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.Espresso.pressBack
-import androidx.test.espresso.action.ViewActions
-import androidx.test.espresso.action.ViewActions.*
-import androidx.test.espresso.assertion.ViewAssertions
+import androidx.test.espresso.NoMatchingViewException
+import androidx.test.espresso.UiController
+import androidx.test.espresso.ViewAction
+import androidx.test.espresso.ViewInteraction
+import androidx.test.espresso.action.ViewActions.click
+import androidx.test.espresso.action.ViewActions.longClick
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.contrib.RecyclerViewActions
-import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.espresso.matcher.ViewMatchers.*
-import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import junit.framework.AssertionFailedError
 import junit.framework.TestCase
 import org.hamcrest.Matcher
-
-
-import org.hamcrest.core.StringStartsWith
 import org.junit.After
-
-
+import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
-
-import org.junit.Assert.*
-import org.junit.Before
-import org.junit.Rule
 
 @RunWith(AndroidJUnit4::class)
 class HistoryFragmentTest:TestCase() {
@@ -56,7 +49,7 @@ class HistoryFragmentTest:TestCase() {
 
         val userID = userRepo.createUser(UserObject(userName))
         gameRepo = GameRepository(appContext)
-        var gameObject = GameObject(playerName,playerName,playerName,playerName)
+        val gameObject = GameObject(playerName,playerName,playerName,playerName)
         gameObject.finished = 1
         val gameId = gameRepo.createGame(gameObject,userID)
         gameObject.finished = 0
