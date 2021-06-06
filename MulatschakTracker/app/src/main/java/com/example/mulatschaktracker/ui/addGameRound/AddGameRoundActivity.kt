@@ -44,6 +44,8 @@ class AddGameRoundActivity : AppCompatActivity() {
         val tv_playre4 = findViewById<TextView>(R.id.tvPlayerFour)
         val tv_UnderDog = findViewById<TextView>(R.id.tvUnderdogRound)
 
+        var muliCheck = false
+
         tv_playre1.text = game.player1
         tv_playre2.text = game.player2
         tv_playre3.text = game.player3
@@ -74,35 +76,80 @@ class AddGameRoundActivity : AppCompatActivity() {
         val buttonSendToDb = findViewById<Button>(R.id.endround)
 
         buttonPlayer1.setOnClickListener {
-            gameupdate.incrementP1()
 
-            if (gameupdate.scorePlayer1 >= 5)
+            if (!muliCheck)
             {
-                gameupdate.scorePlayer1 = 5
-            }
+                gameupdate.incrementP1()
 
-            buttonPlayer1.text = checkLeft(gameupdate.scorePlayer1)
+                if (gameupdate.scorePlayer1 == 5)
+                {
+                    muliCheck = true
+                }
 
-            if (buttonPlayer1.text == "5")
-            {
-                buttonPlayer1.text = "MULI"
+                buttonPlayer1.text = checkLeft(gameupdate.scorePlayer1)
+
+                if (buttonPlayer1.text == "5")
+                {
+                    buttonPlayer1.text = "MULI"
+                }
             }
         }
 
         buttonPlayer2.setOnClickListener {
-            gameupdate.incrementP2()
-            buttonPlayer2.text = checkLeft(gameupdate.scorePlayer2)
+
+            if (!muliCheck)
+            {
+                gameupdate.incrementP2()
+
+                if (gameupdate.scorePlayer2 == 5)
+                {
+                    muliCheck = true
+                }
+
+                buttonPlayer2.text = checkLeft(gameupdate.scorePlayer2)
+
+                if (buttonPlayer2.text == "5")
+                {
+                    buttonPlayer2.text = "MULI"
+                }
+            }
         }
         buttonPlayer3.setOnClickListener {
-            gameupdate.incrementP3()
-            buttonPlayer3.text = checkLeft(gameupdate.scorePlayer3)
+            if (!muliCheck)
+            {
+                gameupdate.incrementP3()
+
+                if (gameupdate.scorePlayer3 == 5)
+                {
+                    muliCheck = true
+                }
+
+                buttonPlayer3.text = checkLeft(gameupdate.scorePlayer3)
+
+                if (buttonPlayer3.text == "5")
+                {
+                    buttonPlayer3.text = "MULI"
+                }
+            }
         }
         buttonPlayer4.setOnClickListener {
-            gameupdate.incrementP4()
-            buttonPlayer4.text = checkLeft(gameupdate.scorePlayer4)
+            if (!muliCheck)
+            {
+                gameupdate.incrementP4()
+
+                if (gameupdate.scorePlayer4 == 5)
+                {
+                    muliCheck = true
+                }
+
+                buttonPlayer4.text = checkLeft(gameupdate.scorePlayer4)
+
+                if (buttonPlayer4.text == "5")
+                {
+                    buttonPlayer4.text = "MULI"
+                }
+            }
         }
-
-
 
 
         buttonUnderDog.setOnClickListener{
