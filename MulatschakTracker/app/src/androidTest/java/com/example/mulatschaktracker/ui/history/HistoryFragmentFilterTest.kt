@@ -87,59 +87,17 @@ class HistoryFragmentFilterTest:TestCase() {
         }
     }
 
-    /*
-    @Test
-    fun readGameFromDatabase(){
-        var scorePlayer1 = 0
-        var scorePlayer2 = 0
-        var scorePlayer3 = 0
-        var scorePlayer4 = 0
-        var heartRound = 0
-        var underDog = 0
 
-        val scoreToSavePlayer1 = -1
-        val scoreToSavePlayer2 = 0
-        val scoreToSavePlayer3 = 1
-        val scoreToSavePlayer4 = 2
-        val heartRoundToSave = 1
-        val underdogToSave = 2
-
-        val gameObject = GameObject("Player 1", "Player 2", "Player 3", "Player 4")
-        val appContext: Context = ApplicationProvider.getApplicationContext()
-        val repo = GameRepository(appContext)
-        val newGameId = repo.createGame(gameObject, 4)
-        val gameObjectFromDb = repo.getGame(newGameId)
-
-        val new_round = RoundObject(scoreToSavePlayer1, scoreToSavePlayer2, scoreToSavePlayer3, scoreToSavePlayer4, underdogToSave, heartRoundToSave)
-        repo.enterNewRound(new_round, newGameId)
-
-        val cursor = repo.getCursorRounds(newGameId)
-        if (cursor.moveToFirst()) {
-            scorePlayer1 = cursor.getInt(cursor.getColumnIndex(ROUND_COLUMN_PLAYER1_TICKS))
-            scorePlayer2 = cursor.getInt(cursor.getColumnIndex(ROUND_COLUMN_PLAYER2_TICKS))
-            scorePlayer3 = cursor.getInt(cursor.getColumnIndex(ROUND_COLUMN_PLAYER3_TICKS))
-            scorePlayer4 = cursor.getInt(cursor.getColumnIndex(ROUND_COLUMN_PLAYER4_TICKS))
-            heartRound = cursor.getInt(cursor.getColumnIndex(ROUND_COLUMN_HEARTROUND))
-            underDog = cursor.getInt(cursor.getColumnIndex(ROUND_COLUMN_UNDERDOG))
-
-        }
-
-        assertEquals(scoreToSavePlayer1, scorePlayer1)
-        assertEquals(scoreToSavePlayer2, scorePlayer2)
-        assertEquals(scoreToSavePlayer3, scorePlayer3)
-        assertEquals(scoreToSavePlayer4, scorePlayer4)
-        assertEquals(heartRoundToSave, heartRound)
-        assertEquals(underdogToSave, underDog)
-
-    }
-
-     */
 
     @Test
-    fun finishedGameIsPresentInHistoryFragment(){
-        onView(withId(R.id.game_textview)).check(matches(isDisplayed()))
+    fun test_playerOneOneRadioGroupDisplayed(){
+        onView(withId(R.id.radioGroup_filter)).check(matches(isDisplayed()))
+        onView(withId(R.id.radio_won)).check(matches(isDisplayed()))
+        onView(withId(R.id.radio_lost)).check(matches(isDisplayed()))
+        onView(withId(R.id.radio_100)).check(matches(isDisplayed()))
     }
 
+    
 
 
 
