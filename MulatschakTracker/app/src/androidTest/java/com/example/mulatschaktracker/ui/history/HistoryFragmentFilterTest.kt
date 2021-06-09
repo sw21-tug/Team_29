@@ -41,7 +41,7 @@ class HistoryFragmentFilterTest:TestCase() {
         val userID = userRepo.createUser(UserObject(userName))
         gameRepo = GameRepository(appContext)
 
-        createFinishesGame(userID,16,1,0,1,1, GameRepository.Filter.OVER100)    // player two 100
+        createFinishesGame(userID,16,1,0,1,1, GameRepository.Filter.LOST_OVER100)    // player two 100
         //createFinishesGame(userID,16,1,1,1,0, -1)    // player four 100
         //createFinishesGame(userID,16,-1,-1,0,1, -1)    // player three 100
         createFinishesGame(userID,11,2,1,1,1, GameRepository.Filter.WON)    // player one won

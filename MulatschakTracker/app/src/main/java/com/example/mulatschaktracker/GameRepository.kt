@@ -11,7 +11,7 @@ class GameRepository(var appContext: Context) {
         THIRD_WINNER_COLUMN, FOURTH_WINNER_COLUMN)
 
     enum class Filter {
-        WON, LOST, OVER100, LOST_OVER100, WON_OVER100, DEFAULT
+        WON, LOST, LOST_OVER100, WON_OVER100, DEFAULT
     }
 
     fun createGame(newGameObject: GameObject, userID: Long): Long {
