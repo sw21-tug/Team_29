@@ -51,5 +51,9 @@
     <string name="SecondPlace"> snacked some cake as well</string>
     <string name="ThirdPlace"> also got some cake</string>
     <string name="FourthPlace"> probably wont happen, ever</string>
+    <string name="all">TODO</string>
+    <string name="p1_100">TODO</string>
+    <string name="p1_won">TODO</string>
+    <string name="p1_lost">TODO</string>
 
 </resources>
