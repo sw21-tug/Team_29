@@ -29,7 +29,6 @@ class Game : AppCompatActivity() {
     private  var fragment : GameFinishedFragment?  = null
     private var points : Int = 21
 
-
     private val layoutParams = TableRow.LayoutParams(
         TableRow.LayoutParams.WRAP_CONTENT,
         TableRow.LayoutParams.WRAP_CONTENT
@@ -379,7 +378,12 @@ class Game : AppCompatActivity() {
         if(tricks == -1)
         {
             deduction = 2
-        }else if (tricks == 0)
+        }
+        else if (tricks == 5)
+        {
+            deduction = -10
+        }
+        else if (tricks == 0)
         {
             deduction = 5
         }
