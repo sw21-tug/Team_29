@@ -30,8 +30,10 @@ val SECOND_WINNER_COLUMN = "second_winner"
 val THIRD_WINNER_COLUMN = "third_winner"
 val FOURTH_WINNER_COLUMN = "fourth_winner"
 val GAME_IS_FINISHED = "game_finished"
-val FILTER ="filter"
+val WINNER ="won"
 val GAME_MODE = "game_mode"
+val FILTER ="filter"
+
 
 class DataBaseHandler(var context: Context) : SQLiteOpenHelper(context, DATABASENAME, null,DATABASE_VERSION)
         {

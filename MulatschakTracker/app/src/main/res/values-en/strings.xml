@@ -26,7 +26,6 @@
     <string name="previous">Previous</string>
     <string name="add_round">Add Round</string>
     <string name="title_activity_add_game_round">MulatschakTracker</string>
-    <string name="initial_game_stat_points">0</string>
     <string name="player_one">Player One</string>
     <string name="player_two">Player Two</string>
     <string name="player_three">Player Three</string>
@@ -62,5 +61,6 @@
     <string name="p1_100">Someone over 100</string>
     <string name="p1_won">I won</string>
     <string name="p1_lost">I lost</string>
+    <string name="back">Back</string>
 
 </resources>

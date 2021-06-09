@@ -29,7 +29,6 @@ class Game : AppCompatActivity() {
     private  var fragment : GameFinishedFragment?  = null
     private var points : Int = 21
 
-
     private val layoutParams = TableRow.LayoutParams(
         TableRow.LayoutParams.WRAP_CONTENT,
         TableRow.LayoutParams.WRAP_CONTENT
@@ -48,6 +47,11 @@ class Game : AppCompatActivity() {
 
         val game = repository.getGame(intent.getLongExtra(GAME_ID, 0))
         game.gamemode = repository.getGameMode(intent.getLongExtra(GAME_ID, 0))
+
+        if(game.gamemode == 1)
+        {
+            points = 15;
+        }
         findViewById<TextView>(R.id.textViewPlayer1).apply {
             text = game.player1
         }
@@ -118,7 +122,7 @@ class Game : AppCompatActivity() {
             val newText = TextView(this)
             newText.id = i + 1
             newText.inputType = TYPE_CLASS_NUMBER
-            newText.text = 21.toString()
+            newText.text = points.toString()
             newText.setTextSize(TypedValue.COMPLEX_UNIT_SP, textSize)
             newText.gravity = Gravity.CENTER
             newRow.addView(newText, layoutParams)
@@ -380,7 +384,12 @@ class Game : AppCompatActivity() {
         if(tricks == -1)
         {
             deduction = 2
-        }else if (tricks == 0)
+        }
+        else if (tricks == 5)
+        {
+            deduction = -10
+        }
+        else if (tricks == 0)
         {
             deduction = 5
         }
