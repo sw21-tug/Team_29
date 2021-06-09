@@ -8,7 +8,7 @@ class GameRepository(var appContext: Context) {
 
     private val projection = arrayOf<String>(GAME_COLUMN_ID, GAME_COLUMN_PLAYER1, GAME_COLUMN_PLAYER2,
         GAME_COLUMN_PLAYER3, GAME_COLUMN_PLAYER4, GAME_IS_FINISHED, FIRST_WINNER_COLUMN, SECOND_WINNER_COLUMN,
-        THIRD_WINNER_COLUMN, FOURTH_WINNER_COLUMN)
+        THIRD_WINNER_COLUMN, FOURTH_WINNER_COLUMN, GAME_MODE)
 
     fun createGame(newGameObject: GameObject, userID: Long): Long {
 
@@ -18,16 +18,13 @@ class GameRepository(var appContext: Context) {
         values.put(GAME_COLUMN_PLAYER2, newGameObject.player2)
         values.put(GAME_COLUMN_PLAYER3, newGameObject.player3)
         values.put(GAME_COLUMN_PLAYER4, newGameObject.player4)
-
         values.put(GAME_IS_FINISHED, newGameObject.finished)
         values.put(FIRST_WINNER_COLUMN, "")
         values.put(SECOND_WINNER_COLUMN, "")
         values.put(THIRD_WINNER_COLUMN, "")
         values.put(FOURTH_WINNER_COLUMN, "")
-
-
         values.put(GAME_COLUMN_USER_ID, userID)
-
+        values.put(GAME_MODE, newGameObject.gamemode);
 
         return dbWrite.insert(GAME_TABLE_NAME, null, values)
     }
@@ -63,6 +60,16 @@ class GameRepository(var appContext: Context) {
 
     }
 
+    fun getGameMode(gameID: Long): Int
+    {
+        var result : Int = 0
+        val cursor = getCursor(gameID)
+        if (cursor.count == 1) {
+            cursor.moveToFirst()
+            result = cursor.getInt(cursor.getColumnIndex(GAME_MODE)) // maybe crash ?
+        }
+        return result
+    }
     fun getGame(gameID: Long): GameObject {
         val cursor = getCursor(gameID)
         if (cursor.count == 1) {
