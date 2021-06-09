@@ -27,6 +27,8 @@ class Game : AppCompatActivity() {
 
     private var mapOfResult = mapOf<Int, String>()
     private  var fragment : GameFinishedFragment?  = null
+    private var points : Int = 21
+
 
     private val layoutParams = TableRow.LayoutParams(
         TableRow.LayoutParams.WRAP_CONTENT,
@@ -45,7 +47,7 @@ class Game : AppCompatActivity() {
         val repository = GameRepository(this)
 
         val game = repository.getGame(intent.getLongExtra(GAME_ID, 0))
-
+        game.gamemode = repository.getGameMode(intent.getLongExtra(GAME_ID, 0))
         findViewById<TextView>(R.id.textViewPlayer1).apply {
             text = game.player1
         }
@@ -90,10 +92,14 @@ class Game : AppCompatActivity() {
 
         val game = repository.getGame(gameId)
 
-        var score_p1: Int = 21
-        var score_p2: Int = 21
-        var score_p3: Int = 21
-        var score_p4: Int = 21
+        if(game.gamemode == 1)
+        {
+            points = 15;
+        }
+        var score_p1: Int = points
+        var score_p2: Int = points
+        var score_p3: Int = points
+        var score_p4: Int = points
         // text size in sp
 
 
@@ -211,23 +217,40 @@ class Game : AppCompatActivity() {
                 dataToPass =  game.player4 + "#" +score_p4.toString()
                 data.add(dataToPass)
 
-                if (score_p1 <= 0 || score_p2 <= 0 || score_p3 <= 0 ||score_p4 <= 0 ||
-                    score_p1 >= 100 || score_p2 >= 100 || score_p3 >= 100 || score_p4 >= 100) {
+                if (score_p1 <= 0 || score_p2 <= 0 || score_p3 <= 0 ||score_p4 <= 0) {
+                    finishGame(data,gameId, false, game.player1, repository)
 
-                    setContentView(R.layout.activity_game_finished)
-                    var todb =  calculateString(data)
-                    val res1 = repository.setGameFinished(gameId)
-                    val res2 = repository.writeWinnersToDB(todb, gameId)
-                    var button: Button = findViewById(R.id.game_finished_back_button)
-                    button.setOnClickListener(View.OnClickListener(){
-                        val mainIntent = Intent(this, MainActivity::class.java);
-                        this.finish()
-                        startActivity(mainIntent);
-                    })
-
+                } else if( score_p1 >= 100 || score_p2 >= 100 || score_p3 >= 100 || score_p4 >= 100) {
+                    finishGame(data,gameId, true, game.player1, repository)
                 }
             }
         }
+    }
+
+    fun finishGame(data: List<String>, gameId : Long, over100 : Boolean, player1 : String, repository: GameRepository) {
+        setContentView(R.layout.activity_game_finished)
+        var todb =  calculateString(data)
+        if(todb.player1 == player1 || todb.player2 == player1 || todb.player3 == player1 || todb.player4 == player1) {
+            if(over100) {
+                repository.setFilter(GameRepository.Filter.WON_OVER100,gameId)
+            } else {
+                repository.setFilter(GameRepository.Filter.WON,gameId)
+            }
+        } else {
+            if(over100) {
+                repository.setFilter(GameRepository.Filter.LOST_OVER100,gameId)
+            } else {
+                repository.setFilter(GameRepository.Filter.LOST,gameId)
+            }
+        }
+        val res1 = repository.setGameFinished(gameId)
+        val res2 = repository.writeWinnersToDB(todb, gameId)
+        var button: Button = findViewById(R.id.game_finished_back_button)
+        button.setOnClickListener(View.OnClickListener(){
+            val mainIntent = Intent(this, MainActivity::class.java);
+            this.finish()
+            startActivity(mainIntent);
+        })
     }
 
 

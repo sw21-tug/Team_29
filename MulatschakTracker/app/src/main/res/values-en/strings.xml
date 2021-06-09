@@ -51,5 +51,9 @@
     <string name="ThirdPlace"> also got some cake</string>
     <string name="FourthPlace"> probably wont happen, ever</string>
     <string name="no_finished_games">No Finished Games</string>
+    <string name="all">All</string>
+    <string name="p1_100">Someone over 100</string>
+    <string name="p1_won">I won</string>
+    <string name="p1_lost">I lost</string>
 
 </resources>
