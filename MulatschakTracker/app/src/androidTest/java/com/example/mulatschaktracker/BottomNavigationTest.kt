@@ -19,7 +19,7 @@ import org.junit.After
 import org.junit.Before
 
 @RunWith(AndroidJUnit4::class)
-class BottomNavigationTest : TestCase() {
+class eBottomNavigationTest : TestCase() {
     lateinit var scenario: ActivityScenario<MainActivity>
 
     @Before
