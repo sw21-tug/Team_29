@@ -5,20 +5,16 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.test.core.app.ActivityScenario
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso.onView
-import androidx.test.espresso.action.ViewActions
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.*
-import junit.framework.TestCase
-import org.junit.Test
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import org.junit.runner.RunWith
-
+import com.example.mulatschaktracker.ui.addGameRound.AddGameRoundActivityTest.Companion.getText
+import junit.framework.TestCase
 import org.junit.After
 import org.junit.Before
-
-import com.example.mulatschaktracker.ui.addGameRound.AddGameRoundActivityTest.Companion.getText
-
+import org.junit.Test
+import org.junit.runner.RunWith
 
 
 @RunWith(AndroidJUnit4::class)
@@ -28,7 +24,7 @@ class GameRuleTest : TestCase() {
     @Before
     public override fun setUp(){
         super.setUp()
-        val  appContext: Context = ApplicationProvider.getApplicationContext();
+        val  appContext: Context = ApplicationProvider.getApplicationContext()
         val userRepo = UserRepository(appContext)
         userRepo.resetDatabase()
         userRepo.createUser(UserObject("NewUser"))
@@ -46,7 +42,7 @@ class GameRuleTest : TestCase() {
     fun checkBoxClicked()
     {
         onView(withId(R.id.StartNewGameActivityButton)).perform(click())
-        onView(withId(R.id.GameMode)).perform(click());
+        onView(withId(R.id.GameMode)).perform(click())
         onView(withId(R.id.GameMode)).check(matches(isChecked()))
     }
 
@@ -61,7 +57,7 @@ class GameRuleTest : TestCase() {
     fun startingValues()
     {
         onView(withId(R.id.StartNewGameActivityButton)).perform(click())
-        onView(withId(R.id.GameMode)).perform(click());
+        onView(withId(R.id.GameMode)).perform(click())
         onView(withId(R.id.StartNewGameButton)).perform(click())
         val initialPoints = "15"
         assertEquals(initialPoints, getText(onView(withId(1))))
@@ -73,9 +69,9 @@ class GameRuleTest : TestCase() {
     fun points15Game()
     {
         startingValues()
-        onView(withId(R.id.AddRoundButton)).perform(ViewActions.click())
+        onView(withId(R.id.AddRoundButton)).perform(click())
         for (i in 0..14) {
-            onView(withId(R.id.button_player_1)).perform(ViewActions.click())
+            onView(withId(R.id.button_player_1)).perform(click())
         }
         onView(withId(R.id.endround)).perform(click())
         onView(withId(R.id.Game_Finished)).check(matches(isDisplayed()))
