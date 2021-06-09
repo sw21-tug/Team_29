@@ -97,6 +97,7 @@ class Game : AppCompatActivity() {
 
         val game = repository.getGame(gameId)
 
+        //setting points according to carinthian mode
         if(game.gamemode == 1)
         {
             points = 15;
