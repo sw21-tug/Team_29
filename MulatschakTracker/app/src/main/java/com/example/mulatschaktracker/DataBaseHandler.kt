@@ -31,7 +31,7 @@ val THIRD_WINNER_COLUMN = "third_winner"
 val FOURTH_WINNER_COLUMN = "fourth_winner"
 val GAME_IS_FINISHED = "game_finished"
 val FILTER ="filter"
-
+val GAME_MODE = "game_mode"
 
 class DataBaseHandler(var context: Context) : SQLiteOpenHelper(context, DATABASENAME, null,DATABASE_VERSION)
         {
@@ -53,7 +53,8 @@ class DataBaseHandler(var context: Context) : SQLiteOpenHelper(context, DATABASE
                         FIRST_WINNER_COLUMN + " TEXT," +
                         SECOND_WINNER_COLUMN + " TEXT," +
                         THIRD_WINNER_COLUMN + " TEXT," +
-                        FOURTH_WINNER_COLUMN + " TEXT" +
+                        FOURTH_WINNER_COLUMN + " TEXT," +
+                        GAME_MODE + " INTEGER"+
                         ")")
 
                 db?.execSQL("CREATE TABLE " + ROUND_TABLE_NAME + " (" +
