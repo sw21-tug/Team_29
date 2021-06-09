@@ -69,10 +69,13 @@ class GameRuleTest : TestCase() {
     fun points15Game()
     {
         startingValues()
+        val appContext: Context = ApplicationProvider.getApplicationContext()
+        val repo = GameRepository(appContext)
+        val gameRound = RoundObject(14, 0, 0, 0, 0, 0)
+        repo.enterNewRound(gameRound, 1)
+
         onView(withId(R.id.AddRoundButton)).perform(click())
-        for (i in 0..14) {
-            onView(withId(R.id.button_player_1)).perform(click())
-        }
+        onView(withId(R.id.button_player_1)).perform(click())
         onView(withId(R.id.endround)).perform(click())
         onView(withId(R.id.Game_Finished)).check(matches(isDisplayed()))
     }
