@@ -51,7 +51,7 @@
             android:text="@string/all" />
 
         <RadioButton
-            android:id="@+id/radio_100"
+            android:id="@+id/radio_won"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -65,7 +65,7 @@
             android:text="@string/p1_lost" />
 
         <RadioButton
-            android:id="@+id/radio_won"
+            android:id="@+id/radio_100"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
