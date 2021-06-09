@@ -42,6 +42,7 @@ class GameRecyclerAdapter( private val games: ArrayList<GameObject>): RecyclerVi
             val context = itemView.context
             val showGameIntent = Intent(context, Game::class.java)
             showGameIntent.putExtra(GAME_ID, game?.id)
+            showGameIntent.putExtra(IS_FINISHED, game?.finished)
             context.startActivity(showGameIntent)
         }
 
@@ -58,6 +59,7 @@ class GameRecyclerAdapter( private val games: ArrayList<GameObject>): RecyclerVi
         companion object {
             //5
             public val GAME_ID = "GAME_ID"
+            public val IS_FINISHED = "IS_FINISHED"
         }
     }
 }

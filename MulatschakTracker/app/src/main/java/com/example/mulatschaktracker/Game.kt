@@ -2,37 +2,25 @@ package com.example.mulatschaktracker
 
 
 //import com.example.mulatschaktracker.ui.GameFinished.sendMessage
+
 import android.annotation.SuppressLint
-import android.app.Activity
 import android.content.Intent
+import android.database.Cursor
 import android.os.Bundle
 import android.os.Handler
 import android.text.InputType.TYPE_CLASS_NUMBER
 import android.util.TypedValue
 import android.view.Gravity
 import android.view.View
+import android.view.View.GONE
 import android.widget.*
-import androidx.activity.viewModels
-import android.widget.TableLayout
 import android.widget.TableRow
-import android.widget.TextView
-import androidx.activity.addCallback
 import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.Navigation.findNavController
-import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.fragment.NavHostFragment.findNavController
+import androidx.navigation.NavDeepLinkBuilder
 import com.example.mulatschaktracker.ui.addGameRound.AddGameRoundActivity
-
-import com.example.mulatschaktracker.ui.statistics.GameFinishedFragment
-import org.w3c.dom.Text
-import javax.xml.datatype.DatatypeFactory.newInstance
-import javax.xml.parsers.DocumentBuilderFactory.newInstance
-import androidx.appcompat.widget.Toolbar
-import androidx.navigation.ui.setupWithNavController
-
-import com.example.mulatschaktracker.ui.createUser.CreateUserActivity
-
 import com.example.mulatschaktracker.ui.home.GameRecyclerAdapter.GameViewHolder.Companion.GAME_ID
+import com.example.mulatschaktracker.ui.home.GameRecyclerAdapter.GameViewHolder.Companion.IS_FINISHED
+import com.example.mulatschaktracker.ui.statistics.GameFinishedFragment
 import kotlin.math.pow
 
 class Game : AppCompatActivity() {
@@ -40,6 +28,15 @@ class Game : AppCompatActivity() {
     private var mapOfResult = mapOf<Int, String>()
     private  var fragment : GameFinishedFragment?  = null
     private var points : Int = 21
+
+
+    private val layoutParams = TableRow.LayoutParams(
+        TableRow.LayoutParams.WRAP_CONTENT,
+        TableRow.LayoutParams.WRAP_CONTENT
+    )
+
+    private val textSize = 18F
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState
@@ -68,8 +65,21 @@ class Game : AppCompatActivity() {
 
     override fun onBackPressed() {
         super.onBackPressed()
-        val mainIntent = Intent(this, MainActivity::class.java);
-        startActivity(mainIntent);
+
+        if(intent.getIntExtra(IS_FINISHED,0) > 0) {
+            val pendingIntent = NavDeepLinkBuilder(this.applicationContext)
+                .setGraph(R.navigation.mobile_navigation)
+                .setDestination(R.id.navigation_History)
+                .createPendingIntent()
+
+            pendingIntent.send()
+        } else {
+            var newIntent = Intent(this, MainActivity::class.java);
+            startActivity(newIntent)
+        }
+
+
+
     }
 
     @SuppressLint("ResourceType")
@@ -78,6 +88,7 @@ class Game : AppCompatActivity() {
 
         val gameId: Long = intent.getLongExtra(GAME_ID, 0)
         val repository = GameRepository(this)
+        val gameFinished = intent.getIntExtra(IS_FINISHED,0)
 
         val game = repository.getGame(gameId)
 
@@ -90,7 +101,7 @@ class Game : AppCompatActivity() {
         var score_p3: Int = points
         var score_p4: Int = points
         // text size in sp
-        val textSize = 18F
+
 
 
 
@@ -100,10 +111,7 @@ class Game : AppCompatActivity() {
         tableLayout.removeViews(1, childCount - 1)
         val newRow = TableRow(this)
 
-        var layoutParams = TableRow.LayoutParams(
-                TableRow.LayoutParams.WRAP_CONTENT,
-                TableRow.LayoutParams.WRAP_CONTENT
-        )
+
 
         for (i in 0..3){
 
@@ -128,66 +136,22 @@ class Game : AppCompatActivity() {
 
                 val nrow = TableRow(this)
 
-                var dataToPass : String? = null;
 
-                var data : MutableList<String> = mutableListOf()
 
                 val underDogCount = cursor.getInt(cursor.getColumnIndex(ROUND_COLUMN_UNDERDOG))
                 val heartRound = cursor.getInt(cursor.getColumnIndex(ROUND_COLUMN_HEARTROUND))
 
-                val tricksP1 = cursor.getInt(cursor.getColumnIndex(ROUND_COLUMN_PLAYER1_TICKS))
-                score_p1 = calcScore(score_p1, tricksP1,underDogCount, heartRound)
-                dataToPass =  game.player1 + "#" +score_p1.toString()
-                data.add(dataToPass)
-                val newTextP1 = TextView(this)
-                newTextP1.id = idcounter + 1
-                newTextP1.inputType = TYPE_CLASS_NUMBER
-                newTextP1.text = score_p1.toString()
-                newTextP1.setTextSize(TypedValue.COMPLEX_UNIT_SP, textSize)
-                newTextP1.gravity = Gravity.CENTER
-                nrow.addView(newTextP1, layoutParams)
+
+                score_p1 = addViewElement(nrow, score_p1, ROUND_COLUMN_PLAYER1_TICKS, cursor, underDogCount, heartRound, idcounter)
                 idcounter = idcounter.plus(1)
-
-                val tricksP2 = cursor.getInt(cursor.getColumnIndex(ROUND_COLUMN_PLAYER2_TICKS))
-                score_p2 = calcScore(score_p2, tricksP2, underDogCount, heartRound)
-                 dataToPass =  game.player2 + "#" +score_p2.toString()
-                data.add(dataToPass)
-
-                val newTextP2 = TextView(this)
-                newTextP2.id = idcounter + 1
-                newTextP2.inputType = TYPE_CLASS_NUMBER
-                newTextP2.text = score_p2.toString()
-                newTextP2.setTextSize(TypedValue.COMPLEX_UNIT_SP, textSize)
-                newTextP2.gravity = Gravity.CENTER
-                nrow.addView(newTextP2, layoutParams)
+                score_p2 = addViewElement(nrow, score_p2, ROUND_COLUMN_PLAYER2_TICKS, cursor, underDogCount, heartRound, idcounter)
+                idcounter = idcounter.plus(1)
+                score_p3 = addViewElement(nrow, score_p3, ROUND_COLUMN_PLAYER3_TICKS, cursor, underDogCount, heartRound, idcounter)
+                idcounter = idcounter.plus(1)
+                score_p4 = addViewElement(nrow, score_p4, ROUND_COLUMN_PLAYER4_TICKS, cursor, underDogCount, heartRound, idcounter)
                 idcounter = idcounter.plus(1)
 
 
-                val tricksP3 = cursor.getInt(cursor.getColumnIndex(ROUND_COLUMN_PLAYER3_TICKS))
-                score_p3 = calcScore(score_p3, tricksP3,underDogCount, heartRound)
-                 dataToPass =  game.player3 + "#" +score_p3.toString()
-                data.add(dataToPass)
-                val newTextP3 = TextView(this)
-                newTextP3.id = idcounter + 1
-                newTextP3.inputType = TYPE_CLASS_NUMBER
-                newTextP3.text = score_p3.toString()
-                newTextP3.setTextSize(TypedValue.COMPLEX_UNIT_SP, textSize)
-                newTextP3.gravity = Gravity.CENTER
-                nrow.addView(newTextP3, layoutParams)
-                idcounter = idcounter.plus(1)
-
-                val tricksP4 = cursor.getInt(cursor.getColumnIndex(ROUND_COLUMN_PLAYER4_TICKS))
-                score_p4 = calcScore(score_p4, tricksP4, underDogCount, heartRound)
-                dataToPass =  game.player4 + "#" +score_p4.toString()
-                data.add(dataToPass)
-                val newTextP4 = TextView(this)
-                newTextP4.id = idcounter + 1
-                newTextP4.inputType = TYPE_CLASS_NUMBER
-                newTextP4.text = score_p4.toString()
-                newTextP4.setTextSize(TypedValue.COMPLEX_UNIT_SP, textSize)
-                newTextP4.gravity = Gravity.CENTER
-                nrow.addView(newTextP4, layoutParams)
-                idcounter = idcounter.plus(1)
 
                 if(underDogCount > 0){
                     val newTextUnderdog = TextView(this)
@@ -218,18 +182,43 @@ class Game : AppCompatActivity() {
 
                 rowIdCounter = rowIdCounter.plus(1)
 
-                nrow.setOnLongClickListener{
+                if(gameFinished == 0){
+                    nrow.setOnLongClickListener{
 
-                    val handler : Handler = Handler();
-                    handler.postDelayed( Runnable {
-                        editRound(rowId)
-                    }, 400)
+                        val handler : Handler = Handler();
+                        handler.postDelayed( Runnable {
+                            editRound(rowId)
+                        }, 400)
 
-                    return@setOnLongClickListener true
+                        return@setOnLongClickListener true
+                    }
                 }
 
+                tableLayout!!.addView(nrow)
+
+
+
+            } while (cursor.moveToNext())
+
+
+            if(gameFinished > 0) {
+                val addRoundButton = findViewById<Button>(R.id.AddRoundButton)
+                addRoundButton.visibility = GONE
+            } else {
+                var dataToPass : String? = null;
+
+                var data : MutableList<String> = mutableListOf()
+                dataToPass =  game.player1 + "#" +score_p1.toString()
+                data.add(dataToPass)
+                dataToPass =  game.player2 + "#" +score_p2.toString()
+                data.add(dataToPass)
+                dataToPass =  game.player3 + "#" +score_p3.toString()
+                data.add(dataToPass)
+                dataToPass =  game.player4 + "#" +score_p4.toString()
+                data.add(dataToPass)
+
                 if (score_p1 <= 0 || score_p2 <= 0 || score_p3 <= 0 ||score_p4 <= 0 ||
-                        score_p1 >= 100 || score_p2 >= 100 || score_p3 >= 100 || score_p4 >= 100) {
+                    score_p1 >= 100 || score_p2 >= 100 || score_p3 >= 100 || score_p4 >= 100) {
 
                     setContentView(R.layout.activity_game_finished)
                     var todb =  calculateString(data)
@@ -243,12 +232,7 @@ class Game : AppCompatActivity() {
                     })
 
                 }
-
-                tableLayout!!.addView(nrow)
-
-
-
-            } while (cursor.moveToNext())
+            }
         }
     }
 
@@ -390,6 +374,21 @@ class Game : AppCompatActivity() {
         deduction = deduction * scoreFactor
 
         return (current + deduction)
+    }
+
+    fun addViewElement(nRow: TableRow, score: Int, columnIndex: String, cursor: Cursor, underDogCount: Int, heartRound: Int, idcounter: Int): Int {
+        val tricksP4 = cursor.getInt(cursor.getColumnIndex(columnIndex))
+        val newScore = calcScore(score, tricksP4, underDogCount, heartRound)
+
+        val newText = TextView(this)
+        newText.id = idcounter + 1
+        newText.inputType = TYPE_CLASS_NUMBER
+        newText.text = newScore.toString()
+        newText.setTextSize(TypedValue.COMPLEX_UNIT_SP, textSize)
+        newText.gravity = Gravity.CENTER
+        nRow.addView(newText, layoutParams)
+        return newScore
+
     }
 
 
