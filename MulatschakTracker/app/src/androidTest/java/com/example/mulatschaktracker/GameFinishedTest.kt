@@ -112,48 +112,47 @@ class GameFinishedTest : TestCase(){
 
     @Test
     fun users2With100Points() {
+        val appContext: Context = ApplicationProvider.getApplicationContext()
+        val repo = GameRepository(appContext)
+
         onView(withId(R.id.StartNewGameActivityButton)).perform(click())
         onView(withId(R.id.StartNewGameButton)).perform(click())
-        onView(withId(R.id.AddRoundButton)).perform(click())
+
 
         for (i in 0..14) {
-            Thread.sleep(waitTime)
-            onView(withId(R.id.button_player_2)).perform(click())
-            onView(withId(R.id.button_player_3)).perform(click())
+            val gameRound = RoundObject(1, 1, 0, 0, 0, 0)
+            repo.enterNewRound(gameRound, 1)
 
-            onView(withId(R.id.endround)).perform(click())
-            Thread.sleep(waitTime)
-            onView(withId(R.id.AddRoundButton)).perform(click())
 
         }
+        onView(withId(R.id.AddRoundButton)).perform(click())
+        onView(withId(R.id.button_player_1)).perform(click())
         onView(withId(R.id.button_player_2)).perform(click())
-        onView(withId(R.id.button_player_3)).perform(click())
+
         onView(withId(R.id.endround)).perform(click())
         onView(withId(R.id.Game_Finished)).check(matches(isDisplayed()))
     }
 
     @Test
     fun users1With100Points() {
+        val appContext: Context = ApplicationProvider.getApplicationContext()
+        val repo = GameRepository(appContext)
+
         onView(withId(R.id.StartNewGameActivityButton)).perform(click())
         onView(withId(R.id.StartNewGameButton)).perform(click())
-        onView(withId(R.id.AddRoundButton)).perform(click())
+
 
         for (i in 0..14) {
-
-            Thread.sleep(waitTime)
-            onView(withId(R.id.button_player_1)).perform(click())
-            onView(withId(R.id.button_player_2)).perform(click())
-            onView(withId(R.id.button_player_3)).perform(click())
-
-            onView(withId(R.id.endround)).perform(click())
-            Thread.sleep(waitTime)
-            onView(withId(R.id.AddRoundButton)).perform(click())
+            val gameRound = RoundObject(1, 1, 1, 0, 0, 0)
+            repo.enterNewRound(gameRound, 1)
 
 
         }
+        onView(withId(R.id.AddRoundButton)).perform(click())
         onView(withId(R.id.button_player_1)).perform(click())
         onView(withId(R.id.button_player_2)).perform(click())
         onView(withId(R.id.button_player_3)).perform(click())
+
         onView(withId(R.id.endround)).perform(click())
         onView(withId(R.id.Game_Finished)).check(matches(isDisplayed()))
     }
@@ -161,45 +160,57 @@ class GameFinishedTest : TestCase(){
 
     @Test
     fun user2With0Points() {
+        val appContext: Context = ApplicationProvider.getApplicationContext()
+
+        val repo = GameRepository(appContext)
+
         onView(withId(R.id.StartNewGameActivityButton)).perform(click())
         onView(withId(R.id.StartNewGameButton)).perform(click())
+
+        val gameRound = RoundObject(20, 20, 0, 0, 0, 0)
+        repo.enterNewRound(gameRound, 1)
         onView(withId(R.id.AddRoundButton)).perform(click())
-
-        for (i in 0..21) {
-            onView(withId(R.id.button_player_2)).perform(click())
-            onView(withId(R.id.button_player_3)).perform(click())
-
-        }
+        onView(withId(R.id.button_player_1)).perform(click())
+        onView(withId(R.id.button_player_2)).perform(click())
         onView(withId(R.id.endround)).perform(click())
+
         onView(withId(R.id.Game_Finished)).check(matches(isDisplayed()))
     }
 
 
     @Test
     fun user3With0Points() {
+        val appContext: Context = ApplicationProvider.getApplicationContext()
+
+        val repo = GameRepository(appContext)
+
         onView(withId(R.id.StartNewGameActivityButton)).perform(click())
         onView(withId(R.id.StartNewGameButton)).perform(click())
-        onView(withId(R.id.AddRoundButton)).perform(click())
 
-        for (i in 0..21) {
-            onView(withId(R.id.button_player_1)).perform(click())
-            onView(withId(R.id.button_player_2)).perform(click())
-            onView(withId(R.id.button_player_3)).perform(click())
-        }
+        val gameRound = RoundObject(20, 20, 20, 0, 0, 0)
+        repo.enterNewRound(gameRound, 1)
+        onView(withId(R.id.AddRoundButton)).perform(click())
+        onView(withId(R.id.button_player_1)).perform(click())
+        onView(withId(R.id.button_player_2)).perform(click())
+        onView(withId(R.id.button_player_3)).perform(click())
         onView(withId(R.id.endround)).perform(click())
+
         onView(withId(R.id.Game_Finished)).check(matches(isDisplayed()))
     }
 
     @Test
     fun oneWinner() {
+        val appContext: Context = ApplicationProvider.getApplicationContext()
+
+        val repo = GameRepository(appContext)
+
         onView(withId(R.id.StartNewGameActivityButton)).perform(click())
         onView(withId(R.id.StartNewGameButton)).perform(click())
+
+        val gameRound = RoundObject(20, 0, 0, 0, 0, 0)
+        repo.enterNewRound(gameRound, 1)
         onView(withId(R.id.AddRoundButton)).perform(click())
-
-        for (i in 0..21) {
-            onView(withId(R.id.button_player_1)).perform(click())
-
-        }
+        onView(withId(R.id.button_player_1)).perform(click())
         onView(withId(R.id.endround)).perform(click())
 
         onView(allOf(withId(R.id.Game_Finished),
@@ -214,14 +225,18 @@ class GameFinishedTest : TestCase(){
 
     @Test
     fun twoWinners() {
+        val appContext: Context = ApplicationProvider.getApplicationContext()
+
+        val repo = GameRepository(appContext)
+
         onView(withId(R.id.StartNewGameActivityButton)).perform(click())
         onView(withId(R.id.StartNewGameButton)).perform(click())
-        onView(withId(R.id.AddRoundButton)).perform(click())
 
-        for (i in 0..21) {
-            onView(withId(R.id.button_player_3)).perform(click())
-            onView(withId(R.id.button_player_1)).perform(click())
-        }
+        val gameRound = RoundObject(20, 0, 20, 0, 0, 0)
+        repo.enterNewRound(gameRound, 1)
+        onView(withId(R.id.AddRoundButton)).perform(click())
+        onView(withId(R.id.button_player_1)).perform(click())
+        onView(withId(R.id.button_player_3)).perform(click())
         onView(withId(R.id.endround)).perform(click())
 
         onView(withId(R.id.Game_Finished)).check(matches(isDisplayed()))
@@ -232,16 +247,19 @@ class GameFinishedTest : TestCase(){
 
     @Test
     fun threeWinners() {
+        val appContext: Context = ApplicationProvider.getApplicationContext()
+
+        val repo = GameRepository(appContext)
+
         onView(withId(R.id.StartNewGameActivityButton)).perform(click())
         onView(withId(R.id.StartNewGameButton)).perform(click())
+
+        val gameRound = RoundObject(20, 20, 20, 0, 0, 0)
+        repo.enterNewRound(gameRound, 1)
         onView(withId(R.id.AddRoundButton)).perform(click())
-
-        for (i in 0..21) {
-            onView(withId(R.id.button_player_3)).perform(click())
-            onView(withId(R.id.button_player_1)).perform(click())
-            onView(withId(R.id.button_player_2)).perform(click())
-
-        }
+        onView(withId(R.id.button_player_1)).perform(click())
+        onView(withId(R.id.button_player_2)).perform(click())
+        onView(withId(R.id.button_player_3)).perform(click())
         onView(withId(R.id.endround)).perform(click())
 
         onView(withId(R.id.Game_Finished)).check(matches(isDisplayed()))
