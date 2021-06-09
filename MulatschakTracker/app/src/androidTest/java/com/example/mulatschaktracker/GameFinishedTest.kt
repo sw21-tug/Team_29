@@ -86,12 +86,13 @@ class GameFinishedTest : TestCase(){
     }
     @Test
     fun user3With100Points() {
+
         onView(withId(R.id.StartNewGameActivityButton)).perform(click())
         onView(withId(R.id.StartNewGameButton)).perform(click())
         onView(withId(R.id.AddRoundButton)).perform(click())
 
         for (i in 0..14) {
-            Thread.sleep(waitTime)
+            Thread.sleep(waitTime+200)
             onView(withId(R.id.button_player_1)).perform(click())
             onView(withId(R.id.endround)).perform(click())
             onView(withId(R.id.AddRoundButton)).perform(click())
@@ -618,7 +619,7 @@ class GameFinishedTest : TestCase(){
         onView(withId(R.id.endround)).perform(click())
 
         onView(withId(R.id.game_finished_back_button)).perform(click())
-
+        Thread.sleep(100)
         onView(withId(R.id.navigation_home)).check(matches(isDisplayed()))
 
     }
