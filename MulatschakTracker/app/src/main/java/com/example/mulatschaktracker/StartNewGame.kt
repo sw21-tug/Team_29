@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.MotionEvent
 import android.view.View
+import android.widget.CheckBox
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import com.example.mulatschaktracker.ui.home.GameRecyclerAdapter.GameViewHolder.Companion.GAME_ID
@@ -40,6 +41,7 @@ class StartNewGame : AppCompatActivity() {
         val editTextPlayer2 = findViewById<EditText>(R.id.Player2_EditText)
         val editTextPlayer3 = findViewById<EditText>(R.id.Player3_EditText)
         val editTextPlayer4 = findViewById<EditText>(R.id.Player4_EditText)
+        val checkBox = findViewById<CheckBox>(R.id.GameMode)
 
 
         val namePlayer1 = if (editTextPlayer1.text.toString() != "") editTextPlayer1.text.toString() else editTextPlayer1.hint.toString()
@@ -52,8 +54,11 @@ class StartNewGame : AppCompatActivity() {
         val newGameObject = GameObject(namePlayer1, namePlayer2, namePlayer3, namePlayer4)
 
         val user = getLastUserName()?.let { userRepository.getUser(it) }
+        newGameObject.setGameMode( if (checkBox.isChecked) 1  else 0 )
 
         val gameID = user?.let { gameRepository.createGame(newGameObject, it.id) }
+
+
 
         val intent = Intent(this, Game::class.java).apply {
             putExtra(GAME_ID, gameID)
