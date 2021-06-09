@@ -277,6 +277,7 @@ class Game : AppCompatActivity() {
     }
 
 
+    @SuppressLint("StringFormatInvalid")
     fun calculateString(arg : List<String>) : GameObject
     {
         var place1 = findViewById<TextView>(R.id.textView)
@@ -358,10 +359,10 @@ class Game : AppCompatActivity() {
         }
 
 
-        place1?.setText("1. Place $firstPlace")
-        place2?.setText("2. Place $secondPlace")
-        place3?.setText("3. Place $thirdPlace")
-        place4?.setText("4. Place $fortPlace")
+        place1?.text =getString(R.string.Place1,firstPlace)
+        place2?.text =getString(R.string.Place1,secondPlace)
+        place3?.text =getString(R.string.Place1,thirdPlace)
+        place4?.text =getString(R.string.Place1,fortPlace)
 
         var retval = GameObject(winners1, winners2,winners3,winners4)
         return retval

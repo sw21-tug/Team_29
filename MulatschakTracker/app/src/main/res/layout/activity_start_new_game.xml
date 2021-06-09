@@ -113,7 +113,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:text="Carinthia Mode"
+        android:text="@string/Carinthian"
         app:layout_constraintBottom_toTopOf="@+id/StartNewGameButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

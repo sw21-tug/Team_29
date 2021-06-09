@@ -46,14 +46,23 @@
     <string name="yes">Да</string>
     <string name="cancel">Отменить</string>
 
-    <string name="Victory">Victory!</string>
+    <string name="Victory">Победа!</string>
     <string name="FirstPlace"> took the cake</string>
     <string name="SecondPlace"> snacked some cake as well</string>
     <string name="ThirdPlace"> also got some cake</string>
     <string name="FourthPlace"> probably wont happen, ever</string>
-    <string name="all">TODO</string>
-    <string name="p1_100">TODO</string>
-    <string name="p1_won">TODO</string>
-    <string name="p1_lost">TODO</string>
+    <string name="Carinthian">Режим Каринтии</string>
+
+
+    <string name="Place1">1.место %1$s</string>
+    <string name="Place2">2.место %1$s</string>
+    <string name="Place3">3.место %1$s</string>
+    <string name="Place4">4.место %1$s</string>
+
+    <string name="Back">Назад</string>
+    <string name="all">все</string>
+    <string name="p1_100">Кто-то старше 100</string>
+    <string name="p1_won">я выиграл</string>
+    <string name="p1_lost">я потерял</string>
 
 </resources>
