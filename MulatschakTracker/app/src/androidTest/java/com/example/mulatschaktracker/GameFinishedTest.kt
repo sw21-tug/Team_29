@@ -622,13 +622,11 @@ class GameFinishedTest : TestCase(){
 
         onView(withId(R.id.StartNewGameActivityButton)).perform(click())
         onView(withId(R.id.StartNewGameButton)).perform(click())
-
+        val gameRound = RoundObject(20, 20, 0, 0, 0, 0)
+        repo.enterNewRound(gameRound, 1)
         onView(withId(R.id.AddRoundButton)).perform(click())
-
-        for (i in 0..21) {
-            onView(withId(R.id.button_player_1)).perform(click())
-            onView(withId(R.id.button_player_2)).perform(click())
-        }
+        onView(withId(R.id.button_player_1)).perform(click())
+        onView(withId(R.id.button_player_2)).perform(click())
         onView(withId(R.id.endround)).perform(click())
 
         onView(withId(R.id.game_finished_back_button)).perform(click())
