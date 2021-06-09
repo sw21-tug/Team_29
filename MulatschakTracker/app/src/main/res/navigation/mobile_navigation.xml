@@ -11,11 +11,7 @@
         android:label="@string/title_games"
         tools:layout="@layout/fragment_games" />
 
-    <fragment
-        android:id="@+id/navigation_statistic"
-        android:name="com.example.mulatschaktracker.ui.statistics.StatisticsFragment"
-        android:label="@string/title_statistics"
-        tools:layout="@layout/fragment_statistics" />
+
 
     <fragment
         android:id="@+id/navigation_History"

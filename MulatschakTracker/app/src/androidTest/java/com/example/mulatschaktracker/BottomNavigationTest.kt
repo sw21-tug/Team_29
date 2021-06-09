@@ -55,11 +55,6 @@ class eBottomNavigationTest : TestCase() {
      //   onView(withId(R.id.text_notifications)).check(matches(isDisplayed()))
     }
 
-    @Test
-    fun checkHistoryWindow() {
-        onView(withId(R.id.navigation_statistic)).perform(click())
-        //onView(withId(R.id.text_statistic)).check(matches(isNotDisplayed()))
-    }
 
     @Test
     fun checkOptionsWindow() {
