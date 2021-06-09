@@ -103,19 +103,6 @@ class GameFinishedTest : TestCase(){
         onView(withId(R.id.Game_Finished)).check(matches(isDisplayed()))
     }
 
-
-    @Test
-    fun noOneWon() {
-        onView(withId(R.id.StartNewGameActivityButton)).perform(click())
-        onView(withId(R.id.StartNewGameButton)).perform(click())
-        onView(withId(R.id.AddRoundButton)).perform(click())
-        onView(withId(R.id.button_player_3)).perform(click())
-        onView(withId(R.id.endround)).perform(click())
-        onView(withId(R.id.AddRoundButton)).perform(click())
-        onView(withId(R.id.Game_Finished)).check(doesNotExist())
-    }
-
-
     @Test
     fun users2With100Points() {
         onView(withId(R.id.StartNewGameActivityButton)).perform(click())

@@ -62,15 +62,6 @@ class BottomNavigationTest : TestCase() {
     }
 
     @Test
-    fun checkTippsWindow() {
-
-        onView(withId(R.id.navigation_Tipps)).perform(click())
-
-       // onView(withId(R.id.navigation_tipps)).perform(click())
-        onView(withId(R.id.text_tipps)).check(matches(isDisplayed()))
-    }
-
-    @Test
     fun checkOptionsWindow() {
         onView(withId(R.id.navigation_Options)).perform(click())
       //  onView(withId(R.id.navigation_options)).perform(click())
