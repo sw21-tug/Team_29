@@ -17,6 +17,7 @@ import androidx.test.espresso.contrib.RecyclerViewActions
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import com.example.mulatschaktracker.ui.addGameRound.AddGameRoundActivityTest.Companion.getText
 import junit.framework.TestCase
 
 import org.junit.After
@@ -47,18 +48,20 @@ class HistoryFragmentFilterTest:TestCase() {
         gameRepo = GameRepository(appContext)
 
         createFinishesGame(userID,16,1,0,1,1, -1)    // player two 100
-        createFinishesGame(userID,16,1,1,1,0, -1)    // player four 100
-        createFinishesGame(userID,16,-1,-1,0,1, -1)    // player three 100
+        //createFinishesGame(userID,16,1,1,1,0, -1)    // player four 100
+        //createFinishesGame(userID,16,-1,-1,0,1, -1)    // player three 100
         createFinishesGame(userID,11,2,1,1,1, 1)    // player one won
-        createFinishesGame(userID,8,3,1,1,1, 1)    // player one won
-        createFinishesGame(userID,8,3,1,1,1, 1)    // player one won
+        //createFinishesGame(userID,8,3,1,1,1, 1)    // player one won
+        //createFinishesGame(userID,8,3,1,1,1, 1)    // player one won
         createFinishesGame(userID,8,-1,1,2,3, 0)    // player one last
-        createFinishesGame(userID,8,-1,1,2,3, 0)    // player one last
-        createFinishesGame(userID,8,-1,1,2,3, 0)    // player one last
+        //createFinishesGame(userID,8,-1,1,2,3, 0)    // player one last
+        /*createFinishesGame(userID,8,-1,1,2,3, 0)    // player one last
         createFinishesGame(userID,16,0,-1,-1,-1, -2)    // player one last with 100
         createFinishesGame(userID,16,0,-1,-1,-1, -2)    // player one last with 100
         createFinishesGame(userID,16,0,-1,-1,-1, -2)    // player one last with 100
 
+
+         */
 
 
         val preferences = appContext.getSharedPreferences(PREFERENCENAME, AppCompatActivity.MODE_PRIVATE)
@@ -75,6 +78,10 @@ class HistoryFragmentFilterTest:TestCase() {
         scenario.close()
     }
 
+    @Test
+    fun correctGameIdDisplayedInHistoryFragment(){
+        assertEquals(getText(onView(withId(R.id.game_textview))),"Game 1")
+    }
     fun createFinishesGame(uID : Long, rounds: Int, p1:Int, p2:Int, p3:Int, p4:Int, winner:Int){
         val gameObject = GameObject(playerName,playerName,playerName,playerName)
         gameObject.winner = winner
@@ -95,10 +102,31 @@ class HistoryFragmentFilterTest:TestCase() {
         onView(withId(R.id.radio_won)).check(matches(isDisplayed()))
         onView(withId(R.id.radio_lost)).check(matches(isDisplayed()))
         onView(withId(R.id.radio_100)).check(matches(isDisplayed()))
+        onView(withId(R.id.radio_all)).check(matches(isDisplayed()))
     }
 
     
 
+    @Test
+    fun test_wonDisplayed()
+    {
+        onView(withId(R.id.radio_won)).perform(click())
+        assertEquals(getText(onView(withId(R.id.game_textview))),"Game 2")
+    }
+
+    @Test
+    fun test_lostDisplayed()
+    {
+        onView(withId(R.id.radio_lost)).perform(click())
+        assertEquals(getText(onView(withId(R.id.game_textview))),"Game 1")
+    }
+
+    @Test
+    fun test_100Displayed()
+    {
+        onView(withId(R.id.radio_100)).perform(click())
+        assertEquals(getText(onView(withId(R.id.game_textview))),"Game 3")
+    }
 
 
 
