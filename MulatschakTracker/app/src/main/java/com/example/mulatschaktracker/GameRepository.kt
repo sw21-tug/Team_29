@@ -14,10 +14,6 @@ class GameRepository(var appContext: Context) {
         WON, LOST, LOST_OVER100, WON_OVER100, DEFAULT
     }
 
-    enum class Filter {
-        WON, LOST, LOST_OVER100, WON_OVER100, DEFAULT
-    }
-
     fun createGame(newGameObject: GameObject, userID: Long): Long {
 
         val dbWrite = DataBaseHandler(appContext).writableDatabase

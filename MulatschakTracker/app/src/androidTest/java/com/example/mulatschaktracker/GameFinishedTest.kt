@@ -109,7 +109,6 @@ class GameFinishedTest : TestCase(){
         onView(withId(R.id.Game_Finished)).check(matches(isDisplayed()))
     }
 
-
     @Test
     fun users2With100Points() {
         val appContext: Context = ApplicationProvider.getApplicationContext()

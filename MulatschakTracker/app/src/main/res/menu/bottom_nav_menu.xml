@@ -16,10 +16,6 @@
         android:icon="@drawable/ic_baseline_history_24"
         android:title="@string/title_history" />
 
-    <item
-        android:id="@+id/navigation_Tipps"
-        android:icon="@drawable/ic_notifications_black_24dp"
-        android:title="@string/title_tips" />
 
     <item
         android:id="@+id/navigation_Options"

@@ -46,7 +46,7 @@ class MainActivity : AppCompatActivity() {
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
 
         val appBarConfiguration = AppBarConfiguration(setOf(
-                R.id.navigation_home, R.id.navigation_statistic,R.id.navigation_History, R.id.navigation_Tipps, R.id
+                R.id.navigation_home, R.id.navigation_statistic,R.id.navigation_History, R.id
                 .navigation_Options),   fallbackOnNavigateUpListener = ::onSupportNavigateUp)
         toolbar.setupWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
