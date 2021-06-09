@@ -10,6 +10,10 @@ class GameRepository(var appContext: Context) {
         GAME_COLUMN_PLAYER3, GAME_COLUMN_PLAYER4, GAME_IS_FINISHED, FIRST_WINNER_COLUMN, SECOND_WINNER_COLUMN,
         THIRD_WINNER_COLUMN, FOURTH_WINNER_COLUMN)
 
+    enum class Filter {
+        WON, LOST, OVER100, LOST_OVER100, WON_OVER100, DEFAULT
+    }
+
     fun createGame(newGameObject: GameObject, userID: Long): Long {
 
         val dbWrite = DataBaseHandler(appContext).writableDatabase
@@ -90,6 +94,7 @@ class GameRepository(var appContext: Context) {
                         cursor.getString(cursor.getColumnIndex(GAME_COLUMN_PLAYER4)))
                 game.id = cursor.getLong(
                         cursor.getColumnIndex(GAME_COLUMN_ID))
+                game.filter = Filter.values()[cursor.getInt(cursor.getColumnIndex(FILTER))]
                 if (!cursor.isNull(cursor.getColumnIndex(GAME_IS_FINISHED))) {
                     game.finished = cursor.getInt(cursor.getColumnIndex(GAME_IS_FINISHED))
                 } else {
@@ -289,5 +294,49 @@ class GameRepository(var appContext: Context) {
 
         val query = "$GAME_COLUMN_ID like ?"
         return dbRead.query(GAME_TABLE_NAME, winnerProjection, query, args, null, null, null )
+    }
+
+    fun setFilter(filter : Filter, gameID: Long) : Int {
+        val dbWrite = DataBaseHandler(appContext).writableDatabase
+        val values = ContentValues()
+        values.put(FILTER,filter.ordinal)
+        var arr =  arrayOf<String>(gameID.toString())
+        return dbWrite.update(GAME_TABLE_NAME,values, "$GAME_COLUMN_ID = ?", arr)
+    }
+
+    fun getGamesWon(userID: Long): List<GameObject> {
+
+        var gameList : List<GameObject> = getGames(userID,finished = true)
+        var gamesWonList : MutableList<GameObject> = ArrayList()
+        for (game in gameList){
+            if(game.filter == Filter.WON || game.filter == Filter.WON_OVER100){
+                gamesWonList.add(game)
+            }
+        }
+        return gamesWonList
+    }
+
+    fun getGamesLost(userID: Long): List<GameObject> {
+
+        var gameList : List<GameObject> = getGames(userID,finished = true)
+        var gamesWonList : MutableList<GameObject> = ArrayList()
+        for (game in gameList){
+            if(game.filter == Filter.LOST || game.filter == Filter.LOST_OVER100){
+                gamesWonList.add(game)
+            }
+        }
+        return gamesWonList
+    }
+
+    fun getGamesOver100(userID: Long): List<GameObject> {
+
+        var gameList : List<GameObject> = getGames(userID,finished = true)
+        var gamesWonList : MutableList<GameObject> = ArrayList()
+        for (game in gameList){
+            if(game.filter == Filter.WON_OVER100 || game.filter == Filter.LOST_OVER100 || game.filter == Filter.OVER100){
+                gamesWonList.add(game)
+            }
+        }
+        return gamesWonList
     }
 }

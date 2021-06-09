@@ -12,5 +12,5 @@ class GameObject(player1: String, player2: String, player3: String, player4: Str
     var player3won: Int = 0
     var player4won: Int = 0
     var rounds: List<RoundObject> = emptyList()
-    var winner: Int = 0
+    var filter: GameRepository.Filter = GameRepository.Filter.DEFAULT
 }
