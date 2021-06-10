@@ -30,8 +30,8 @@ class Game : AppCompatActivity() {
     private var points : Int = 21
 
     private val layoutParams = TableRow.LayoutParams(
-        TableRow.LayoutParams.WRAP_CONTENT,
-        TableRow.LayoutParams.WRAP_CONTENT
+            TableRow.LayoutParams.WRAP_CONTENT,
+            TableRow.LayoutParams.WRAP_CONTENT
     )
 
     private val textSize = 18F
@@ -72,9 +72,9 @@ class Game : AppCompatActivity() {
 
         if(intent.getIntExtra(IS_FINISHED,0) > 0) {
             val pendingIntent = NavDeepLinkBuilder(this.applicationContext)
-                .setGraph(R.navigation.mobile_navigation)
-                .setDestination(R.id.navigation_History)
-                .createPendingIntent()
+                    .setGraph(R.navigation.mobile_navigation)
+                    .setDestination(R.id.navigation_History)
+                    .createPendingIntent()
 
             pendingIntent.send()
         } else {
@@ -277,11 +277,10 @@ class Game : AppCompatActivity() {
         val intent = Intent(this, AddGameRoundActivity::class.java).apply {
             putExtras(bundle)
         }
-         startActivity(intent)
+        startActivity(intent)
     }
 
 
-    @SuppressLint("StringFormatInvalid")
     fun calculateString(arg : List<String>) : GameObject
     {
         var place1 = findViewById<TextView>(R.id.textView)
@@ -293,7 +292,7 @@ class Game : AppCompatActivity() {
 
         for( i in arg)
         {
-             var name =  i.split('#').toTypedArray()
+            var name =  i.split('#').toTypedArray()
             map[name[0]] = name[1].toInt()
         }
         var sortedMap  = map.toList().sortedBy { (_, value) -> value}.toMap()
@@ -363,10 +362,10 @@ class Game : AppCompatActivity() {
         }
 
 
-        place1?.text =getString(R.string.Place1,firstPlace)
-        place2?.text =getString(R.string.Place1,secondPlace)
-        place3?.text =getString(R.string.Place1,thirdPlace)
-        place4?.text =getString(R.string.Place1,fortPlace)
+        place1?.setText("1. Place $firstPlace")
+        place2?.setText("2. Place $secondPlace")
+        place3?.setText("3. Place $thirdPlace")
+        place4?.setText("4. Place $fortPlace")
 
         var retval = GameObject(winners1, winners2,winners3,winners4)
         return retval
@@ -420,4 +419,3 @@ class Game : AppCompatActivity() {
 
 
 }
-

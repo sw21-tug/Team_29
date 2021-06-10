@@ -54,7 +54,7 @@ class GameFinishedTest : TestCase(){
     @After
     public override fun tearDown() {
         super.tearDown()
-     //   scenario.close()
+        //   scenario.close()
     }
 
     @Test
@@ -65,17 +65,16 @@ class GameFinishedTest : TestCase(){
 
         onView(withId(R.id.StartNewGameActivityButton)).perform(click())
         onView(withId(R.id.StartNewGameButton)).perform(click())
+
+        val gameRound = RoundObject(20, 0, 0, 0, 0, 0)
+        repo.enterNewRound(gameRound, 1)
         onView(withId(R.id.AddRoundButton)).perform(click())
-
-        for (i in 0..21) {
-            onView(withId(R.id.button_player_3)).perform(click())
-
-        }
+        onView(withId(R.id.button_player_1)).perform(click())
         onView(withId(R.id.endround)).perform(click())
 
 
         onView(allOf(withId(R.id.Game_Finished),
-            withEffectiveVisibility(Visibility.VISIBLE)))
+                withEffectiveVisibility(Visibility.VISIBLE)))
     }
 
     @Test
@@ -214,10 +213,10 @@ class GameFinishedTest : TestCase(){
         onView(withId(R.id.endround)).perform(click())
 
         onView(allOf(withId(R.id.Game_Finished),
-            withEffectiveVisibility(Visibility.VISIBLE)))
+                withEffectiveVisibility(Visibility.VISIBLE)))
 
         onView(allOf(withId(R.id.textView),
-            withEffectiveVisibility(Visibility.VISIBLE)))
+                withEffectiveVisibility(Visibility.VISIBLE)))
 
 
         onView(withId(R.id.textView)).check(matches(withText("1. Place Player 1 ")))
@@ -241,7 +240,7 @@ class GameFinishedTest : TestCase(){
 
         onView(withId(R.id.Game_Finished)).check(matches(isDisplayed()))
         onView(withId(R.id.textView)).check(matches(withText("1. Place Player 1 Player 3 ")))
-       // assert(false)
+        // assert(false)
 
     }
 
@@ -397,7 +396,7 @@ class GameFinishedTest : TestCase(){
 
         val gameobject =  repo.getGame(1)
         assert(gameobject.player1 ==  "Test Player 1")
-       val game =  repo.getGameFinished(1)
+        val game =  repo.getGameFinished(1)
         assert(game == 1)
 
 

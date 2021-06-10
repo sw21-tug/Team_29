@@ -21,8 +21,6 @@
     <string name="title_tips">Tips</string>
     <string name="title_options">Options</string>
     <string name="title_activity_create_user">Create User</string>
-    <string name="Back">Back</string>
-    <string name="Carinthian">Carinthia Mode</string>
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
     <string name="second_fragment_label">Second Fragment</string>
@@ -43,12 +41,6 @@
     <string name="player_four">Player Four</string>
     <string name="Victory">Victory!</string>
     <string name="FirstPlace"> took the cake</string>
-
-    <string name="Place1">1.Place %1$s</string>
-    <string name="Place2">2.Place %1$s</string>
-    <string name="Place3">3.Place %1$s</string>
-    <string name="Place4">4.Place %1$s</string>
-
     <string name="SecondPlace"> snacked some cake as well</string>
     <string name="ThirdPlace"> also got some cake</string>
     <string name="FourthPlace"> probably wont happen, ever</string>

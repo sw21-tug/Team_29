@@ -50,13 +50,6 @@
     <string name="ThirdPlace"> also got some cake</string>
     <string name="FourthPlace"> probably wont happen, ever</string>
     <string name="no_finished_games">No Finished Games</string>
-    <string name="Carinthian">Carinthia Mode</string>
-    <string name="Place1">1.Place %1$s</string>
-    <string name="Place2">2.Place %1$s</string>
-    <string name="Place3">3.Place %1$s</string>
-    <string name="Place4">4.Place %1$s</string>
-    <string name="Back">Back</string>
-
     <string name="all">All</string>
     <string name="p1_100">Someone over 100</string>
     <string name="p1_won">I won</string>
