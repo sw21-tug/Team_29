@@ -19,7 +19,7 @@ import org.junit.After
 import org.junit.Before
 
 @RunWith(AndroidJUnit4::class)
-class BottomNavigationTest : TestCase() {
+class eBottomNavigationTest : TestCase() {
     lateinit var scenario: ActivityScenario<MainActivity>
 
     @Before
@@ -55,21 +55,6 @@ class BottomNavigationTest : TestCase() {
      //   onView(withId(R.id.text_notifications)).check(matches(isDisplayed()))
     }
 
-    @Test
-    fun checkHistoryWindow() {
-        onView(withId(R.id.navigation_statistic)).perform(click())
-        //onView(withId(R.id.navigation_history)).perform(click())
-        onView(withId(R.id.text_statistic)).check(matches(isDisplayed()))
-    }
-
-    @Test
-    fun checkTippsWindow() {
-
-        onView(withId(R.id.navigation_Tipps)).perform(click())
-
-       // onView(withId(R.id.navigation_tipps)).perform(click())
-        onView(withId(R.id.text_tipps)).check(matches(isDisplayed()))
-    }
 
     @Test
     fun checkOptionsWindow() {

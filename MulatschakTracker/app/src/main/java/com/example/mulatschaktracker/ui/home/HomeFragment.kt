@@ -11,6 +11,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+
+import com.example.mulatschaktracker.R
+import com.example.mulatschaktracker.StartNewGame
+
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mulatschaktracker.*
@@ -46,8 +50,9 @@ class HomeFragment : Fragment() {
 
             try {
                 val user = userName?.let { userRepository.getUser(it) }
-                gameList = user?.let { gameRepository.getGames(it.id) }!!
+                gameList = user?.let { gameRepository.getGames(it.id, false) }!!
             } catch (e: Exception) {
+                // no handling now
             }
         }
         if(gameList.isNotEmpty()){

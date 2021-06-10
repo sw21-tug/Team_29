@@ -4,7 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.options.OptionsFragment">
+    android:background="@color/doriangray"
+    tools:context=".ui.options.OptionsFragment"
+    >
+
 
     <TextView
         android:id="@+id/text_options"
@@ -28,10 +31,60 @@
         android:text="@string/chooseLanguageTxt"
         android:visibility="visible"
         app:backgroundTint="#018786"
+        app:layout_constraintTop_toBottomOf="@id/text_options"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         tools:layout_editor_absoluteY="176dp"
         tools:visibility="visible" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="72dp"
+        android:layout_height="37dp"
+        android:src="@drawable/gb"
+        app:layout_constraintBottom_toBottomOf="@+id/buttonChangeLanguage"
+        app:layout_constraintEnd_toStartOf="@+id/buttonChangeLanguage"
+        app:layout_constraintHorizontal_bias="0.836"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_options"
+        app:layout_constraintVertical_bias="0.529" />
+
+    <Button
+        android:id="@+id/DeleteUserButton"
+        android:text="@string/delete_user_button"
+        android:onClick="onDeleteUserPressed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="54dp"
+        app:layout_constraintTop_toBottomOf="@+id/buttonChangeLanguage" android:layout_marginBottom="24dp"
+        app:layout_constraintBottom_toTopOf="@+id/text_options"
+        tools:visibility="visible" app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintVertical_bias="1.0"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="30dp"
+        android:layout_height="37dp"
+        android:layout_marginStart="40dp"
+        android:src="@drawable/bamonobam"
+        app:layout_constraintBottom_toBottomOf="@+id/DeleteUserButton"
+        app:layout_constraintEnd_toStartOf="@+id/DeleteUserButton"
+        app:layout_constraintHorizontal_bias="0.811"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/DeleteUserButton" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="72dp"
+        android:layout_height="37dp"
+        android:src="@drawable/mother_russia"
+        app:layout_constraintBottom_toBottomOf="@+id/buttonChangeLanguage"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.24"
+        app:layout_constraintStart_toEndOf="@+id/buttonChangeLanguage"
+        app:layout_constraintTop_toBottomOf="@+id/text_options"
+        app:layout_constraintVertical_bias="0.529" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -11,11 +11,7 @@
         android:label="@string/title_games"
         tools:layout="@layout/fragment_games" />
 
-    <fragment
-        android:id="@+id/navigation_statistic"
-        android:name="com.example.mulatschaktracker.ui.statistics.StatisticsFragment"
-        android:label="@string/title_statistics"
-        tools:layout="@layout/fragment_statistics" />
+
 
     <fragment
         android:id="@+id/navigation_History"
@@ -24,11 +20,6 @@
         tools:layout="@layout/fragment_history" />
 
 
-    <fragment
-        android:id="@+id/navigation_Tipps"
-        android:name="com.example.mulatschaktracker.ui.tipps.TippsFragment"
-        android:label="@string/title_tips"
-        tools:layout="@layout/fragment_tipps" />
 
     <fragment
         android:id="@+id/navigation_Options"

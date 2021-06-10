@@ -25,7 +25,14 @@ val ROUND_COLUMN_PLAYER3_TICKS = "player3"
 val ROUND_COLUMN_PLAYER4_TICKS = "player4"
 val ROUND_COLUMN_UNDERDOG = "underdog"
 val ROUND_COLUMN_HEARTROUND = "heartround"
-
+val FIRST_WINNER_COLUMN = "first_winner"
+val SECOND_WINNER_COLUMN = "second_winner"
+val THIRD_WINNER_COLUMN = "third_winner"
+val FOURTH_WINNER_COLUMN = "fourth_winner"
+val GAME_IS_FINISHED = "game_finished"
+val WINNER ="won"
+val GAME_MODE = "game_mode"
+val FILTER ="filter"
 
 
 class DataBaseHandler(var context: Context) : SQLiteOpenHelper(context, DATABASENAME, null,DATABASE_VERSION)
@@ -42,7 +49,14 @@ class DataBaseHandler(var context: Context) : SQLiteOpenHelper(context, DATABASE
                         GAME_COLUMN_PLAYER1 + " TEXT," +
                         GAME_COLUMN_PLAYER2 + " TEXT," +
                         GAME_COLUMN_PLAYER3 + " TEXT," +
-                        GAME_COLUMN_PLAYER4 + " TEXT" +
+                        GAME_COLUMN_PLAYER4 + " TEXT," +
+                        GAME_IS_FINISHED + " INTEGER," +
+                        FILTER + " INTEGER," +
+                        FIRST_WINNER_COLUMN + " TEXT," +
+                        SECOND_WINNER_COLUMN + " TEXT," +
+                        THIRD_WINNER_COLUMN + " TEXT," +
+                        FOURTH_WINNER_COLUMN + " TEXT," +
+                        GAME_MODE + " INTEGER"+
                         ")")
 
                 db?.execSQL("CREATE TABLE " + ROUND_TABLE_NAME + " (" +

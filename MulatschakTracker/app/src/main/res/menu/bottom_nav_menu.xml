@@ -6,24 +6,17 @@
         android:icon="@drawable/ic_home_black_24dp"
         android:title="@string/title_games" />
 
-    <item
-        android:id="@+id/navigation_statistic"
-        android:icon="@drawable/ic_dashboard_black_24dp"
-        android:title="@string/title_statistics" />
+
 
     <item
         android:id="@+id/navigation_History"
-        android:icon="@drawable/ic_notifications_black_24dp"
+        android:icon="@drawable/ic_baseline_history_24"
         android:title="@string/title_history" />
 
-    <item
-        android:id="@+id/navigation_Tipps"
-        android:icon="@drawable/ic_notifications_black_24dp"
-        android:title="@string/title_tips" />
 
     <item
         android:id="@+id/navigation_Options"
-        android:icon="@drawable/ic_notifications_black_24dp"
+        android:icon="@drawable/ic_baseline_settings_24"
         android:title="@string/title_options" />
 
 </menu>

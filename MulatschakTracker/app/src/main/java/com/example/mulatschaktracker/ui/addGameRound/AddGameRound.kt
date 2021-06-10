@@ -1,12 +1,17 @@
 package com.example.mulatschaktracker.ui.addGameRound
 
+import android.widget.TextView
 import com.example.mulatschaktracker.GameRepository
+import com.example.mulatschaktracker.R
 
 class AddGameRound {
     var scorePlayer1: Int
     var scorePlayer2: Int
     var scorePlayer3: Int
     var scorePlayer4: Int
+    var Underdog: Int = 0
+    var Heartround: Int = 0
+
 
     init
     {
@@ -15,6 +20,9 @@ class AddGameRound {
         this.scorePlayer2 = 0
         this.scorePlayer3 = 0
         this.scorePlayer4 = 0
+        this.Underdog = 0
+        this.Heartround = 0
+
 
     }
 
@@ -58,6 +66,28 @@ class AddGameRound {
     {
         this.scorePlayer4 = this.scorePlayer4.plus(1)
     }
+
+    fun incrementUnderdog()
+    {
+        this.Underdog = this.Underdog.plus(1)
+    }
+
+    fun decrementUnderdog()
+    {
+        this.Underdog = this.Underdog.minus(1)
+    }
+
+    fun setHeartRound(active: Boolean)
+    {
+        if (active)
+        {
+            this.Heartround = 1;
+        }
+        else
+        {
+            this.Heartround = 0;        }
+    }
+
 
 }
 

@@ -1,26 +1,57 @@
 package com.example.mulatschaktracker
 
+
+//import com.example.mulatschaktracker.ui.GameFinished.sendMessage
+
+import android.annotation.SuppressLint
 import android.content.Intent
+import android.database.Cursor
 import android.os.Bundle
+import android.os.Handler
 import android.text.InputType.TYPE_CLASS_NUMBER
 import android.util.TypedValue
 import android.view.Gravity
 import android.view.View
-import android.widget.TableLayout
+import android.view.View.GONE
+import android.widget.*
 import android.widget.TableRow
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.NavDeepLinkBuilder
 import com.example.mulatschaktracker.ui.addGameRound.AddGameRoundActivity
-
 import com.example.mulatschaktracker.ui.home.GameRecyclerAdapter.GameViewHolder.Companion.GAME_ID
+import com.example.mulatschaktracker.ui.home.GameRecyclerAdapter.GameViewHolder.Companion.IS_FINISHED
+import com.example.mulatschaktracker.ui.statistics.GameFinishedFragment
+import kotlin.math.pow
 
 class Game : AppCompatActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_game)
-        val repository = GameRepository(this)
-        val game = repository.getGame(intent.getLongExtra(GAME_ID, 0))
 
+    private var mapOfResult = mapOf<Int, String>()
+    private  var fragment : GameFinishedFragment?  = null
+    private var points : Int = 21
+
+    private val layoutParams = TableRow.LayoutParams(
+            TableRow.LayoutParams.WRAP_CONTENT,
+            TableRow.LayoutParams.WRAP_CONTENT
+    )
+
+    private val textSize = 18F
+
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState
+        )
+        setContentView(R.layout.activity_game)
+
+
+        val repository = GameRepository(this)
+
+        val game = repository.getGame(intent.getLongExtra(GAME_ID, 0))
+        game.gamemode = repository.getGameMode(intent.getLongExtra(GAME_ID, 0))
+
+        if(game.gamemode == 1)
+        {
+            points = 15;
+        }
         findViewById<TextView>(R.id.textViewPlayer1).apply {
             text = game.player1
         }
@@ -36,18 +67,46 @@ class Game : AppCompatActivity() {
 
     }
 
+    override fun onBackPressed() {
+        super.onBackPressed()
 
+        if(intent.getIntExtra(IS_FINISHED,0) > 0) {
+            val pendingIntent = NavDeepLinkBuilder(this.applicationContext)
+                    .setGraph(R.navigation.mobile_navigation)
+                    .setDestination(R.id.navigation_History)
+                    .createPendingIntent()
+
+            pendingIntent.send()
+        } else {
+            var newIntent = Intent(this, MainActivity::class.java);
+            startActivity(newIntent)
+        }
+
+
+
+    }
+
+    @SuppressLint("ResourceType")
     override fun onResume() {
         super.onResume()
 
+        val gameId: Long = intent.getLongExtra(GAME_ID, 0)
         val repository = GameRepository(this)
-        val game = repository.getGame(intent.getLongExtra(GAME_ID, 0))
-        var score_p1: Int = 21
-        var score_p2: Int = 21
-        var score_p3: Int = 21
-        var score_p4: Int = 21
+        val gameFinished = intent.getIntExtra(IS_FINISHED,0)
+
+        val game = repository.getGame(gameId)
+
+        if(game.gamemode == 1)
+        {
+            points = 15;
+        }
+        var score_p1: Int = points
+        var score_p2: Int = points
+        var score_p3: Int = points
+        var score_p4: Int = points
         // text size in sp
-        val textSize = 18F
+
+
 
 
 
@@ -56,22 +115,20 @@ class Game : AppCompatActivity() {
         tableLayout.removeViews(1, childCount - 1)
         val newRow = TableRow(this)
 
-        var layoutParams = TableRow.LayoutParams(
-                TableRow.LayoutParams.WRAP_CONTENT,
-                TableRow.LayoutParams.WRAP_CONTENT
-        )
+
 
         for (i in 0..3){
 
             val newText = TextView(this)
             newText.id = i + 1
             newText.inputType = TYPE_CLASS_NUMBER
-            newText.text = 21.toString()
+            newText.text = points.toString()
             newText.setTextSize(TypedValue.COMPLEX_UNIT_SP, textSize)
             newText.gravity = Gravity.CENTER
             newRow.addView(newText, layoutParams)
         }
         tableLayout!!.addView(newRow)
+
 
 
         var cursor = repository.getCursorRounds(intent.getLongExtra(GAME_ID, 0))
@@ -80,71 +137,124 @@ class Game : AppCompatActivity() {
         var idcounter: Int = 4
         if (cursor.moveToFirst()) {
             do {
+
                 val nrow = TableRow(this)
 
 
-                val tricksP1 = cursor.getInt(cursor.getColumnIndex(ROUND_COLUMN_PLAYER1_TICKS))
-                score_p1 = calcScore(score_p1, tricksP1)
-                val newTextP1 = TextView(this)
-                newTextP1.id = idcounter + 1
-                newTextP1.inputType = TYPE_CLASS_NUMBER
-                newTextP1.text = score_p1.toString()
-                newTextP1.setTextSize(TypedValue.COMPLEX_UNIT_SP, textSize)
-                newTextP1.gravity = Gravity.CENTER
-                nrow.addView(newTextP1, layoutParams)
+
+                val underDogCount = cursor.getInt(cursor.getColumnIndex(ROUND_COLUMN_UNDERDOG))
+                val heartRound = cursor.getInt(cursor.getColumnIndex(ROUND_COLUMN_HEARTROUND))
+
+
+                score_p1 = addViewElement(nrow, score_p1, ROUND_COLUMN_PLAYER1_TICKS, cursor, underDogCount, heartRound, idcounter)
+                idcounter = idcounter.plus(1)
+                score_p2 = addViewElement(nrow, score_p2, ROUND_COLUMN_PLAYER2_TICKS, cursor, underDogCount, heartRound, idcounter)
+                idcounter = idcounter.plus(1)
+                score_p3 = addViewElement(nrow, score_p3, ROUND_COLUMN_PLAYER3_TICKS, cursor, underDogCount, heartRound, idcounter)
+                idcounter = idcounter.plus(1)
+                score_p4 = addViewElement(nrow, score_p4, ROUND_COLUMN_PLAYER4_TICKS, cursor, underDogCount, heartRound, idcounter)
                 idcounter = idcounter.plus(1)
 
-                val tricksP2 = cursor.getInt(cursor.getColumnIndex(ROUND_COLUMN_PLAYER2_TICKS))
-                score_p2 = calcScore(score_p2, tricksP2)
-                val newTextP2 = TextView(this)
-                newTextP2.id = idcounter + 1
-                newTextP2.inputType = TYPE_CLASS_NUMBER
-                newTextP2.text = score_p2.toString()
-                newTextP2.setTextSize(TypedValue.COMPLEX_UNIT_SP, textSize)
-                newTextP2.gravity = Gravity.CENTER
-                nrow.addView(newTextP2, layoutParams)
-                idcounter = idcounter.plus(1)
 
-                val tricksP3 = cursor.getInt(cursor.getColumnIndex(ROUND_COLUMN_PLAYER3_TICKS))
-                score_p3 = calcScore(score_p3, tricksP3)
-                val newTextP3 = TextView(this)
-                newTextP3.id = idcounter + 1
-                newTextP3.inputType = TYPE_CLASS_NUMBER
-                newTextP3.text = score_p3.toString()
-                newTextP3.setTextSize(TypedValue.COMPLEX_UNIT_SP, textSize)
-                newTextP3.gravity = Gravity.CENTER
-                nrow.addView(newTextP3, layoutParams)
-                idcounter = idcounter.plus(1)
 
-                val tricksP4 = cursor.getInt(cursor.getColumnIndex(ROUND_COLUMN_PLAYER4_TICKS))
-                score_p4 = calcScore(score_p4, tricksP4)
-                val newTextP4 = TextView(this)
-                newTextP4.id = idcounter + 1
-                newTextP4.inputType = TYPE_CLASS_NUMBER
-                newTextP4.text = score_p4.toString()
-                newTextP4.setTextSize(TypedValue.COMPLEX_UNIT_SP, textSize)
-                newTextP4.gravity = Gravity.CENTER
-                nrow.addView(newTextP4, layoutParams)
-                idcounter = idcounter.plus(1)
+                if(underDogCount > 0){
+                    val newTextUnderdog = TextView(this)
+                    newTextUnderdog.inputType = TYPE_CLASS_NUMBER
+                    if(underDogCount > 1){
+                        newTextUnderdog.text = getString(R.string.dog_emoji,underDogCount.toString())
+                    } else {
+                        newTextUnderdog.text = getString(R.string.dog_emoji,"")
+                    }
+
+                    newTextUnderdog.setTextSize(TypedValue.COMPLEX_UNIT_SP, textSize)
+                    newTextUnderdog.gravity = Gravity.LEFT
+                    nrow.addView(newTextUnderdog, layoutParams)
+                }
+
+                if(heartRound > 0){
+                    val newTextHeart = TextView(this)
+                    //newTextUnderdog.inputType = TYPE_CLASS_NUMBER
+                    newTextHeart.text = getString(R.string.heart_round_active)
+
+                    newTextHeart.setTextSize(TypedValue.COMPLEX_UNIT_SP, textSize)
+                    newTextHeart.gravity = Gravity.LEFT
+                    nrow.addView(newTextHeart, layoutParams)
+                }
 
                 var rowId = cursor.getInt(cursor.getColumnIndex(ROUND_COLUMN_ID))
                 nrow.id = rowIdCounter
 
                 rowIdCounter = rowIdCounter.plus(1)
 
-                nrow.setOnLongClickListener{
-                    editRound(rowId)
-                    return@setOnLongClickListener true
+                if(gameFinished == 0){
+                    nrow.setOnLongClickListener{
+
+                        val handler : Handler = Handler();
+                        handler.postDelayed( Runnable {
+                            editRound(rowId)
+                        }, 400)
+
+                        return@setOnLongClickListener true
+                    }
                 }
-
-
 
                 tableLayout!!.addView(nrow)
 
+
+
             } while (cursor.moveToNext())
+
+
+            if(gameFinished > 0) {
+                val addRoundButton = findViewById<Button>(R.id.AddRoundButton)
+                addRoundButton.visibility = GONE
+            } else {
+                var dataToPass : String? = null;
+
+                var data : MutableList<String> = mutableListOf()
+                dataToPass =  game.player1 + "#" +score_p1.toString()
+                data.add(dataToPass)
+                dataToPass =  game.player2 + "#" +score_p2.toString()
+                data.add(dataToPass)
+                dataToPass =  game.player3 + "#" +score_p3.toString()
+                data.add(dataToPass)
+                dataToPass =  game.player4 + "#" +score_p4.toString()
+                data.add(dataToPass)
+
+                if (score_p1 <= 0 || score_p2 <= 0 || score_p3 <= 0 ||score_p4 <= 0) {
+                    finishGame(data,gameId, false, game.player1, repository)
+
+                } else if( score_p1 >= 100 || score_p2 >= 100 || score_p3 >= 100 || score_p4 >= 100) {
+                    finishGame(data,gameId, true, game.player1, repository)
+                }
+            }
         }
+    }
 
-
+    fun finishGame(data: List<String>, gameId : Long, over100 : Boolean, player1 : String, repository: GameRepository) {
+        setContentView(R.layout.activity_game_finished)
+        var todb =  calculateString(data)
+        if(todb.player1 == player1 || todb.player2 == player1 || todb.player3 == player1 || todb.player4 == player1) {
+            if(over100) {
+                repository.setFilter(GameRepository.Filter.WON_OVER100,gameId)
+            } else {
+                repository.setFilter(GameRepository.Filter.WON,gameId)
+            }
+        } else {
+            if(over100) {
+                repository.setFilter(GameRepository.Filter.LOST_OVER100,gameId)
+            } else {
+                repository.setFilter(GameRepository.Filter.LOST,gameId)
+            }
+        }
+        repository.setGameFinished(gameId)
+        repository.writeWinnersToDB(todb, gameId)
+        val button: Button = findViewById(R.id.game_finished_back_button)
+        button.setOnClickListener(View.OnClickListener(){
+            val mainIntent = Intent(this, MainActivity::class.java);
+            this.finish()
+            startActivity(mainIntent);
+        })
     }
 
 
@@ -171,14 +281,113 @@ class Game : AppCompatActivity() {
     }
 
 
+    fun calculateString(arg : List<String>) : GameObject
+    {
+        var place1 = findViewById<TextView>(R.id.textView)
+        var place2 = findViewById<TextView>(R.id.textView2)
+        var place3 = findViewById<TextView>(R.id.textView3)
+        var place4 = findViewById<TextView>(R.id.textView4)
+        println(arg)
+        var map : MutableMap<String, Int> = mutableMapOf()
 
-    fun calcScore(current: Int, tricks: Int) : Int
+        for( i in arg)
+        {
+            var name =  i.split('#').toTypedArray()
+            map[name[0]] = name[1].toInt()
+        }
+        var sortedMap  = map.toList().sortedBy { (_, value) -> value}.toMap()
+        var firstPlace =  ""
+        var secondPlace = ""
+        var thirdPlace = ""
+        var fortPlace = ""
+        var winners1 = ""
+        var winners2 = ""
+        var winners3= ""
+        var winners4 = ""
+
+        var sortedValue = sortedMap.values
+        for(i in sortedMap)
+        {
+            if(i.value <= sortedValue.first())
+            {
+                firstPlace =  firstPlace +  i.key + ' '
+                if(winners1 == "")
+                {
+                    println(i.key)
+                    winners1 = i.key
+                    continue
+                }
+                if(winners2 == "")
+                {
+                    println(i.key)
+
+                    winners2 = i.key
+                    continue
+
+                }
+                if(winners3 == "")
+                {
+                    println(i.key)
+
+                    winners3 = i.key
+                    continue
+
+                }
+                if(winners4 == "")
+                {
+                    println(i.key)
+
+                    winners4 = i.key
+                    continue
+
+                }
+                continue
+            }
+            if (secondPlace == "")
+            {
+                secondPlace = i.key
+                continue
+            }
+            if (thirdPlace == "")
+            {
+                thirdPlace = i.key
+                continue
+            }
+            if (fortPlace == "")
+            {
+                fortPlace = i.key
+                continue
+            }
+        }
+
+
+        place1?.setText("1. Place $firstPlace")
+        place2?.setText("2. Place $secondPlace")
+        place3?.setText("3. Place $thirdPlace")
+        place4?.setText("4. Place $fortPlace")
+
+        var retval = GameObject(winners1, winners2,winners3,winners4)
+        return retval
+    }
+
+    fun calcScore(current: Int, tricks: Int, UnderDog: Int, HeartRound: Int) : Int
     {
         var deduction:Int
+        var scoreMultiplicatorDog =  2.0f
+        var scoreMultiplicatorHeart =  2.0f
+        scoreMultiplicatorDog = scoreMultiplicatorDog.pow(UnderDog)
+        scoreMultiplicatorHeart = scoreMultiplicatorHeart.pow(HeartRound)
+        var scoreFactor = scoreMultiplicatorDog.toInt() * scoreMultiplicatorHeart.toInt()
+
         if(tricks == -1)
         {
             deduction = 2
-        }else if (tricks == 0)
+        }
+        else if (tricks == 5)
+        {
+            deduction = -10
+        }
+        else if (tricks == 0)
         {
             deduction = 5
         }
@@ -187,6 +396,25 @@ class Game : AppCompatActivity() {
             deduction = tricks * -1
         }
 
-        return current + deduction
+        deduction = deduction * scoreFactor
+
+        return (current + deduction)
     }
+
+    fun addViewElement(nRow: TableRow, score: Int, columnIndex: String, cursor: Cursor, underDogCount: Int, heartRound: Int, idcounter: Int): Int {
+        val tricksP4 = cursor.getInt(cursor.getColumnIndex(columnIndex))
+        val newScore = calcScore(score, tricksP4, underDogCount, heartRound)
+
+        val newText = TextView(this)
+        newText.id = idcounter + 1
+        newText.inputType = TYPE_CLASS_NUMBER
+        newText.text = newScore.toString()
+        newText.setTextSize(TypedValue.COMPLEX_UNIT_SP, textSize)
+        newText.gravity = Gravity.CENTER
+        nRow.addView(newText, layoutParams)
+        return newScore
+
+    }
+
+
 }

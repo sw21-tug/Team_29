@@ -1,24 +1,24 @@
 package com.example.mulatschaktracker.ui.editGameRound
 
+import android.content.Context
+import androidx.appcompat.app.AppCompatActivity
+import androidx.test.core.app.ActivityScenario
+import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso
 import androidx.test.espresso.action.ViewActions
 import androidx.test.espresso.assertion.ViewAssertions
 import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner
-import com.example.mulatschaktracker.MainActivity
-import com.example.mulatschaktracker.R
+import com.example.mulatschaktracker.*
 import com.example.mulatschaktracker.ui.addGameRound.AddGameRoundActivityTest
-import org.junit.Assert
-import org.junit.Before
-import org.junit.Rule
-import org.junit.Test
+import org.junit.*
 import org.junit.runner.RunWith
 
 @RunWith(AndroidJUnit4ClassRunner::class)
 class EditGameRoundActivityTest {
 
-
+    val username: String = "Player 1"
 
     @get: Rule
     var activityRule: ActivityScenarioRule<MainActivity>
@@ -26,44 +26,37 @@ class EditGameRoundActivityTest {
 
     private val waitTime:Long = 400
 
-
     /**
      * Setup test data
      */
     @Before
     fun setupTests(){
+
+        val  appContext: Context = ApplicationProvider.getApplicationContext()
+        val userRepo = UserRepository(appContext)
+        userRepo.resetDatabase()
+        userRepo.createUser(UserObject(username))
+        val preferences = appContext.getSharedPreferences(PREFERENCENAME, AppCompatActivity.MODE_PRIVATE)
+        preferences.edit().putString(LASTUSER, username).commit()
+
+        val repo = GameRepository(appContext)
         Espresso.onView(ViewMatchers.withId(R.id.StartNewGameActivityButton)).perform(ViewActions.click())
         Espresso.onView(ViewMatchers.withId(R.id.StartNewGameButton)).perform(ViewActions.click())
+
+        var gameRound = RoundObject(2, 1, 0, -1, 0, 0)
+        repo.enterNewRound(gameRound, 1)
+        gameRound = RoundObject(0, 2, 1, -1, 0, 0)
+        repo.enterNewRound(gameRound, 1)
+
         Espresso.onView(ViewMatchers.withId(R.id.AddRoundButton)).perform(ViewActions.click())
         Thread.sleep(waitTime)
-        Espresso.onView(ViewMatchers.withId(R.id.button_player_1)).perform(ViewActions.click())
-        Espresso.onView(ViewMatchers.withId(R.id.button_player_1)).perform(ViewActions.click())
-        Espresso.onView(ViewMatchers.withId(R.id.button_player_2)).perform(ViewActions.click())
-        Espresso.onView(ViewMatchers.withId(R.id.button_player_4)).perform(ViewActions.longClick())
-
-        closeAndOpenNewRound()
-
-        Espresso.onView(ViewMatchers.withId(R.id.button_player_2)).perform(ViewActions.click())
-        Espresso.onView(ViewMatchers.withId(R.id.button_player_2)).perform(ViewActions.click())
-        Espresso.onView(ViewMatchers.withId(R.id.button_player_3)).perform(ViewActions.click())
-        Espresso.onView(ViewMatchers.withId(R.id.button_player_4)).perform(ViewActions.longClick())
-
-        closeAndOpenNewRound()
-
         Espresso.onView(ViewMatchers.withId(R.id.button_player_1)).perform(ViewActions.click())
         Espresso.onView(ViewMatchers.withId(R.id.button_player_2)).perform(ViewActions.click())
         Espresso.onView(ViewMatchers.withId(R.id.button_player_4)).perform(ViewActions.click())
         Espresso.onView(ViewMatchers.withId(R.id.button_player_4)).perform(ViewActions.click())
-        Thread.sleep(waitTime)
-        Espresso.onView(ViewMatchers.withId(R.id.endround)).perform(ViewActions.click())
-    }
 
-    private fun closeAndOpenNewRound() {
         Thread.sleep(waitTime)
         Espresso.onView(ViewMatchers.withId(R.id.endround)).perform(ViewActions.click())
-        Thread.sleep(waitTime)
-        Espresso.onView(ViewMatchers.withId(R.id.AddRoundButton)).perform(ViewActions.click())
-        Thread.sleep(waitTime)
     }
 
     /**
@@ -153,6 +146,19 @@ class EditGameRoundActivityTest {
         checkValuePropagationAdd(rowId, R.id.button_player_4, arrayOf(4,8,12,16), arrayOf("21", "23", "25", "23"),false)
     }
 
+    @Test
+    fun valuePropagationRow2AddUnderdog() {
+        val rowId = 12001
+        checkValuePropagationAdd(rowId, R.id.UnderdogButton, arrayOf(1,2,3,4,
+            5,6,7,8,
+            9,10,11,12,
+            13,14,15,16),
+            arrayOf("21", "21", "21", "21",
+            "19", "20", "26", "23",
+            "29", "16", "24", "27",
+            "28", "15", "29", "25"),true)
+    }
+
     private fun checkValuePropagationAdd(rowId:Int, buttonId:Int, labelIds:Array<Int>, results:Array<String>, add :
     Boolean) {
         Espresso.onView(ViewMatchers.withId(rowId)).perform(ViewActions.longClick())
@@ -173,8 +179,10 @@ class EditGameRoundActivityTest {
     }
 
     private fun testRow(rowId: Int, buttonId: Int, labelId: Int, result: String, add:Boolean) {
+        Thread.sleep(waitTime)
         Espresso.onView(ViewMatchers.withId(rowId)).perform(ViewActions.longClick())
         Thread.sleep(waitTime)
+
         if (add) {
             Espresso.onView(ViewMatchers.withId(buttonId)).perform(ViewActions.click())
         } else {
@@ -197,6 +205,5 @@ class EditGameRoundActivityTest {
         Espresso.onView(ViewMatchers.withId(R.id.button_player_4))
             .check(ViewAssertions.matches(ViewMatchers.withText(b4)))
     }
-
 }
 

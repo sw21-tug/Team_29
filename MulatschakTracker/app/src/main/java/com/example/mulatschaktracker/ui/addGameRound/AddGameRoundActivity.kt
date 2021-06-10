@@ -1,5 +1,6 @@
 package com.example.mulatschaktracker.ui.addGameRound
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.widget.Button
 
@@ -13,6 +14,7 @@ import com.example.mulatschaktracker.ui.home.GameRecyclerAdapter.GameViewHolder.
 
 class AddGameRoundActivity : AppCompatActivity() {
 
+    @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
@@ -33,16 +35,23 @@ class AddGameRoundActivity : AppCompatActivity() {
         val buttonPlayer2 = findViewById<Button>(R.id.button_player_2)
         val buttonPlayer3 = findViewById<Button>(R.id.button_player_3)
         val buttonPlayer4 = findViewById<Button>(R.id.button_player_4)
+        val buttonUnderDog = findViewById<Button>(R.id.UnderdogButton)
+        val buttonHeart = findViewById<Button>(R.id.HeartRoundButton)
 
         val tv_playre1 = findViewById<TextView>(R.id.tvPlayerOne)
         val tv_playre2 = findViewById<TextView>(R.id.tvPlayerTwo)
         val tv_playre3 = findViewById<TextView>(R.id.tvPlayerThree)
         val tv_playre4 = findViewById<TextView>(R.id.tvPlayerFour)
+        val tv_UnderDog = findViewById<TextView>(R.id.tvUnderdogRound)
+
+        var muliCheck = false
 
         tv_playre1.text = game.player1
         tv_playre2.text = game.player2
         tv_playre3.text = game.player3
         tv_playre4.text = game.player4
+        tv_UnderDog.text = gameupdate.Underdog.toString()
+
 
         var ro: RoundObject? = null
         if(roundId > 0)
@@ -52,6 +61,10 @@ class AddGameRoundActivity : AppCompatActivity() {
             gameupdate.scorePlayer2 = ro.p2
             gameupdate.scorePlayer3 = ro.p3
             gameupdate.scorePlayer4 = ro.p4
+            gameupdate.Underdog = ro.ud
+            gameupdate.Heartround = ro.hr
+
+
         }
 
 
@@ -63,23 +76,114 @@ class AddGameRoundActivity : AppCompatActivity() {
         val buttonSendToDb = findViewById<Button>(R.id.endround)
 
         buttonPlayer1.setOnClickListener {
-            gameupdate.incrementP1()
-            buttonPlayer1.text = checkLeft(gameupdate.scorePlayer1)
+
+            if (!muliCheck)
+            {
+                gameupdate.incrementP1()
+
+                if (gameupdate.scorePlayer1 == 5)
+                {
+                    muliCheck = true
+                }
+
+                buttonPlayer1.text = checkLeft(gameupdate.scorePlayer1)
+
+                if (buttonPlayer1.text == "5")
+                {
+                    buttonPlayer1.text = "MULI"
+                }
+            }
         }
 
         buttonPlayer2.setOnClickListener {
-            gameupdate.incrementP2()
-            buttonPlayer2.text = checkLeft(gameupdate.scorePlayer2)
+
+            if (!muliCheck)
+            {
+                gameupdate.incrementP2()
+
+                if (gameupdate.scorePlayer2 == 5)
+                {
+                    muliCheck = true
+                }
+
+                buttonPlayer2.text = checkLeft(gameupdate.scorePlayer2)
+
+                if (buttonPlayer2.text == "5")
+                {
+                    buttonPlayer2.text = "MULI"
+                }
+            }
         }
         buttonPlayer3.setOnClickListener {
-            gameupdate.incrementP3()
-            buttonPlayer3.text = checkLeft(gameupdate.scorePlayer3)
+            if (!muliCheck)
+            {
+                gameupdate.incrementP3()
+
+                if (gameupdate.scorePlayer3 == 5)
+                {
+                    muliCheck = true
+                }
+
+                buttonPlayer3.text = checkLeft(gameupdate.scorePlayer3)
+
+                if (buttonPlayer3.text == "5")
+                {
+                    buttonPlayer3.text = "MULI"
+                }
+            }
         }
         buttonPlayer4.setOnClickListener {
-            gameupdate.incrementP4()
-            buttonPlayer4.text = checkLeft(gameupdate.scorePlayer4)
+            if (!muliCheck)
+            {
+                gameupdate.incrementP4()
+
+                if (gameupdate.scorePlayer4 == 5)
+                {
+                    muliCheck = true
+                }
+
+                buttonPlayer4.text = checkLeft(gameupdate.scorePlayer4)
+
+                if (buttonPlayer4.text == "5")
+                {
+                    buttonPlayer4.text = "MULI"
+                }
+            }
         }
 
+
+        buttonUnderDog.setOnClickListener{
+            gameupdate.incrementUnderdog()
+            tv_UnderDog.text = gameupdate.Underdog.toString()
+        }
+
+
+        buttonHeart.setOnClickListener{
+            //gameupdate.setHeartround()
+            buttonHeart.isSelected = true
+
+
+            if (gameupdate.Heartround > 0)
+            {
+                gameupdate.setHeartRound(false)
+                buttonHeart.text = resources.getString(R.string.heart_round)
+            }
+            else
+            {
+                buttonHeart.text = resources.getString(R.string.heart_round_active)
+                gameupdate.setHeartRound(true);
+            }
+
+        }
+
+
+        buttonUnderDog.setOnLongClickListener{
+            if (gameupdate.Underdog >= 1) {
+                gameupdate.decrementUnderdog()
+            }
+            tv_UnderDog.text = gameupdate.Underdog.toString()
+            true
+        }
 
         buttonPlayer1.setOnLongClickListener {
             if(gameupdate.scorePlayer1 > -1)
@@ -88,7 +192,6 @@ class AddGameRoundActivity : AppCompatActivity() {
                 buttonPlayer1.text = checkLeft(gameupdate.scorePlayer1)
             }
             true
-
         }
 
         buttonPlayer2.setOnLongClickListener {
@@ -115,13 +218,16 @@ class AddGameRoundActivity : AppCompatActivity() {
 
         buttonSendToDb.setOnClickListener {
 
-            val new_round = RoundObject(gameupdate.scorePlayer1, gameupdate.scorePlayer2, gameupdate.scorePlayer3, gameupdate.scorePlayer4,0,0)
+            val new_round = RoundObject(gameupdate.scorePlayer1, gameupdate.scorePlayer2, gameupdate.scorePlayer3, gameupdate.scorePlayer4,gameupdate.Underdog, gameupdate.Heartround)
             if (roundId > 0  && ro != null)
             {
                 ro.p1 = gameupdate.scorePlayer1
                 ro.p2 = gameupdate.scorePlayer2
                 ro.p3 = gameupdate.scorePlayer3
                 ro.p4 = gameupdate.scorePlayer4
+                ro.ud = gameupdate.Underdog
+                ro.hr = gameupdate.Heartround
+
                 repository.updateRound(roundId, ro)
             }
             else
@@ -131,6 +237,8 @@ class AddGameRoundActivity : AppCompatActivity() {
 
             finish()
         }
+
+
     }
 
 

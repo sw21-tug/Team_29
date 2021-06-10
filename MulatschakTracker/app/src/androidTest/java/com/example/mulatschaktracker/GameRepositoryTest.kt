@@ -1,29 +1,14 @@
 package com.example.mulatschaktracker
 
 import android.content.Context
-import android.view.View
-import android.widget.TextView
 import androidx.test.core.app.ApplicationProvider
-import androidx.test.espresso.*
-import androidx.test.espresso.Espresso.onView
-import androidx.test.espresso.Espresso.pressBack
-import androidx.test.espresso.action.ViewActions.*
-import androidx.test.espresso.assertion.ViewAssertions
-import androidx.test.espresso.assertion.ViewAssertions.matches
-import androidx.test.espresso.matcher.ViewMatchers.*
-import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import org.hamcrest.Matcher
-
-
-import org.hamcrest.core.StringStartsWith
 
 
 import org.junit.Test
 import org.junit.runner.RunWith
 
 import org.junit.Assert.*
-import org.junit.Rule
 
 @RunWith(AndroidJUnit4::class)
 class GameRepositoryTest {
@@ -78,7 +63,7 @@ class GameRepositoryTest {
 
         val gameId1 = gameRepo.createGame(GameObject("Player 1", "Player 2", "Player 3", "Player 4"),userID)
         val gameId2 = gameRepo.createGame(GameObject("Player 1", "Player 2", "Player 3", "Player 4"),userID)
-        val gameList = gameRepo.getGames(userID)
+        val gameList = gameRepo.getGames(userID,false)
         assertEquals(gameId1,gameList[0].id)
         assertEquals(gameId2,gameList[1].id)
     }
@@ -93,7 +78,7 @@ class GameRepositoryTest {
         val gameRepo = GameRepository(appContext)
         val userID = userRepo.createUser(UserObject("NewUser"))
 
-        val gameList = gameRepo.getGames(userID)
+        val gameList = gameRepo.getGames(userID, false)
         assertEquals(0,gameList.size)
     }
 
@@ -106,10 +91,85 @@ class GameRepositoryTest {
         userRepo.resetDatabase()
         val gameRepo = GameRepository(appContext)
         val userID : Long = 1
-        val gameList = gameRepo.getGames(userID)
+        val gameList = gameRepo.getGames(userID,false)
         assertEquals(0,gameList.size)
     }
 
+    @Test
+    fun addUnderdogRoundTest() {
+        val appContext: Context = ApplicationProvider.getApplicationContext();
+
+        //Test for the activity of starting a new game
+        val userRepo = UserRepository(appContext)
+        userRepo.resetDatabase()
+        val gameRepo = GameRepository(appContext)
+        val userID = userRepo.createUser(UserObject("NewUser"))
+        val gameId = gameRepo.createGame(GameObject("Player 1", "Player 2", "Player 3", "Player 4"),userID)
+
+        val round1 = gameRepo.enterNewRound(RoundObject(2,1,0,-1,0,0),gameId)
+        val round2 = gameRepo.enterNewRound(RoundObject(0,2,1,-1,0,0),gameId)
+        val round3 = gameRepo.enterNewRound(RoundObject(1,1,0,2,0,0),gameId)
+
+        var roundObject = gameRepo.getRound(round2.toInt())
+
+        assertEquals(roundObject.p1,0)
+        assertEquals(roundObject.p2,2)
+        assertEquals(roundObject.p3,1)
+        assertEquals(roundObject.p4,-1)
+        assertEquals(roundObject.ud,0)
+
+        roundObject.ud = 1
+
+        gameRepo.updateRound(round2.toInt(), roundObject)
+
+        val roundObjectAfterUnderdog = gameRepo.getRound(round2.toInt())
+
+        assertEquals(0, roundObjectAfterUnderdog.p1)
+        assertEquals(2, roundObjectAfterUnderdog.p2)
+        assertEquals(1, roundObjectAfterUnderdog.p3)
+        assertEquals(-1, roundObjectAfterUnderdog.p4)
+        assertEquals(1,roundObjectAfterUnderdog.ud)
+
+
+    }
+
+    @Test
+    fun addHeartRoundTest() {
+        val appContext: Context = ApplicationProvider.getApplicationContext();
+
+        //Test for the activity of starting a new game
+        val userRepo = UserRepository(appContext)
+        userRepo.resetDatabase()
+        val gameRepo = GameRepository(appContext)
+        val userID = userRepo.createUser(UserObject("NewUser"))
+        val gameId = gameRepo.createGame(GameObject("Player 1", "Player 2", "Player 3", "Player 4"),userID)
+
+        val round1 = gameRepo.enterNewRound(RoundObject(2,1,0,-1,0,0),gameId)
+        val round2 = gameRepo.enterNewRound(RoundObject(0,2,1,-1,0,0),gameId)
+        val round3 = gameRepo.enterNewRound(RoundObject(1,1,0,2,0,0),gameId)
+
+        var roundObject = gameRepo.getRound(round2.toInt())
+
+        assertEquals(roundObject.p1,0)
+        assertEquals(roundObject.p2,2)
+        assertEquals(roundObject.p3,1)
+        assertEquals(roundObject.p4,-1)
+        assertEquals(roundObject.ud,0)
+
+        roundObject.ud = 1
+
+        gameRepo.updateRound(round2.toInt(), roundObject)
+
+        val roundObjectAfterUnderdog = gameRepo.getRound(round2.toInt())
+
+        assertEquals(0, roundObjectAfterUnderdog.p1)
+        assertEquals(2, roundObjectAfterUnderdog.p2)
+        assertEquals(1, roundObjectAfterUnderdog.p3)
+        assertEquals(-1, roundObjectAfterUnderdog.p4)
+        assertEquals(1,roundObjectAfterUnderdog.ud)
+
+
+    }
 
 
 }
