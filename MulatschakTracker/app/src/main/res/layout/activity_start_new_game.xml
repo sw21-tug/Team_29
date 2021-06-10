@@ -120,4 +120,3 @@
         app:layout_constraintTop_toBottomOf="@+id/Player4_EditText" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
-
