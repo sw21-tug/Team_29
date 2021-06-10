@@ -256,30 +256,6 @@ class GameRepository(var appContext: Context) {
         return current + deduction
     }
 
-   /* fun getLastRound(gameID: Long) : RoundObject
-    {
-        //var midle = gameID - 1
-        var result = getCursor2( gameID)
-        // TODO FOR 15 Points
-       var player1Points = 21
-        var player2Points = 21
-        var player3Points = 21
-        var player4Points = 21
-        for(i in 0 .. result.count - 1  )
-            {
-                result.move(1)
-                player1Points = calcScore(player1Points, result.getInt(result.getColumnIndex(ROUND_COLUMN_PLAYER1_TICKS)))
-                player2Points = calcScore(player2Points ,result.getInt(result.getColumnIndex(ROUND_COLUMN_PLAYER2_TICKS)))
-                player3Points = calcScore(player3Points , result.getInt(result.getColumnIndex(ROUND_COLUMN_PLAYER3_TICKS)))
-                player4Points = calcScore(player4Points , result.getInt(result.getColumnIndex(ROUND_COLUMN_PLAYER4_TICKS)))
-            }
-
-        var round  = RoundObject(player1Points,player2Points, player3Points, player4Points,0,0)
-
-
-        return round
-    }*/
-
     fun writeWinnersToDB(newGameObject: GameObject, gameID: Long) : Int {
 
         val dbWrite = DataBaseHandler(appContext).writableDatabase
