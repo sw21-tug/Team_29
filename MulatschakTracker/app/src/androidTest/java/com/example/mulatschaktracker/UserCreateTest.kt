@@ -97,8 +97,8 @@ class UserCreateTest : TestCase() {
         onView(withId(R.id.SubmitUserNameButton)).perform(click())
         onView(withId(R.id.navigation_History)).perform(click())
         assertEquals(getText(onView(withId(R.id.userNameLabel))),validUserName)
-        onView(withId(R.id.navigation_statistic)).perform(click())
-        assertEquals(getText(onView(withId(R.id.userNameLabel))),validUserName)
+        //onView(withId(R.id.navigation_statistic)).perform(click())
+        //assertEquals(getText(onView(withId(R.id.userNameLabel))),validUserName)
         onView(withId(R.id.navigation_Options)).perform(click())
         assertEquals(getText(onView(withId(R.id.userNameLabel))),validUserName)
     }
