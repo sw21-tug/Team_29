@@ -247,9 +247,9 @@ class Game : AppCompatActivity() {
                 repository.setFilter(GameRepository.Filter.LOST,gameId)
             }
         }
-        val res1 = repository.setGameFinished(gameId)
-        val res2 = repository.writeWinnersToDB(todb, gameId)
-        var button: Button = findViewById(R.id.game_finished_back_button)
+        repository.setGameFinished(gameId)
+        repository.writeWinnersToDB(todb, gameId)
+        val button: Button = findViewById(R.id.game_finished_back_button)
         button.setOnClickListener(View.OnClickListener(){
             val mainIntent = Intent(this, MainActivity::class.java);
             this.finish()
@@ -305,7 +305,6 @@ class Game : AppCompatActivity() {
         var winners3= ""
         var winners4 = ""
 
-        var itr : Int =  0
         var sortedValue = sortedMap.values
         for(i in sortedMap)
         {

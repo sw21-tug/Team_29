@@ -52,6 +52,7 @@ class HomeFragment : Fragment() {
                 val user = userName?.let { userRepository.getUser(it) }
                 gameList = user?.let { gameRepository.getGames(it.id, false) }!!
             } catch (e: Exception) {
+                // no handling now
             }
         }
         if(gameList.isNotEmpty()){
