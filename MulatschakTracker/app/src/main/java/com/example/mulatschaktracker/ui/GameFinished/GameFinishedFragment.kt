@@ -49,19 +49,9 @@ import com.example.mulatschaktracker.R
 
         val backButton: Button = root.findViewById<View>(R.id.game_finished_back_button) as Button
         backButton.setOnClickListener{ root ->
-            var fragment = requireFragmentManager().findFragmentById(R.id.nav_host_fragment)
-            /*if (fragment != null) {
-                if (container != null) {
-                    getFragmentManager()?.beginTransaction()?.replace(container.id,fragment)?.commit()
-                }
-            }*/
+
         }
-
-
-
-
-        //text.refreshDrawableState()
-        return root
+       return root
     }
 
    }

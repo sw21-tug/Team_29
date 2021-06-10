@@ -139,16 +139,6 @@ class GameRepository(var appContext: Context) {
         return dbRead.query(GAME_TABLE_NAME, projection, query, args, null, null, null )
     }
 
-
-    private fun getCursor3(gameID: Long): Cursor
-    {
-        val dbRead = DataBaseHandler(appContext).readableDatabase
-        val args = arrayOf<String>(gameID.toString())
-        val query = "$GAME_COLUMN_ID like ?"
-        return dbRead.query(GAME_TABLE_NAME, projection, query, args, null, null, null )
-    }
-
-
     fun getCursorRounds(gameID: Long) : Cursor {
 
         val dbRead = DataBaseHandler(appContext).readableDatabase
@@ -162,7 +152,7 @@ class GameRepository(var appContext: Context) {
 
     fun getGameFinished(gameID: Long) : Int
     {
-        var cursor =  getCursor3(gameID)
+        var cursor =  getCursor(gameID)
          cursor.moveToFirst()
          return cursor.getInt(cursor.getColumnIndex(GAME_IS_FINISHED))
     }
@@ -240,7 +230,7 @@ class GameRepository(var appContext: Context) {
 
     fun calcScore(current: Int, tricks: Int) : Int
     {
-        var deduction:Int
+        val deduction:Int
         if(tricks == -1)
         {
             deduction = 2
@@ -262,7 +252,7 @@ class GameRepository(var appContext: Context) {
         val values = ContentValues()
         println(newGameObject.player1)
         println(newGameObject.player2)
-        var arr =  arrayOf<String>(gameID.toString())
+        val arr =  arrayOf<String>(gameID.toString())
         values.put(FIRST_WINNER_COLUMN, newGameObject.player1)
         values.put(SECOND_WINNER_COLUMN, newGameObject.player2)
         values.put(THIRD_WINNER_COLUMN, newGameObject.player3)
