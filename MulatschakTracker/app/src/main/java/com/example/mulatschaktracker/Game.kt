@@ -29,10 +29,9 @@ class Game : AppCompatActivity() {
     private  var fragment : GameFinishedFragment?  = null
     private var points : Int = 21
 
-
     private val layoutParams = TableRow.LayoutParams(
-        TableRow.LayoutParams.WRAP_CONTENT,
-        TableRow.LayoutParams.WRAP_CONTENT
+            TableRow.LayoutParams.WRAP_CONTENT,
+            TableRow.LayoutParams.WRAP_CONTENT
     )
 
     private val textSize = 18F
@@ -48,6 +47,11 @@ class Game : AppCompatActivity() {
 
         val game = repository.getGame(intent.getLongExtra(GAME_ID, 0))
         game.gamemode = repository.getGameMode(intent.getLongExtra(GAME_ID, 0))
+
+        if(game.gamemode == 1)
+        {
+            points = 15;
+        }
         findViewById<TextView>(R.id.textViewPlayer1).apply {
             text = game.player1
         }
@@ -68,9 +72,9 @@ class Game : AppCompatActivity() {
 
         if(intent.getIntExtra(IS_FINISHED,0) > 0) {
             val pendingIntent = NavDeepLinkBuilder(this.applicationContext)
-                .setGraph(R.navigation.mobile_navigation)
-                .setDestination(R.id.navigation_History)
-                .createPendingIntent()
+                    .setGraph(R.navigation.mobile_navigation)
+                    .setDestination(R.id.navigation_History)
+                    .createPendingIntent()
 
             pendingIntent.send()
         } else {
@@ -118,7 +122,7 @@ class Game : AppCompatActivity() {
             val newText = TextView(this)
             newText.id = i + 1
             newText.inputType = TYPE_CLASS_NUMBER
-            newText.text = 21.toString()
+            newText.text = points.toString()
             newText.setTextSize(TypedValue.COMPLEX_UNIT_SP, textSize)
             newText.gravity = Gravity.CENTER
             newRow.addView(newText, layoutParams)
@@ -273,7 +277,7 @@ class Game : AppCompatActivity() {
         val intent = Intent(this, AddGameRoundActivity::class.java).apply {
             putExtras(bundle)
         }
-         startActivity(intent)
+        startActivity(intent)
     }
 
 
@@ -288,7 +292,7 @@ class Game : AppCompatActivity() {
 
         for( i in arg)
         {
-             var name =  i.split('#').toTypedArray()
+            var name =  i.split('#').toTypedArray()
             map[name[0]] = name[1].toInt()
         }
         var sortedMap  = map.toList().sortedBy { (_, value) -> value}.toMap()
@@ -379,7 +383,12 @@ class Game : AppCompatActivity() {
         if(tricks == -1)
         {
             deduction = 2
-        }else if (tricks == 0)
+        }
+        else if (tricks == 5)
+        {
+            deduction = -10
+        }
+        else if (tricks == 0)
         {
             deduction = 5
         }
@@ -410,4 +419,3 @@ class Game : AppCompatActivity() {
 
 
 }
-

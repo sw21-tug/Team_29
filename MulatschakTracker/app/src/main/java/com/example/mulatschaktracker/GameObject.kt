@@ -21,4 +21,5 @@ class GameObject(player1: String, player2: String, player3: String, player4: Str
         this.gamemode =  data
     }
 
+
 }
